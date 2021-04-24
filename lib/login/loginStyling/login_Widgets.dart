@@ -7,6 +7,25 @@ const KFlickrTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const KHyperlinkedTexts = TextStyle(
+  color: KFlickrNormalBlueColor,
+  fontSize: 15.0,
+  fontWeight: FontWeight.normal,
+);
+
+const KOutlineInputBorder = OutlineInputBorder(
+  borderRadius: BorderRadius.all(
+    Radius.circular(4),
+  ),
+);
+
+const KOutlineInputBorderFocused = OutlineInputBorder(
+  borderSide: BorderSide(
+    width: 0.8,
+    color: KFlickrNormalBlueColor,
+  ),
+);
+
 // Returns a row that contains the flickr Icon
 Row KFlickrIcon = Row(
   mainAxisAlignment: MainAxisAlignment.center,
