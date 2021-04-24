@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'getStarted_Page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(GetStarted());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
+
