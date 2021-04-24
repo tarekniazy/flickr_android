@@ -26,6 +26,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_login: ^1.1.0
   font_awesome_flutter: ^9.0.0
+  rflutter_alert: ^2.0.2
+  email_validator: ^2.0.1
 
 dev_dependencies:
   flutter_test:
