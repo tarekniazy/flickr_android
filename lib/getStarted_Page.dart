@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'login/login_screen.dart';
 
 class Page extends StatelessWidget {
-
-  Page({@required this.imagePath,@required this.title ,@required this.firstLine,@required this.secondLine });
+  Page(
+      {@required this.imagePath,
+      @required this.title,
+      @required this.firstLine,
+      @required this.secondLine});
   final String imagePath;
   final String title;
   final String firstLine;
   final String secondLine;
 
-
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       width: double.infinity,
-
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("images/$imagePath"),
           fit: BoxFit.fill,
         ),
       ),
-
-      child:Column(
-
+      child: Column(
         children: <Widget>[
           SizedBox(
-            height:430,
+            height: 430,
           ),
           Text(
             "$title",
@@ -36,11 +35,11 @@ class Page extends StatelessWidget {
               fontFamily: 'Frutiger',
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              letterSpacing:1.5,
+              letterSpacing: 1.5,
             ),
           ),
           SizedBox(
-            height:30,
+            height: 30,
           ),
           Text(
             "$firstLine",
@@ -72,15 +71,14 @@ class GetStarted extends StatefulWidget {
 }
 
 class _GetStartedState extends State<GetStarted> {
-  PageController _pageController=new PageController();
+  PageController _pageController = new PageController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
-          child:Stack(
-            children:<Widget> [
-
+          child: Stack(
+            children: <Widget>[
               PageView(
                 controller: _pageController,
                 children: [
@@ -102,27 +100,20 @@ class _GetStartedState extends State<GetStarted> {
                     firstLine: "Your uploaded photos stay private",
                     secondLine: "until you choose to share them.",
                   ),
-
                   Page(
                     imagePath: "p4.jpg",
                     title: "Sharing made easy",
                     firstLine: "Share with friends, family, and",
                     secondLine: "the world.",
                   ),
-
                 ],
               ),
-
-
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
                   SizedBox(
-                    height:350,
+                    height: 350,
                   ),
-
                   Text(
                     "flickr",
                     style: TextStyle(
@@ -130,55 +121,57 @@ class _GetStartedState extends State<GetStarted> {
                       fontFamily: 'Frutiger',
                       color: Colors.white,
                       fontWeight: FontWeight.w900,
-
                       letterSpacing: 2.15,
                     ),
                   ),
                 ],
-
               ),
-
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children:<Widget> [
+                children: <Widget>[
                   Container(
-                    alignment: Alignment(-1,-1),
+                    alignment: Alignment(-1, -1),
                     padding: const EdgeInsets.all(10),
                     child: Center(
                       child: SmoothPageIndicator(
                         controller: _pageController,
                         count: 4,
-
-                        effect:ScrollingDotsEffect(
+                        effect: ScrollingDotsEffect(
                             radius: 4,
-                            dotHeight:8 ,
+                            dotHeight: 8,
                             dotWidth: 8,
-                            dotColor:  Colors.grey,
-                            activeDotColor:  Colors.white
-                        ),
-                        onDotClicked: (index)=>_pageController.animateToPage(index,
+                            dotColor: Colors.grey,
+                            activeDotColor: Colors.white),
+                        onDotClicked: (index) => _pageController.animateToPage(
+                            index,
                             duration: Duration(milliseconds: 100)),
                       ),
                     ),
                   ),
-
                   ElevatedButton(
-                    onPressed: (){
-                      //  TODO: Navigator.push(context, route)   //Arwa: sheely el 'route' we 7oty el Login screen
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return loggingin();
+                          },
+                        ),
+                      );
                     },
-
-
-                    style:ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>((states) => Colors.transparent),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.white, width: 1.5),
-
-                      ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                          (states) => Colors.transparent),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white, width: 1.5),
+                        ),
                       ), //MaterialProperty
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 60, vertical: 15),
                       child: Text(
                         "Get Started",
                         style: TextStyle(
@@ -189,17 +182,13 @@ class _GetStartedState extends State<GetStarted> {
                         ),
                       ),
                     ),
-
                   ),
                 ],
               ),
             ],
           ),
-
-
         ),
       ),
-
     );
   }
 }

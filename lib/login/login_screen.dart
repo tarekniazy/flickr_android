@@ -6,29 +6,27 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: KAppBarBackgroundColor,
-            title: Row(
-              children: <Widget>[
-                KFlickrIcon,
-                SizedBox(
-                  width: 10.0,
-                ),
-                Text(
-                  'flickr',
-                  style: KFlickrTextStyle,
-                ),
-              ],
-            ),
+Widget loggingin() {
+  return MaterialApp(
+    home: SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: KAppBarBackgroundColor,
+          title: Row(
+            children: <Widget>[
+              KFlickrIcon,
+              SizedBox(
+                width: 10.0,
+              ),
+              Text(
+                'flickr',
+                style: KFlickrTextStyle,
+              ),
+            ],
           ),
-          body: Login(),
-          bottomNavigationBar: Text('hi'),
         ),
+        body: Login(),
+        bottomNavigationBar: Text('hi'),
       ),
     ),
   );
