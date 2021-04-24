@@ -6,9 +6,11 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 
-Widget loggingin() {
-  return MaterialApp(
-    home: SafeArea(
+
+class LoggingIn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: KAppBarBackgroundColor,
@@ -28,9 +30,48 @@ Widget loggingin() {
         body: Login(),
         bottomNavigationBar: Text('hi'),
       ),
-    ),
-  );
+    );
+  }
 }
+
+// class LoggingIn extends StatefulWidget {
+//   @override
+//   _LoggingInState createState() => _LoggingInState();
+// }
+//
+// class _LoggingInState extends State<LoggingIn> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//         child: Scaffold(
+//           appBar: AppBar(
+//             backgroundColor: KAppBarBackgroundColor,
+//             title: Row(
+//               children: <Widget>[
+//                 KFlickrIcon,
+//                 SizedBox(
+//                   width: 10.0,
+//                 ),
+//                 Text(
+//                   'flickr',
+//                   style: KFlickrTextStyle,
+//                 ),
+//               ],
+//             ),
+//           ),
+//           body: Login(),
+//           bottomNavigationBar: Text('hi'),
+//         ),
+//     );
+//   }
+//   }
+
+
+
+
+
+
+
 
 class Login extends StatefulWidget {
   @override
