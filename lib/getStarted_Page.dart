@@ -74,8 +74,7 @@ class _GetStartedState extends State<GetStarted> {
   PageController _pageController = new PageController();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         body: SafeArea(
           child: Stack(
             children: <Widget>[
@@ -155,7 +154,7 @@ class _GetStartedState extends State<GetStarted> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return loggingin();
+                            return LoggingIn();
                           },
                         ),
                       );
@@ -188,7 +187,6 @@ class _GetStartedState extends State<GetStarted> {
             ],
           ),
         ),
-      ),
     );
   }
 }
