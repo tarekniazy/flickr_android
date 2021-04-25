@@ -5,73 +5,13 @@ import 'loginStyling/login_Widgets.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
+import 'forgortPW_screen.dart';
+import 'loginStyling/login_BasicLayout.dart';
 
-
-class LoggingIn extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: KAppBarBackgroundColor,
-          title: Row(
-            children: <Widget>[
-              KFlickrIcon,
-              SizedBox(
-                width: 10.0,
-              ),
-              Text(
-                'flickr',
-                style: KFlickrTextStyle,
-              ),
-            ],
-          ),
-        ),
-        body: Login(),
-        bottomNavigationBar: Text('hi'),
-      ),
-    );
-  }
+Widget LoggingInScreen() {
+  LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
+  return loginBasicLayout;
 }
-
-// class LoggingIn extends StatefulWidget {
-//   @override
-//   _LoggingInState createState() => _LoggingInState();
-// }
-//
-// class _LoggingInState extends State<LoggingIn> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//         child: Scaffold(
-//           appBar: AppBar(
-//             backgroundColor: KAppBarBackgroundColor,
-//             title: Row(
-//               children: <Widget>[
-//                 KFlickrIcon,
-//                 SizedBox(
-//                   width: 10.0,
-//                 ),
-//                 Text(
-//                   'flickr',
-//                   style: KFlickrTextStyle,
-//                 ),
-//               ],
-//             ),
-//           ),
-//           body: Login(),
-//           bottomNavigationBar: Text('hi'),
-//         ),
-//     );
-//   }
-//   }
-
-
-
-
-
-
-
 
 class Login extends StatefulWidget {
   @override
@@ -216,7 +156,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ), //Password Text field
-            SizedBox(height: 35.0),
+            SizedBox(height: 25.0),
             Container(
               height: 40.0,
               width: double.infinity,
@@ -253,6 +193,16 @@ class _LoginState extends State<Login> {
                       'Forgot password?',
                       style: KHyperlinkedTexts,
                     ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ForgotPassWordScreen();
+                          },
+                        ),
+                      );
+                    },
                   ),
                   SizedBox(height: 15.0),
                   Divider(
@@ -267,7 +217,17 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Text('Not a Flickr member?'),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    // TODO// @mariam- your sign up screen here
+                    //                      Navigator.push(
+                    //                         context,
+                    //                         MaterialPageRoute(
+                    //                           builder: (context) {
+                    //                             return TODO//;
+                    //                           },
+                    //                         ),
+                    //                       );
+                  },
                   child: Text(' Sign up here', style: KHyperlinkedTexts),
                 ),
               ],
