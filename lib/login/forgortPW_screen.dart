@@ -19,7 +19,7 @@ class ForgotPassWord extends StatefulWidget {
 class _ForgotPassWordState extends State<ForgotPassWord> {
   EnumError errorEmail = EnumError.hide;
   String email;
-  bool visibilty = true;
+  bool visibilty = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +32,14 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
             Icon(
               FontAwesomeIcons.lock,
               color: Colors.grey[600],
-            ),
+            ), // lock-secure icon
             SizedBox(height: 10.0),
             Text(
               KForgotPW,
               style: TextStyle(
                 fontSize: KLogInToFlickrTextSize,
               ),
-            ), // Flickr Icon and Log in to flickr
+            ), // Forget your Flickr Password text
             SizedBox(height: 20.0),
             Text(
               KForgotPWInstruction,
@@ -48,28 +48,17 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
                 fontSize: 16.0,
                 fontWeight: FontWeight.w400,
               ),
-            ),
+            ), // Explanation for forgot password instruction
             Visibility(
-              visible: false,
+              //TODO arwa- assign visibilty according to wether the email has a flutter account or not
+              visible: visibilty,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 20.0),
-                  Container(
-                    height: 40.0,
-                    color: KWarningColor,
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        KWarningText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16.0, color: Colors.black),
-                      ),
-                    ),
-                  )
+                  kClipRRect,
                 ],
               ),
-            ),
+            ), // warning sign
             SizedBox(height: 20.0),
             TextField(
               onChanged: (value) {
@@ -81,13 +70,15 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
                 focusedBorder: KOutlineInputBorderFocused,
                 border: KOutlineInputBorder,
               ),
-            ),
+            ), // recovery email textfield
             SizedBox(height: 25.0),
             Container(
               height: 40.0,
               width: double.infinity,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  //TODO arwa- send mail for recovery (probably an equivalent not actual mail)
+                },
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all(KFlickrNormalBlueColor),
@@ -105,15 +96,14 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            GestureDetector(
-              onTap: () {
-                // TODO// @arwa- adding a functionality to resend mail
+            ), // Send email button
+            TextButton(
+              onPressed: () {
+                // TODO// @arwa- adding a functionality to access email
               },
               child:
                   Text("Can't access your email? ", style: KHyperlinkedTexts),
-            ), //
+            ), // can't access your email?
           ],
         ),
       ),

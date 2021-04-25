@@ -57,6 +57,7 @@ class _LoginState extends State<Login> {
             ),
           ),
           onPressed: () => Navigator.pop(context),
+          //TODO arwa- Redirect to yahoo page
           color: Colors.grey,
         ),
         DialogButton(
@@ -117,6 +118,16 @@ class _LoginState extends State<Login> {
                 fontSize: KLogInToFlickrTextSize,
               ),
             ), // Flickr Icon and Log in to flickr
+            Visibility(
+              //TODO arwa- assign visibilty according to wether the email has a flutter account or not
+              visible: false,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 20.0),
+                  kClipRRect,
+                ],
+              ),
+            ), // warning sign
             SizedBox(height: 20.0),
             TextField(
               onChanged: (value) {
@@ -163,7 +174,7 @@ class _LoginState extends State<Login> {
               child: TextButton(
                 onPressed: () {
                   emailChecking();
-                  print(visibility);
+                  //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
                 },
                 style: ButtonStyle(
                   backgroundColor:
@@ -183,17 +194,16 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ), // Next/SignIn button
-            SizedBox(height: 20.0),
             Visibility(
               visible: (visibility == true) ? true : false,
               child: Column(
                 children: <Widget>[
-                  GestureDetector(
+                  TextButton(
                     child: Text(
                       'Forgot password?',
                       style: KHyperlinkedTexts,
                     ),
-                    onTap: () {
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -204,20 +214,18 @@ class _LoginState extends State<Login> {
                       );
                     },
                   ),
-                  SizedBox(height: 15.0),
                   Divider(
                     color: Colors.grey,
                   )
                 ],
               ),
             ), // Forgot password? and divider
-            SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text('Not a Flickr member?'),
-                GestureDetector(
-                  onTap: () {
+                TextButton(
+                  onPressed: () {
                     // TODO// @mariam- your sign up screen here
                     //                      Navigator.push(
                     //                         context,
