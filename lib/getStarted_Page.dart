@@ -148,6 +148,9 @@ class _GetStartedState extends State<GetStarted> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -181,6 +184,9 @@ class _GetStartedState extends State<GetStarted> {
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 50,
                   ),
                 ],
               ),
