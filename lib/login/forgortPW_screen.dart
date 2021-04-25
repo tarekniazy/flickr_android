@@ -6,12 +6,16 @@ import 'loginStyling/login_Widgets.dart';
 import 'package:flickr_android/enums.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget ForgotPassWordScreen() {
-  LoginBasicLayout loginBasicLayout = LoginBasicLayout(ForgotPassWord());
+Widget ForgotPassWordScreen(String mail) {
+  String passedEmail = mail;
+  LoginBasicLayout loginBasicLayout =
+      LoginBasicLayout(ForgotPassWord(passedEmail));
   return loginBasicLayout;
 }
 
 class ForgotPassWord extends StatefulWidget {
+  ForgotPassWord(this.passedEmail);
+  final passedEmail;
   @override
   _ForgotPassWordState createState() => _ForgotPassWordState();
 }
@@ -20,7 +24,6 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
   EnumError errorEmail = EnumError.hide;
   String email;
   bool visibilty = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,6 +64,7 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
             ), // warning sign
             SizedBox(height: 20.0),
             TextField(
+              controller: TextEditingController(text: widget.passedEmail),
               onChanged: (value) {
                 email = value;
               },
