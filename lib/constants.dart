@@ -8,7 +8,8 @@ const KPopupOverlayColor = Color(0x87ECEFF1);
 //
 const double KSizeOfIcon = 12.0;
 const double KLogInToFlickrTextSize = 20.0;
-
+const double KVerificationTextSize = 17.0;
+const double KSizeOfIconMail = 24.0;
 //
 const KForgotPW = "Forget your Flickr password?";
 const KWarningText = "Invalid email or password";

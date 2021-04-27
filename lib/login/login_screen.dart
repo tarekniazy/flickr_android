@@ -7,6 +7,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 import 'forgortPW_screen.dart';
 import 'loginStyling/login_BasicLayout.dart';
+import '../signup/signup_screen.dart';
 
 Widget LoggingInScreen() {
   LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
@@ -227,14 +228,14 @@ class _LoginState extends State<Login> {
                 TextButton(
                   onPressed: () {
                     // TODO// @mariam- your sign up screen here
-                    //                      Navigator.push(
-                    //                         context,
-                    //                         MaterialPageRoute(
-                    //                           builder: (context) {
-                    //                             return TODO//;
-                    //                           },
-                    //                         ),
-                    //                       );
+                                          Navigator.push(
+                                             context,
+                                             MaterialPageRoute(
+                                               builder: (context) {
+                                                 return SignUpScreen(); //TODO//;
+                                              },
+                                             ),
+                                           );
                   },
                   child: Text(' Sign up here', style: KHyperlinkedTexts),
                 ),
