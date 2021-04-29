@@ -65,7 +65,12 @@ class _LoginState extends State<Login> {
             "Try again",
             style: TextStyle(color: Colors.white, fontSize: 15),
           ),
-          onPressed: () => Navigator.pop(context),
+          // onPressed: () =>
+          onPressed: (){
+            setState(() {
+              Navigator.pop(context);
+            });
+          },
           color: KFlickrNormalBlueColor,
         )
       ],
@@ -175,6 +180,10 @@ class _LoginState extends State<Login> {
                 onPressed: () {
                   emailChecking();
                   //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
+
+
+
+
                 },
                 style: ButtonStyle(
                   backgroundColor:
