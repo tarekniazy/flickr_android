@@ -45,7 +45,11 @@ class _HomeState extends State<Home> {
                   Icons.search,
                   size: 30,
                 ),
-                onPressed: (){}
+                onPressed: (){
+
+                  //TODO Mariam
+
+                }
             ),
 
             SizedBox(width: 40,),
@@ -56,7 +60,11 @@ class _HomeState extends State<Home> {
                     Icons.account_circle,
                    size: 30,
                 ),
-                onPressed: (){}
+                onPressed: (){
+
+                  //TODO Arwa
+
+                }
             ),
             SizedBox(width: 40,),
 
@@ -82,7 +90,9 @@ class _HomeState extends State<Home> {
                   Icons.camera_alt,
                   size: 30,
                 ),
-                onPressed: (){}
+                onPressed: (){
+                  //TODO Mariam
+                }
             ),
 
           ],

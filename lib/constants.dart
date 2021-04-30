@@ -8,7 +8,8 @@ const KPopupOverlayColor = Color(0x87ECEFF1);
 //
 const double KSizeOfIcon = 12.0;
 const double KLogInToFlickrTextSize = 20.0;
-
+const double KVerificationTextSize = 17.0;
+const double KSizeOfIconMail = 24.0;
 //
 const KForgotPW = "Forget your Flickr password?";
 const KWarningText = "Invalid email or password";
@@ -19,3 +20,7 @@ const String KPopupMessageTitle = "Hmm... that's not an email address";
 const String KPopupMessageBody =
     "please enter your complete Flickr account email address (e.g. name"
     "@domain.com) if you still log in through Yahoo, click below to continue)";
+
+const String baseUrl ="https://d82c3e6a-0d2d-4f44-9133-4a465a154079.mock.pstmn.io";
+
+const String CAPTCHA_SITE_KEY = "6Le-hMAaAAAAAN_thMimm8huA_tmitcfEdofTCc4";

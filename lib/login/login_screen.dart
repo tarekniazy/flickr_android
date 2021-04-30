@@ -7,6 +7,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 import 'forgortPW_screen.dart';
 import 'loginStyling/login_BasicLayout.dart';
+// import '../signup/signup_screen.dart';
+import '../Services/networking.dart';
+
 
 Widget LoggingInScreen() {
   LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
@@ -177,10 +180,25 @@ class _LoginState extends State<Login> {
               height: 40.0,
               width: double.infinity,
               child: TextButton(
-                onPressed: () {
+                onPressed: () async {
                   emailChecking();
+
+                  Map<String, dynamic> Body = { "email": email , "password":password };
+
                   //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
 
+                  NetworkHelper req = new NetworkHelper("https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/login?id=134");
+
+                  var res = await req.postData(Body);
+
+                  if (res.statusCode==200)
+                    {
+                      Navigator.pushNamed(context, 'Home');
+                    }
+                  else
+                    {
+                      print(res.statusCode);
+                    }
 
 
 
@@ -236,14 +254,14 @@ class _LoginState extends State<Login> {
                 TextButton(
                   onPressed: () {
                     // TODO// @mariam- your sign up screen here
-                    //                      Navigator.push(
-                    //                         context,
-                    //                         MaterialPageRoute(
-                    //                           builder: (context) {
-                    //                             return TODO//;
-                    //                           },
-                    //                         ),
-                    //                       );
+                                          Navigator.push(
+                                             context,
+                                             MaterialPageRoute(
+                                               builder: (context) {
+                                                 // return SignUpScreen(); //TODO//;
+                                              },
+                                             ),
+                                           );
                   },
                   child: Text(' Sign up here', style: KHyperlinkedTexts),
                 ),
