@@ -11,7 +11,6 @@ import '../login/login_screen.dart';
 import 'signupStyling/signup_BasicLayout.dart';
 import 'checkemail_screen.dart';
 
-
 Widget SignUpScreen() {
   SignUpBasicLayout signupBasicLayout = SignUpBasicLayout(SignUp());
   return signupBasicLayout;
@@ -37,8 +36,8 @@ class _SignUpState extends State<SignUp> {
   String ageErrorText;
   String passwordErrorText;
   String emailErrorText;
-  bool checkBoxValue=false;
-  bool checkBoxRed=false;
+  bool checkBoxValue = false;
+  bool checkBoxRed = false;
 
   _openReCaptcha() async {
     String tokenResult = await GCaptcha.reCaptcha(CAPTCHA_SITE_KEY);
@@ -49,11 +48,9 @@ class _SignUpState extends State<SignUp> {
   void checkBoxChecker() {
     if (checkBoxValue == false) {
       checkBoxRed = true;
-    }
-    else
+    } else
       checkBoxRed = false;
   }
-
 
   void toggleHiddenText() {
     setState(() {
@@ -61,16 +58,14 @@ class _SignUpState extends State<SignUp> {
     });
   }
 
-  bool isPassword(String password){
-    if (password.length >= 12)
-      {
-        var str = password.trim();
-        if (identical(password, str))
+  bool isPassword(String password) {
+    if (password.length >= 12) {
+      var str = password.trim();
+      if (identical(password, str))
         return true;
-        else
-          return false;
-      }
-    else
+      else
+        return false;
+    } else
       return false;
   }
 
@@ -81,20 +76,16 @@ class _SignUpState extends State<SignUp> {
       if (isValid == true) {
         setState(() {
           errorEmail = EnumError.hide;
-        }
-        );
+        });
+      } else if (isValid == false) {
+        setState(() {
+          errorEmail = EnumError.show;
+          emailErrorText = "Invalid email";
+        });
       }
-      else if (isValid == false)
-        {
-          setState(() {
-            errorEmail = EnumError.show;
-            emailErrorText = "Invalid email";
-          }
-          );
-        }
     } else if (email?.isEmpty ?? true) {
       setState(
-            () {
+        () {
           errorEmail = EnumError.show;
           emailErrorText = "Required";
         },
@@ -104,15 +95,12 @@ class _SignUpState extends State<SignUp> {
 
   void firstNameChecking() {
     if (firstName?.isNotEmpty ?? false) {
-
-        setState(() {
-          errorFirstName = EnumError.hide;
-
-        });
-      }
-     else if (firstName?.isEmpty ?? true) {
+      setState(() {
+        errorFirstName = EnumError.hide;
+      });
+    } else if (firstName?.isEmpty ?? true) {
       setState(
-            () {
+        () {
           errorFirstName = EnumError.show;
         },
       );
@@ -121,51 +109,41 @@ class _SignUpState extends State<SignUp> {
 
   void lastNameChecking() {
     if (lastName?.isNotEmpty ?? false) {
-
       setState(() {
         errorLastName = EnumError.hide;
       });
-    }
-    else if (lastName?.isEmpty ?? true) {
+    } else if (lastName?.isEmpty ?? true) {
       setState(
-            () {
+        () {
           errorLastName = EnumError.show;
         },
       );
     }
   }
+
   void ageChecking() {
     if (age?.isNotEmpty ?? false) {
-
       setState(() {
-        final ageNumber = num.tryParse(age); //to check if the string can be numeric or not
+        final ageNumber =
+            num.tryParse(age); //to check if the string can be numeric or not
         if (ageNumber == null) {
           errorAge = EnumError.show;
           ageErrorText = "Invalid age";
-        }
-        else
-          {
-            if (ageNumber < 0 || ageNumber > 120)
-              {
-                errorAge = EnumError.show;
-                ageErrorText = "Invalid age";
-              }
-            else if (ageNumber >= 0 && ageNumber < 13)
-              {
-                errorAge = EnumError.show;
-                ageErrorText = "In order to use Flickr, you must be 13 or older";
-              }
-            else
-              {
-              errorAge = EnumError.hide;
-              }
+        } else {
+          if (ageNumber < 0 || ageNumber > 120) {
+            errorAge = EnumError.show;
+            ageErrorText = "Invalid age";
+          } else if (ageNumber >= 0 && ageNumber < 13) {
+            errorAge = EnumError.show;
+            ageErrorText = "In order to use Flickr, you must be 13 or older";
+          } else {
+            errorAge = EnumError.hide;
           }
-      }
-      );
-    }
-    else if (age?.isEmpty ?? true) {
+        }
+      });
+    } else if (age?.isEmpty ?? true) {
       setState(
-            () {
+        () {
           errorAge = EnumError.show;
           ageErrorText = "Required";
         },
@@ -175,19 +153,18 @@ class _SignUpState extends State<SignUp> {
 
   void passwordChecking() {
     if (password?.isNotEmpty ?? false) {
-
       setState(() {
         if (isPassword(password))
-        errorPassword = EnumError.hide;
+          errorPassword = EnumError.hide;
         else {
           errorPassword = EnumError.show;
-          passwordErrorText = "Please use at least: 12 characters and no leading spaces";
+          passwordErrorText =
+              "Please use at least: 12 characters and no leading spaces";
         }
       });
-    }
-    else if (password?.isEmpty ?? true) {
+    } else if (password?.isEmpty ?? true) {
       setState(
-            () {
+        () {
           errorPassword = EnumError.show;
           passwordErrorText = "Required";
         },
@@ -226,9 +203,9 @@ class _SignUpState extends State<SignUp> {
               onChanged: (valueFirstName) {
                 firstName = valueFirstName;
               },
-
               decoration: InputDecoration(
-                errorText: (errorFirstName == EnumError.show) ? "Required" : null,
+                errorText:
+                    (errorFirstName == EnumError.show) ? "Required" : null,
                 labelText: 'First name',
                 focusedBorder: KOutlineInputBorderFocused,
                 border: KOutlineInputBorder,
@@ -241,7 +218,8 @@ class _SignUpState extends State<SignUp> {
                 lastName = valueLastName;
               },
               decoration: InputDecoration(
-                errorText: (errorLastName == EnumError.show) ? "Required" : null,
+                errorText:
+                    (errorLastName == EnumError.show) ? "Required" : null,
                 labelText: 'Last name',
                 focusedBorder: KOutlineInputBorderFocused,
                 border: KOutlineInputBorder,
@@ -267,7 +245,8 @@ class _SignUpState extends State<SignUp> {
                 email = valueEmail;
               },
               decoration: InputDecoration(
-                errorText: (errorEmail == EnumError.show) ? emailErrorText : null,
+                errorText:
+                    (errorEmail == EnumError.show) ? emailErrorText : null,
                 labelText: 'Email address',
                 focusedBorder: KOutlineInputBorderFocused,
                 border: KOutlineInputBorder,
@@ -276,28 +255,29 @@ class _SignUpState extends State<SignUp> {
             SizedBox(height: 10.0),
 
             TextFormField(
-                obscureText: _hiddenText,
-                onChanged: (value) {
-                  password = value;
-                },
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      toggleHiddenText();
-                    },
-                    icon: (_hiddenText)
-                        ? Icon(
-                      Icons.remove_red_eye_outlined,
-                    )
-                        : Icon(Icons.visibility_off_outlined),
-                  ),
-                  errorText:
-                  (errorPassword == EnumError.show) ? passwordErrorText : null,
-                  labelText: 'Password',
-                  focusedBorder: KOutlineInputBorderFocused,
-                  border: KOutlineInputBorder,
+              obscureText: _hiddenText,
+              onChanged: (value) {
+                password = value;
+              },
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    toggleHiddenText();
+                  },
+                  icon: (_hiddenText)
+                      ? Icon(
+                          Icons.remove_red_eye_outlined,
+                        )
+                      : Icon(Icons.visibility_off_outlined),
                 ),
-              ), //Password Text field
+                errorText: (errorPassword == EnumError.show)
+                    ? passwordErrorText
+                    : null,
+                labelText: 'Password',
+                focusedBorder: KOutlineInputBorderFocused,
+                border: KOutlineInputBorder,
+              ),
+            ), //Password Text field
             SizedBox(height: 10.0),
 
             Container(
@@ -308,34 +288,43 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.grey,
                 ),
               ),
-
               child: Row(
                 children: <Widget>[
-              Theme(
-              data: ThemeData(unselectedWidgetColor: (checkBoxRed) ? Colors.red: Colors.grey),
-                child: Checkbox(
-                value: checkBoxValue,
-                onChanged: (bool newValue){
-                  setState(() {
-                    checkBoxValue = newValue;
-                    if (newValue==true) {
-                      _openReCaptcha();
-                    }
-                  });
-                  },
-                ),
-    ),
-                  Text('I\'m not a robot                               ',
+                  Theme(
+                    data: ThemeData(
+                        unselectedWidgetColor:
+                            (checkBoxRed) ? Colors.red : Colors.grey),
+                    child: Checkbox(
+                      value: checkBoxValue,
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          checkBoxValue = newValue;
+                          if (newValue == true) {
+                            _openReCaptcha();
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  Text(
+                    'I\'m not a robot',
                     style: TextStyle(
-                    fontSize: 16.0,
+                      fontSize: 16.0,
+                    ),
                   ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Image.asset(
+                          'images/recaptcha.png',
+                          height: 50,
+                          width: 50,
+                        ),
+                      ],
+                    ),
                   ),
-
-                  Image(
-                      image:
-                      AssetImage('images/recaptcha.png')
-                  ),
-              ],
+                ],
               ),
             ),
 
@@ -353,20 +342,25 @@ class _SignUpState extends State<SignUp> {
                   passwordChecking();
                   checkBoxChecker();
 
-                  if (errorEmail == EnumError.hide && errorFirstName == EnumError.hide && errorLastName == EnumError.hide && errorAge == EnumError.hide && errorPassword == EnumError.hide && checkBoxValue == true) {
+                  if (errorEmail == EnumError.hide &&
+                      errorFirstName == EnumError.hide &&
+                      errorLastName == EnumError.hide &&
+                      errorAge == EnumError.hide &&
+                      errorPassword == EnumError.hide &&
+                      checkBoxValue == true) {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                    builder: (context) {
-                    return CheckEmailScreen(email);
-                    },
-                    ),
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CheckEmailScreen(email);
+                        },
+                      ),
                     );
-                    }
+                  }
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                  MaterialStateProperty.all(KFlickrNormalBlueColor),
+                      MaterialStateProperty.all(KFlickrNormalBlueColor),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -374,7 +368,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 child: Text(
-                 'Sign up',
+                  'Sign up',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.0,
@@ -389,25 +383,22 @@ class _SignUpState extends State<SignUp> {
                 Text('Already a Flickr member?'),
                 TextButton(
                   onPressed: () {
-                                          Navigator.push(
-                                             context,
-                                             MaterialPageRoute(
-                                               builder: (context) {
-                                                 return LoggingInScreen();
-                                               },
-                                             ),
-                                           );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return LoggingInScreen();
+                        },
+                      ),
+                    );
                   },
                   child: Text(' Log in here', style: KHyperlinkedTexts),
                 ),
               ],
             ), // Already a flickr member? Log in here
-
           ],
         ),
       ),
     );
-
   }
-
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'login/login_screen.dart';
 
 class Page extends StatelessWidget {
   Page(
@@ -153,14 +152,15 @@ class _GetStartedState extends State<GetStarted> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LoggingInScreen();
-                        },
-                      ),
-                    );
+                    Navigator.pushNamed(context, 'LogIn');
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return LoggingInScreen();
+                    //     },
+                    //   ),
+                    // );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(

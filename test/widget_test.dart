@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flickr_android/getStarted_Page.dart';
+import 'file:///D:/Flutter/Projects/flickr_android/lib/getStarted/getStarted_Page.dart';
 import 'package:flickr_android/main.dart';
 
 void main() {

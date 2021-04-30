@@ -35,6 +35,7 @@ dependencies:
   smooth_page_indicator: ^0.2.3
   g_captcha: ^1.0.0
   fluttertoast: ^8.0.6
+  http: ^0.13.1
 
 dev_dependencies:
   flutter_test:
