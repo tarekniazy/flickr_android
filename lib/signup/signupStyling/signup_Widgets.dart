@@ -14,6 +14,13 @@ const KHyperlinkedTexts = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
+const KEmailHyperlinkedTexts = TextStyle(
+  color: KFlickrNormalBlueColor,
+  fontSize: 16.0,
+  fontWeight: FontWeight.normal,
+);
+
+
 const KOutlineInputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(
     Radius.circular(4),

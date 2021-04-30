@@ -20,3 +20,4 @@ const String KPopupMessageTitle = "Hmm... that's not an email address";
 const String KPopupMessageBody =
     "please enter your complete Flickr account email address (e.g. name"
     "@domain.com) if you still log in through Yahoo, click below to continue)";
+const String CAPTCHA_SITE_KEY = "6Le-hMAaAAAAAN_thMimm8huA_tmitcfEdofTCc4";

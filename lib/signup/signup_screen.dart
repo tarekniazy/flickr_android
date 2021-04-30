@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
+import 'package:flutter/rendering.dart';
 import 'signupStyling/signup_Widgets.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:g_captcha/g_captcha.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 import '../login/login_screen.dart';
 import 'signupStyling/signup_BasicLayout.dart';
 import 'checkemail_screen.dart';
+
 
 Widget SignUpScreen() {
   SignUpBasicLayout signupBasicLayout = SignUpBasicLayout(SignUp());
@@ -33,6 +36,23 @@ class _SignUpState extends State<SignUp> {
   String age;
   String ageErrorText;
   String passwordErrorText;
+  String emailErrorText;
+  bool checkBoxValue=false;
+  bool checkBoxRed=false;
+
+  _openReCaptcha() async {
+    String tokenResult = await GCaptcha.reCaptcha(CAPTCHA_SITE_KEY);
+    print('tokenResult: $tokenResult');
+    Fluttertoast.showToast(msg: tokenResult, timeInSecForIosWeb: 4);
+  }
+
+  void checkBoxChecker() {
+    if (checkBoxValue == false) {
+      checkBoxRed = true;
+    }
+    else
+      checkBoxRed = false;
+  }
 
 
   void toggleHiddenText() {
@@ -54,77 +74,34 @@ class _SignUpState extends State<SignUp> {
       return false;
   }
 
-  //Creates a popup alert
-  void popupMessage() {
-    Alert(
-      context: context,
-      style: AlertStyle(
-          overlayColor: KPopupOverlayColor,
-          isCloseButton: false,
-          alertBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(2),
-            ),
-          )),
-      title: KPopupMessageTitle,
-      desc: KPopupMessageBody,
-      buttons: [
-        DialogButton(
-          child: Text(
-            "Continue to Yahoo",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-            ),
-          ),
-          onPressed: () => Navigator.pop(context),
-          //TODO arwa- Redirect to yahoo page
-          color: Colors.grey,
-        ),
-        DialogButton(
-          child: Text(
-            "Try again",
-            style: TextStyle(color: Colors.white, fontSize: 15),
-          ),
-          onPressed: () => Navigator.pop(context),
-          color: KFlickrNormalBlueColor,
-        )
-      ],
-    ).show();
-  }
-
-
-  // Parameter : Valid/Invalid mail , Functionality : calls popup message to alert the user when email is invalid
-  void isMail(EnumEmail mail) {
-    if (mail == EnumEmail.valid) {
-      setState(() {
-        errorEmail = EnumError.hide;
-      });
-    } else {
-      popupMessage();
-    }
-  }
-
   // Checks the String email, and performs the suitable action accordingly
   void emailChecking() {
     if (email?.isNotEmpty ?? false) {
       final bool isValid = EmailValidator.validate(email);
-      isValid ? isMail(EnumEmail.valid) : isMail(EnumEmail.invalid);
       if (isValid == true) {
         setState(() {
           errorEmail = EnumError.hide;
-        });
+        }
+        );
       }
+      else if (isValid == false)
+        {
+          setState(() {
+            errorEmail = EnumError.show;
+            emailErrorText = "Invalid email";
+          }
+          );
+        }
     } else if (email?.isEmpty ?? true) {
       setState(
             () {
           errorEmail = EnumError.show;
+          emailErrorText = "Required";
         },
       );
     }
   }
-///////////////////////////////////////////////////////////////////////////////////////////
+
   void firstNameChecking() {
     if (firstName?.isNotEmpty ?? false) {
 
@@ -196,7 +173,6 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-
   void passwordChecking() {
     if (password?.isNotEmpty ?? false) {
 
@@ -259,7 +235,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ), //First Name Text field
             SizedBox(height: 10.0),
-//////////////////////////////////////////////////////////////////////////////////////////////////
+
             TextField(
               onChanged: (valueLastName) {
                 lastName = valueLastName;
@@ -291,7 +267,7 @@ class _SignUpState extends State<SignUp> {
                 email = valueEmail;
               },
               decoration: InputDecoration(
-                errorText: (errorEmail == EnumError.show) ? "Required" : null,
+                errorText: (errorEmail == EnumError.show) ? emailErrorText : null,
                 labelText: 'Email address',
                 focusedBorder: KOutlineInputBorderFocused,
                 border: KOutlineInputBorder,
@@ -322,6 +298,47 @@ class _SignUpState extends State<SignUp> {
                   border: KOutlineInputBorder,
                 ),
               ), //Password Text field
+            SizedBox(height: 10.0),
+
+            Container(
+              height: 60.0,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                ),
+              ),
+
+              child: Row(
+                children: <Widget>[
+              Theme(
+              data: ThemeData(unselectedWidgetColor: (checkBoxRed) ? Colors.red: Colors.grey),
+                child: Checkbox(
+                value: checkBoxValue,
+                onChanged: (bool newValue){
+                  setState(() {
+                    checkBoxValue = newValue;
+                    if (newValue==true) {
+                      _openReCaptcha();
+                    }
+                  });
+                  },
+                ),
+    ),
+                  Text('I\'m not a robot                               ',
+                    style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                  ),
+
+                  Image(
+                      image:
+                      AssetImage('images/recaptcha.png')
+                  ),
+              ],
+              ),
+            ),
+
             SizedBox(height: 25.0),
 
             Container(
@@ -334,8 +351,9 @@ class _SignUpState extends State<SignUp> {
                   lastNameChecking();
                   ageChecking();
                   passwordChecking();
+                  checkBoxChecker();
 
-                  if (errorEmail == EnumError.hide && errorFirstName == EnumError.hide && errorLastName == EnumError.hide && errorAge == EnumError.hide && errorPassword == EnumError.hide) {
+                  if (errorEmail == EnumError.hide && errorFirstName == EnumError.hide && errorLastName == EnumError.hide && errorAge == EnumError.hide && errorPassword == EnumError.hide && checkBoxValue == true) {
                     Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -384,9 +402,12 @@ class _SignUpState extends State<SignUp> {
                 ),
               ],
             ), // Already a flickr member? Log in here
+
           ],
         ),
       ),
     );
+
   }
+
 }
