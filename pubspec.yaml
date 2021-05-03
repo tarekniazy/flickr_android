@@ -36,6 +36,7 @@ dependencies:
   g_captcha: ^1.0.0
   fluttertoast: ^8.0.6
   http: ^0.13.1
+  mailer: ^5.0.0
 
 dev_dependencies:
   flutter_test:

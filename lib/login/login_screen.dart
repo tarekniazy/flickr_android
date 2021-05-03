@@ -7,9 +7,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 import 'forgortPW_screen.dart';
 import 'loginStyling/login_BasicLayout.dart';
-// import '../signup/signup_screen.dart';
 import '../Services/networking.dart';
-
 import '../signup/signup_screen.dart';
 
 Widget LoggingInScreen() {
@@ -25,10 +23,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   EnumError errorEmail = EnumError.hide;
   EnumError errorPassword = EnumError.hide;
+  int logInID = 135;
   bool visibility = false;
   bool _hiddenText = true;
+  bool _emailPWInvalidText = false;
+  String buttonText = 'Next';
   String email;
   String password;
+
+  void changeButtonTextToSignIn() {
+    buttonText = 'Sign in';
+  }
 
   void toggleHiddenText() {
     setState(() {
@@ -129,7 +134,7 @@ class _LoginState extends State<Login> {
             ), // Flickr Icon and Log in to flickr
             Visibility(
               //TODO arwa- assign visibilty according to wether the email has a flutter account or not
-              visible: false,
+              visible: _emailPWInvalidText,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 20.0),
@@ -168,8 +173,9 @@ class _LoginState extends State<Login> {
                           )
                         : Icon(Icons.visibility_off_outlined),
                   ),
-                  errorText:
-                      (errorPassword == EnumError.show) ? "Required" : null,
+                  errorText: (errorPassword == EnumError.show)
+                      ? "Invalid password"
+                      : null,
                   labelText: 'Password',
                   focusedBorder: KOutlineInputBorderFocused,
                   border: KOutlineInputBorder,
@@ -182,24 +188,46 @@ class _LoginState extends State<Login> {
               width: double.infinity,
               child: TextButton(
                 onPressed: () async {
-                  emailChecking();
+                  if (buttonText == 'Next') {
+                    emailChecking();
+                    if (visibility == true) {
+                      setState(() {
+                        changeButtonTextToSignIn();
+                      });
+                    }
+                  } else if (password != null) {
+                    Map<String, dynamic> Body = {
+                      "email": email,
+                      "password": password
+                    };
 
-                  Map<String, dynamic> Body = {
-                    "email": email,
-                    "password": password
-                  };
+                    // //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
+                    // //TODO arwa- Edit in Next phases
+                    setState(() {
+                      if (email == "Arwa@gmail.com" || password == "flickr") {
+                        if (email != "Arwa@gmail.com") {
+                          _emailPWInvalidText = true;
+                        } else if (password != "flickr") {
+                          errorPassword = EnumError.show;
+                          _emailPWInvalidText = false;
+                        } else {
+                          logInID = 134;
+                          _emailPWInvalidText = false;
+                        }
+                      } else {
+                        _emailPWInvalidText = true;
+                      }
+                    });
 
-                  //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
-
-                  NetworkHelper req = new NetworkHelper(
-                      "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/login?id=134");
-
-                  var res = await req.postData(Body);
-
-                  if (res.statusCode == 200) {
-                    Navigator.pushNamed(context, 'Home');
-                  } else {
-                    print(res.statusCode);
+                    // 200 for ID=134 , 500 for ID=135
+                    NetworkHelper req = new NetworkHelper(
+                        "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/login?id=$logInID");
+                    var res = await req.postData(Body);
+                    if (res.statusCode == 200) {
+                      Navigator.pushNamed(context, 'Home');
+                    } else {
+                      print(res.statusCode);
+                    }
                   }
                 },
                 style: ButtonStyle(
@@ -212,7 +240,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 child: Text(
-                  (visibility == false) ? 'Next' : 'Sign in',
+                  buttonText,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.0,
