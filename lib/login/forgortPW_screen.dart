@@ -5,6 +5,7 @@ import 'package:flickr_android/constants.dart';
 import 'loginStyling/login_Widgets.dart';
 import 'package:flickr_android/enums.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../Services/networking.dart';
 
 Widget ForgotPassWordScreen(String mail) {
   String passedEmail = mail;
@@ -80,7 +81,28 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
               height: 40.0,
               width: double.infinity,
               child: TextButton(
-                onPressed: () {
+                onPressed: () async {
+
+
+                  Map<String, dynamic> Body = {
+                    "email": email,
+                  };
+
+                  //TODO change next phases
+
+                  NetworkHelper req = new NetworkHelper(
+                      "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/forget?id=56");
+
+                  var res = await req.postData(Body);
+
+                  if (res.statusCode == 200) {
+                    Navigator.pushNamed(context, 'Home');
+                  } else {
+                    print(res.statusCode);
+                  }
+
+
+
                   //TODO arwa- send mail for recovery (probably an equivalent not actual mail)
                 },
                 style: ButtonStyle(
