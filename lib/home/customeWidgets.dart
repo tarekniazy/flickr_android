@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,25 @@ class _ImageCardState extends State<ImageCard> {
     } else if (number == 0 || number == null) {
       return Text(
         ' ',
+      );
+    }
+  }
+
+  var like=0;
+
+  Icon likePressed()
+  {
+    if (like==1)
+      {
+        return  Icon(
+          Icons.star,
+          color: Colors.blue,
+        );
+
+      }
+    else {
+      return  Icon(
+          Icons.star_border
       );
     }
   }
@@ -96,9 +116,25 @@ class _ImageCardState extends State<ImageCard> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.star_border,
+            GestureDetector(
+              onTap: (){
+
+                setState(() {
+
+                  if (like==1)
+                    {
+                      like=0;
+                    }
+                  else
+                    {
+                      like=1;
+                    }
+
+
+                });
+              },
+              child: IconButton(
+                icon: likePressed(),
               ),
             ),
             checkIfAvailble(widget.numberOfFaves),
@@ -171,6 +207,14 @@ class ImageView extends StatefulWidget {
 }
 
 class _ImageViewState extends State<ImageView> {
+
+  Icon like = Icon(
+    Icons.star_border,
+    size: 25,
+    color: Colors.white,
+  );
+  bool likePressed=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,16 +277,6 @@ class _ImageViewState extends State<ImageView> {
                 // height: 100,
               ),
             ),
-            //
-            // Expanded(
-            //    child: Align(
-            //      alignment: FractionalOffset.bottomCenter,
-            //      child: Divider(
-            //       thickness: 1,
-            //       color: Colors.white,
-            //   ),
-            //    ),
-            // ),
 
             Expanded(
               child: Align(
@@ -260,12 +294,38 @@ class _ImageViewState extends State<ImageView> {
                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             IconButton(
-                              icon: Icon(
-                                Icons.star_border,
-                                size: 25,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {},
+                              onPressed: (){
+                                setState(() {
+
+                                  if (likePressed)
+                                    {
+                                      like = Icon(
+                                          Icons.star_border,
+                                        size: 25,
+                                        color: Colors.white,
+                                      );
+                                      likePressed=false;
+
+                                    }
+                                  else
+                                    {
+                                      like = Icon(
+                                          Icons.star,
+                                        color: Colors.blue,
+                                        size: 25,
+
+                                      );
+
+                                      likePressed=true;
+                                    }
+
+
+
+                                });
+                            },
+
+                              icon:like,
+
                             ),
                             IconButton(
                               icon: Icon(

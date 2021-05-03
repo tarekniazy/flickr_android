@@ -22,7 +22,7 @@ class NetworkHelper
     }
     else
     {
-      print(response.statusCode);
+  //    print(response.statusCode);
     }
 
   }
