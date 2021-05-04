@@ -5,6 +5,7 @@ const KFlickrNormalBlueColor = Color(0xFF0288D1);
 const KWarningColor = Color(0xFFFFCDD2);
 const KHomeAppBarColor = Color(0xFF212121);
 const KPopupOverlayColor = Color(0x87ECEFF1);
+const KAboutBackgroundColor = Color(0xFFF5F5F5);
 
 //
 const double KSizeOfIcon = 12.0;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profileStyling/profile_Widgets.dart';
+import 'profilePages/about_Screen.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _ProfileState extends State<Profile> {
                     expandedHeight: 250,
                     floating: true,
                     pinned: true,
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.white,
                     leading: new Container(),
                     flexibleSpace: FlexibleSpaceBar(
                       background: Column(
@@ -73,7 +74,7 @@ class _ProfileState extends State<Profile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                Text('hiii'),
+                BuildAbout(),
                 Text(''),
                 Text(''),
                 Text(''),
