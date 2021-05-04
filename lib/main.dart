@@ -7,19 +7,18 @@ import 'home/notifications/notifications.dart';
 import 'login/login_screen.dart';
 import 'home/explore/explore.dart';
 import 'home/customeWidgets.dart';
+import 'profile/profile_screen.dart';
 
 void main() {
   runApp(
-  MaterialApp(
-   initialRoute: '/',
-    routes: {
-        '/':(context)=>GetStarted(),
-        'LogIn':(context)=>LoggingInScreen(),
-        'Home':(context)=>Home(),
-
-    },
-  ),
+    MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => GetStarted(),
+        'LogIn': (context) => LoggingInScreen(),
+        'Home': (context) => Home(),
+        'Profile': (context) => Profile(),
+      },
+    ),
   );
 }
-
-

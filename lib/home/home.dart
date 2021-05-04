@@ -1,12 +1,11 @@
 import 'dart:core';
-
+import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/home/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 import 'explore/explore.dart';
+import 'package:flickr_android/profile/profile_screen.dart';
 
 class Home extends StatefulWidget {
-
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -14,25 +13,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Widget view = Explore();
 
-  var exploreClicked=1;
-  var searchClicked=0;
-  var notificationClicked=0;
-  var profileClicked=0;
-  var cameraClicked=0;
+  var exploreClicked = 1;
+  var searchClicked = 0;
+  var notificationClicked = 0;
+  var profileClicked = 0;
+  var cameraClicked = 0;
 
-  Color bottonClicked(var button)
-  {
-    if (button==1)
-      {
-        return Colors.white;
-      }
-    else
-      {
-        return Colors.white38;
-      }
-
+  Color bottonClicked(var button) {
+    if (button == 1) {
+      return Colors.white;
+    } else {
+      return Colors.white38;
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,29 +34,25 @@ class _HomeState extends State<Home> {
         body: view,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: KHomeAppBarColor,
           leading: Container(),
           actions: <Widget>[
-
             Expanded(
               child: IconButton(
                   icon: Icon(
                     Icons.image,
                     size: 30,
                     color: bottonClicked(exploreClicked),
-
                   ),
                   onPressed: () {
                     setState(() {
-
-                       exploreClicked=1;
-                       searchClicked=0;
-                       notificationClicked=0;
-                       profileClicked=0;
-                       cameraClicked=0;
+                      exploreClicked = 1;
+                      searchClicked = 0;
+                      notificationClicked = 0;
+                      profileClicked = 0;
+                      cameraClicked = 0;
 
                       view = Explore();
-
                     });
                   }),
             ),
@@ -79,19 +68,14 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () {
                     setState(() {
-
-                      exploreClicked=0;
-                      searchClicked=1;
-                      notificationClicked=0;
-                      profileClicked=0;
-                      cameraClicked=0;
+                      exploreClicked = 0;
+                      searchClicked = 1;
+                      notificationClicked = 0;
+                      profileClicked = 0;
+                      cameraClicked = 0;
 
                       //TODO Mariam
-
                     });
-
-
-
                   }),
             ),
 
@@ -106,20 +90,15 @@ class _HomeState extends State<Home> {
                     color: bottonClicked(profileClicked),
                   ),
                   onPressed: () {
-
                     setState(() {
-
-                      exploreClicked=0;
-                      searchClicked=0;
-                      notificationClicked=0;
-                      profileClicked=1;
-                      cameraClicked=0;
-
-                      //TODO Arwa
-
+                      exploreClicked = 0;
+                      searchClicked = 0;
+                      notificationClicked = 0;
+                      profileClicked = 1;
+                      cameraClicked = 0;
                     });
-
-
+                    //Navigator.pushReplacementNamed(context, 'Profile');
+                    view = Profile();
                   }),
             ),
             //    SizedBox(width: 40,),
@@ -133,11 +112,11 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () {
                     setState(() {
-                      exploreClicked=0;
-                      searchClicked=0;
-                      notificationClicked=1;
-                      profileClicked=0;
-                      cameraClicked=0;
+                      exploreClicked = 0;
+                      searchClicked = 0;
+                      notificationClicked = 1;
+                      profileClicked = 0;
+                      cameraClicked = 0;
                       view = Notifications();
                     });
                   }),
@@ -153,19 +132,15 @@ class _HomeState extends State<Home> {
                     color: bottonClicked(cameraClicked),
                   ),
                   onPressed: () {
-
                     setState(() {
-
-                      exploreClicked=0;
-                      searchClicked=0;
-                      notificationClicked=0;
-                      profileClicked=0;
-                      cameraClicked=1;
+                      exploreClicked = 0;
+                      searchClicked = 0;
+                      notificationClicked = 0;
+                      profileClicked = 0;
+                      cameraClicked = 1;
 
                       //TODO Mariam
-
                     });
-
                   }),
             ),
           ],
