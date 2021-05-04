@@ -1,6 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../Services/networking.dart';
 
 class ImageCard extends StatefulWidget {
   ImageCard({
@@ -64,39 +67,154 @@ class _ImageCardState extends State<ImageCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              // Navigator.pushNamed(context, 'ImageView');
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ImageView(
-                      imageUrl: widget.imageUrl,
-                      authorId: widget.authorId,
-                      authorImage: widget.authorImage,
-                      numberOfFaves: widget.numberOfFaves,
-                      numberOfComments: widget.numberOfComments,
-                      usernameTopComment: widget.usernameTopComment,
-                      topComment: widget.topComment,
-                    );
-                  },
-                ),
-              );
-            });
-          },
-          child: Image(
-            image: NetworkImage(widget.imageUrl),
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ImageView(
+                        imageUrl: widget.imageUrl,
+                        authorId: widget.authorId,
+                        authorImage: widget.authorImage,
+                        numberOfFaves: widget.numberOfFaves,
+                        numberOfComments: widget.numberOfComments,
+                        usernameTopComment: widget.usernameTopComment,
+                        topComment: widget.topComment,
+                      );
+                    },
+                  ),
+                );
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Image(
+                image: NetworkImage(widget.imageUrl),
+              ),
+            ),
           ),
-        ),
-        Card(
-          child: ListTile(
+          Card(
+            child: ListTile(
+                title: Text(
+                  widget.authorId,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Frutiger',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                leading: Container(
+                  width: 50,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(widget.authorImage),
+                      )),
+                )),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () async {
+
+
+                  Map<String, dynamic> Body = {
+                    "photo_id": "1"
+                  };
+
+
+                  if (like==0)
+                  {
+                    NetworkHelper req = new NetworkHelper(
+                        "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/fave?id =23");
+
+                    var res = await req.postData(Body);
+
+                    if (res.statusCode == 200) {
+
+                      String data=res.body;
+                      var response= jsonDecode(data);
+                      print(response["message"]);
+                    } else {
+                      print(res.statusCode);
+                    };
+                  }
+
+
+                  setState(()   {
+
+                    if (like==1)
+                      {
+                        like=0;
+                      }
+                    else
+                      {
+                        like=1;
+                      }
+                  });
+
+
+
+
+                  // if (like==1)
+                  // {
+                  //   NetworkHelper req = new NetworkHelper(
+                  //       "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/deleteLike?photo_id=0");
+                  //
+                  //   var res = await req.postData(Body);
+                  //
+                  //   if (res.statusCode == 200) {
+                  //     String data=res.body;
+                  //     var response= jsonDecode(data);
+                  //     print(response["message"]);
+                  //   } else {
+                  //     print(res.statusCode);
+                  //   };
+                  // }
+
+                },
+                child: IconButton(
+                  icon: likePressed(),
+                ),
+              ),
+              checkIfAvailble(widget.numberOfFaves),
+              IconButton(
+                icon: Icon(
+                  Icons.messenger_outline,
+                  color: Colors.black45,
+                ),
+                onPressed: () {
+                  setState(() {
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return CommentView(authorId: widget.authorId, numberOfFaves: widget.numberOfFaves, numberOfComments: widget.numberOfComments);}));
+                  });
+                },
+              ),
+              checkIfAvailble(widget.numberOfComments),
+              IconButton(
+                icon: Icon(
+                  Icons.share,
+                ),
+              ),
+            ],
+          ),
+          Card(
+            color: Colors.white38,
+            child: ListTile(
+              leading: Icon(
+                Icons.messenger,
+                size: 20,
+              ),
               title: Text(
-                widget.authorId,
+                widget.usernameTopComment,
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'Frutiger',
@@ -104,81 +222,33 @@ class _ImageCardState extends State<ImageCard> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              leading: Container(
-                width: 50,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(widget.authorImage),
-                    )),
-              )),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            GestureDetector(
-              onTap: (){
-
-                setState(() {
-
-                  if (like==1)
-                    {
-                      like=0;
-                    }
-                  else
-                    {
-                      like=1;
-                    }
-
-
-                });
-              },
-              child: IconButton(
-                icon: likePressed(),
-              ),
-            ),
-            checkIfAvailble(widget.numberOfFaves),
-            IconButton(
-              icon: Icon(
-                Icons.messenger_outline,
-              ),
-            ),
-            checkIfAvailble(widget.numberOfComments),
-            IconButton(
-              icon: Icon(
-                Icons.share,
-              ),
-            ),
-          ],
-        ),
-        Card(
-          color: Colors.white38,
-          child: ListTile(
-            leading: Icon(
-              Icons.messenger,
-              size: 20,
-            ),
-            title: Text(
-              widget.usernameTopComment,
-              style: TextStyle(
-                fontSize: 15,
-                fontFamily: 'Frutiger',
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-              widget.topComment,
-              style: TextStyle(
-                fontSize: 15,
-                fontFamily: 'Frutiger',
-                color: Colors.black54,
-                fontWeight: FontWeight.normal,
+              subtitle: GestureDetector(
+                child: Text(
+                  widget.topComment,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Frutiger',
+                    color: Colors.black54,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                onTap: (){
+                  setState(() {
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return CommentView(authorId: widget.authorId, numberOfFaves: widget.numberOfFaves, numberOfComments: widget.numberOfComments);}));
+                  });
+                },
               ),
             ),
           ),
-        )
-      ],
+          SizedBox(
+            height: 10,
+            child: Container(
+              color:Colors.black ,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -207,6 +277,10 @@ class ImageView extends StatefulWidget {
 }
 
 class _ImageViewState extends State<ImageView> {
+
+
+
+
 
   Icon like = Icon(
     Icons.star_border,
@@ -259,22 +333,13 @@ class _ImageViewState extends State<ImageView> {
                 ),
               ),
             ),
-            // Container(
-            //   width: double.infinity,
-            //   decoration: BoxDecoration(
-            //        shape: BoxShape.rectangle,
-            //       image: DecorationImage(
-            //         image: NetworkImage(widget.imageUrl),
-            //         fit: BoxFit.fill,
-            //       )
-            //   ),
-            // ),
+
 
             Container(
-              child: Image(
-                image: NetworkImage(widget.imageUrl),
-                fit: BoxFit.contain,
-                // height: 100,
+              child: Center(
+                child: Image(
+                  image: NetworkImage(widget.imageUrl),
+                ),
               ),
             ),
 
@@ -291,7 +356,6 @@ class _ImageViewState extends State<ImageView> {
                         color: Colors.white,
                       ),
                       Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             IconButton(
                               onPressed: (){
@@ -333,7 +397,14 @@ class _ImageViewState extends State<ImageView> {
                                 size: 25,
                                 color: Colors.white,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+
+                                       Navigator.push(context, MaterialPageRoute(builder: (context){
+                                         return CommentView(authorId: widget.authorId, numberOfFaves: widget.numberOfFaves, numberOfComments: widget.numberOfComments);}));
+
+                                });
+                              },
                             ),
                             IconButton(
                               icon: Icon(
@@ -364,13 +435,21 @@ class _ImageViewState extends State<ImageView> {
                                       fontWeight: FontWeight.normal,
                                     ),
                                   ),
-                                  Text(
-                                    "${widget.numberOfComments} comments",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'Frutiger',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
+                                  GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                                          return CommentView(authorId: widget.authorId, numberOfFaves: widget.numberOfFaves, numberOfComments: widget.numberOfComments);}));
+                                      });
+                                    },
+                                    child: Text(
+                                      "${widget.numberOfComments} comments",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'Frutiger',
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -380,16 +459,6 @@ class _ImageViewState extends State<ImageView> {
                     ]),
                   ),
                 ),
-                // child:Row(
-                //         children:<Widget> [
-
-                //
-
-                //
-
-                //
-                //         ],
-                //       ),
               ),
             ),
           ],
@@ -398,3 +467,187 @@ class _ImageViewState extends State<ImageView> {
     );
   }
 }
+
+class CommentView extends StatefulWidget {
+
+
+  CommentView({@required this.authorId,@required this.numberOfFaves,@required this.numberOfComments});
+
+
+  final String authorId; // author name
+  final numberOfFaves; // number of likes
+  final numberOfComments; // number of comments
+
+
+  @override
+  _CommentViewState createState() => _CommentViewState();
+}
+
+class _CommentViewState extends State<CommentView> {
+
+  List<String> commentBody=[
+    ""
+  ];
+
+
+  List<CommentCard> comments=[
+    CommentCard(),
+    CommentCard(),
+    CommentCard(),
+  ];
+
+
+  var commentViewed=1;
+  var favedViewed=0;
+
+
+
+  TextStyle viewed (var check)
+  {
+    if (check==1)
+    {
+      return TextStyle(
+
+        shadows: [
+          Shadow(
+              color: Colors.black,
+              offset: Offset(0, -10))
+        ],
+
+        decorationThickness: 3,
+        decoration: TextDecoration.underline,
+        decorationColor: Colors.black,
+        fontSize: 18,
+        fontFamily: 'Frutiger',
+        color: Colors.transparent,
+        fontWeight: FontWeight.bold,
+      );
+    }
+    else
+    {
+      return  TextStyle(
+        fontSize: 18,
+        fontFamily: 'Frutiger',
+        color: Colors.black54,
+        fontWeight: FontWeight.bold,
+      );
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              widget.authorId+"'s photo",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Frutiger',
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+            ),
+            ),
+            backgroundColor: Colors.black87,
+          ),
+          body: Column(
+            children:<Widget> [
+
+              Card(
+                color: Colors.white,
+                child: ListTile(
+
+                     leading: GestureDetector(
+                       onTap: (){
+                         setState(() {
+                            commentViewed=0;
+                            favedViewed=1;
+                         });
+                       },
+                       child: Text(
+                         '${widget.numberOfFaves}'+' faves',
+                         style:viewed(favedViewed),
+                       ),
+                     ),
+                      trailing:  GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            commentViewed=1;
+                            favedViewed=0;
+                          });
+                        },
+                        child: Text(
+                          '${widget.numberOfComments}'+' comments',
+                          style:viewed(commentViewed)
+                        ),
+                      ),
+
+                ),
+
+              ),
+
+              Expanded(
+                child: Column(
+                  children:<Widget> [
+                    Expanded(child: new ListView.builder(
+                      itemCount: comments.length,
+                      itemBuilder:(BuildContext context, int index)
+                      {
+                        return comments[index];
+                      },
+                    )
+                    )
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+        )
+    );
+  }
+}
+
+
+class CommentCard extends StatefulWidget {
+
+  CommentCard({
+
+    @required this.authorId,
+    @required this.authorImage,
+    @required this.comment,
+
+  });
+
+
+  final String authorId; // author name
+  final String authorImage; // author profile pic
+  final String comment; // top comment
+
+
+  @override
+  _CommentCardState createState() => _CommentCardState();
+}
+
+class _CommentCardState extends State<CommentCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.grey[400],
+      child: ListTile(
+        // leading: Container(
+        //   width: 50,
+        //   decoration: BoxDecoration(
+        //       shape: BoxShape.circle,
+        //       image: DecorationImage(
+        //         image: NetworkImage(widget.authorImage),
+        //       )),
+        // ) ,
+
+      ),
+    );
+  }
+}
+
+

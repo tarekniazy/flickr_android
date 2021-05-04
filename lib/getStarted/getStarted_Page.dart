@@ -7,6 +7,9 @@ class Page extends StatelessWidget {
       @required this.title,
       @required this.firstLine,
       @required this.secondLine});
+
+
+
   final String imagePath;
   final String title;
   final String firstLine;
@@ -70,7 +73,11 @@ class GetStarted extends StatefulWidget {
 }
 
 class _GetStartedState extends State<GetStarted> {
+
+
   PageController _pageController = new PageController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

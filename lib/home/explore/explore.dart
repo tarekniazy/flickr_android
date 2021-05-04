@@ -12,6 +12,10 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
+ List<Map<String, dynamic>> comments;
+
+
+
   List<ImageCard> post=[
     ImageCard(imageUrl: "https://media.gettyimages.com/photos/giza-egypt-pyramids-in-sunset-scene-wonders-of-the-world-picture-id1085205362?s=612x612",
     authorId: "SpongeBob",
@@ -41,12 +45,11 @@ class _ExploreState extends State<Explore> {
 
   ];
 
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
+        color: Colors.black87,
         child: Column(
           children:<Widget> [
             Expanded(child: new ListView.builder(
@@ -55,8 +58,6 @@ class _ExploreState extends State<Explore> {
               {
                 return post[index];
               },
-
-
             )
              )
           ],
@@ -67,8 +68,6 @@ class _ExploreState extends State<Explore> {
     );
   }
 }
-
-
 
 
 
