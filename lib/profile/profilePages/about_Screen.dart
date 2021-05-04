@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/profile/profileStyling/profile_Widgets.dart';
 
-Widget BuildAbout() => SingleChildScrollView(
+Widget BuildAbout(BuildContext context) => SingleChildScrollView(
       child: Container(
         color: KAboutBackgroundColor,
         child: Padding(
@@ -13,12 +13,16 @@ Widget BuildAbout() => SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 createAboutTextTile(
-                    mainText: 'Description', subText: 'Add Description'),
+                    mainText: 'Description',
+                    subText: 'Add Description',
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Occupation', subText: 'Add Occupation'),
+                    mainText: 'Occupation',
+                    subText: 'Add Occupation',
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
@@ -26,41 +30,57 @@ Widget BuildAbout() => SingleChildScrollView(
                     mainText: 'CurrentCity',
                     subText: 'Add Current City',
                     thirdText: 'Visible to: Anyone',
-                    thirdLine: true),
+                    thirdLine: true,
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Homtown', subText: 'Add Homtown'),
+                    mainText: 'Homtown',
+                    subText: 'Add Homtown',
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Website', subText: 'Add Website'),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(mainText: 'Tumblr', subText: 'Add Tumblr'),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Facebook', subText: 'Add Facebook'),
+                    mainText: 'Website',
+                    subText: 'Add Website',
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Twitter', subText: 'Add Twitter'),
+                    mainText: 'Tumblr',
+                    subText: 'Add Tumblr',
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Instagram', subText: 'Add Instagram'),
+                    mainText: 'Facebook',
+                    subText: 'Add Facebook',
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Pinterest', subText: 'Add Pinterest'),
+                    mainText: 'Twitter',
+                    subText: 'Add Twitter',
+                    context: context),
+                Divider(
+                  color: Colors.grey[500],
+                ),
+                createAboutTextTile(
+                    mainText: 'Instagram',
+                    subText: 'Add Instagram',
+                    context: context),
+                Divider(
+                  color: Colors.grey[500],
+                ),
+                createAboutTextTile(
+                    mainText: 'Pinterest',
+                    subText: 'Add Pinterest',
+                    context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
@@ -68,7 +88,8 @@ Widget BuildAbout() => SingleChildScrollView(
                     mainText: 'Email',
                     subText: 'Arwa@gmail.com',
                     thirdText: 'Visible to: People You Follow',
-                    thirdLine: true),
+                    thirdLine: true,
+                    context: context),
               ],
             ),
           ),

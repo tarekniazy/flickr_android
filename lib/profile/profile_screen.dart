@@ -74,11 +74,13 @@ class _ProfileState extends State<Profile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                BuildAbout(),
-                Text(''),
-                Text(''),
-                Text(''),
-                Text(''),
+                BuildAbout(context),
+                Text(
+                    ''), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
+                Text(''), //TODO Arwa- this text is For public
+                Text(
+                    ''), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
+                Text(''), //TODO Tarek- this text is For Groups
               ]),
         ),
       ),

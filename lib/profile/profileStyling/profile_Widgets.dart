@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flickr_android/profile/profilePages/aboutSub/about_SubScreens.dart';
 
 const KTabBarTextsStyle = TextStyle(
   color: Colors.black,
@@ -11,6 +12,7 @@ Widget createAboutTextTile({
   String subText,
   String thirdText = '',
   bool thirdLine = false,
+  BuildContext context,
 }) {
   return ListTile(
     shape: Border.all(),
@@ -40,5 +42,15 @@ Widget createAboutTextTile({
             ]),
           ),
     isThreeLine: thirdLine,
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return AboutSubscreen(mainText, subText);
+          },
+        ),
+      );
+    },
   );
 }
