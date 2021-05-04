@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'profileStyling/profile_Widgets.dart';
 import 'profilePages/about_Screen.dart';
 
@@ -26,21 +27,78 @@ class _ProfileState extends State<Profile> {
                     floating: true,
                     pinned: true,
                     backgroundColor: Colors.white,
-                    leading: new Container(),
+                    actions: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          FontAwesomeIcons.ellipsisV,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                    ],
+                    leading: IconButton(
+                      icon: Icon(
+                        Icons.autorenew,
+                        color: Colors.grey[800],
+                      ),
+                    ),
                     flexibleSpace: FlexibleSpaceBar(
-                      background: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                'https://wallpaperaccess.com/full/900605.jpg'),
-                            radius: 35.0,
+                      background: Container(
+                        padding: EdgeInsets.only(bottom: 42.0),
+                        child: FittedBox(
+                          child: Image.network(
+                            "https://wallpaperaccess.com/full/900605.jpg",
+                            color: Colors.black.withOpacity(0.5),
+                            colorBlendMode: BlendMode.dstATop,
                           ),
-                        ],
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      centerTitle: true,
+                      titlePadding: EdgeInsets.only(bottom: 42.0),
+                      title: Container(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Column(
+                            children: <Widget>[
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://wallpaperaccess.com/full/900605.jpg'),
+                                radius: 35.0,
+                              ),
+                              Text(
+                                'User Name',
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.grey[800]),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    'followers 0',
+                                    style: TextStyle(
+                                        fontSize: 10.0,
+                                        color: Colors.grey[800]),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    'following 1',
+                                    style: TextStyle(
+                                        fontSize: 10.0,
+                                        color: Colors.grey[800]),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     bottom: TabBar(
+                      indicatorColor: Colors.grey[800],
+                      unselectedLabelColor: Colors.grey[500],
+                      labelColor: Colors.grey[800],
                       // These are the widgets to put in each tab in the tab bar.
                       tabs: [
                         Text(
@@ -88,144 +146,22 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-// SafeArea(
-// child: DefaultTabController(
-// length: 6,
-// child: Scaffold(
-// body: CustomScrollView(
-// slivers: <Widget>[
-// // Add the app bar to the CustomScrollView.
-// SliverAppBar(
-// flexibleSpace: Column(
+// background: Column(
 // mainAxisAlignment: MainAxisAlignment.center,
 // crossAxisAlignment: CrossAxisAlignment.center,
 // children: [
-// Text(
-// 'yaaaaaayyfthgfghfhgaaay',
-// style: TextStyle(
-// color: Colors.white,
-// ),
-// ),
-// ],
-// ),
-// backgroundColor: Colors.black,
-// leading: new Container(),
-// actions: <Widget>[
-// Expanded(
-// child: IconButton(
-// icon: Icon(
-// Icons.image,
-// size: 30,
-// color: bottonClicked(exploreClicked),
-// ),
-// onPressed: () {
-// setState(() {
-// exploreClicked = 1;
-// searchClicked = 0;
-// notificationClicked = 0;
-// profileClicked = 0;
-// cameraClicked = 0;
-// });
-// }),
-// ),
-// Expanded(
-// child: IconButton(
-// icon: Icon(
-// Icons.search,
-// size: 30,
-// color: bottonClicked(searchClicked),
-// ),
-// onPressed: () {
-// setState(() {
-// exploreClicked = 0;
-// searchClicked = 1;
-// notificationClicked = 0;
-// profileClicked = 0;
-// cameraClicked = 0;
-//
-// //TODO Mariam
-// });
-// }),
-// ),
-// Expanded(
-// child: IconButton(
-// icon: Icon(
-// Icons.account_circle,
-// size: 30,
-// color: bottonClicked(profileClicked),
-// ),
-// onPressed: () {
-// setState(() {
-// exploreClicked = 0;
-// searchClicked = 0;
-// notificationClicked = 0;
-// profileClicked = 1;
-// cameraClicked = 0;
-// });
-// }),
-// ),
-// Expanded(
-// child: IconButton(
-// icon: Icon(
-// Icons.notifications,
-// size: 30,
-// color: bottonClicked(notificationClicked),
-// ),
-// onPressed: () {
-// setState(() {
-// exploreClicked = 0;
-// searchClicked = 0;
-// notificationClicked = 1;
-// profileClicked = 0;
-// cameraClicked = 0;
-// });
-// }),
-// ),
-// Expanded(
-// child: IconButton(
-// icon: Icon(
-// Icons.camera_alt,
-// size: 30,
-// color: bottonClicked(cameraClicked),
-// ),
-// onPressed: () {
-// setState(() {
-// exploreClicked = 0;
-// searchClicked = 0;
-// notificationClicked = 0;
-// profileClicked = 0;
-// cameraClicked = 1;
-//
-// //TODO Mariam
-// });
-// }),
+// CircleAvatar(
+// backgroundImage: NetworkImage(
+// 'https://wallpaperaccess.com/full/900605.jpg'),
+// radius: 35.0,
 // ),
 // ],
-// bottom: TabBar(
-// isScrollable: true,
-// tabs: [
-// Text('hiii'),
-// Text('heeeei'),
-// Text('heeeei'),
-// Text('heeeei'),
-// Text('heeeei'),
-// Text('heeesssssssei'),
-// ],
 // ),
-// floating: true,
-// expandedHeight: 200,
-// )
-// ],
-// ),
-// ),
-// ),
-// );
 
-// Expanded(
-//   child: Image(
-//     image: NetworkImage(
-//         "https://wallpaperaccess.com/full/900605.jpg"),
-//     width: double.infinity,
-//     height: 50.0,
-//   ),
+// Text(
+// 'Use Name',
+// style: TextStyle(
+// fontSize: 40.0,
+// color: Colors.yellow,
+// backgroundColor: Colors.yellow),
 // ),

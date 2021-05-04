@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flickr_android/profile/profilePages/aboutSub/about_SubScreens.dart';
 
 const KTabBarTextsStyle = TextStyle(
-  color: Colors.black,
+  // color: Colors.black,
   fontSize: 20.0,
   fontWeight: FontWeight.w600,
 );
