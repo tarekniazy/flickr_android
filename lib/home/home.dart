@@ -1,5 +1,5 @@
 import 'dart:core';
-
+import 'package:flickr_android/home/search/search.dart';
 import 'package:flickr_android/home/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 import 'explore/explore.dart';
@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
                       cameraClicked=0;
 
                       //TODO Mariam
-
+                      view = Search();
                     });
 
 

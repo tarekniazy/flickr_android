@@ -10,6 +10,7 @@ import 'package:flickr_android/enums.dart';
 import '../login/login_screen.dart';
 import 'signupStyling/signup_BasicLayout.dart';
 import 'checkemail_screen.dart';
+import '../Services/networking.dart';
 
 Widget SignUpScreen() {
   SignUpBasicLayout signupBasicLayout = SignUpBasicLayout(SignUp());
@@ -334,7 +335,7 @@ class _SignUpState extends State<SignUp> {
               height: 40.0,
               width: double.infinity,
               child: TextButton(
-                onPressed: () {
+                onPressed: () async {
                   emailChecking();
                   firstNameChecking();
                   lastNameChecking();
@@ -342,20 +343,43 @@ class _SignUpState extends State<SignUp> {
                   passwordChecking();
                   checkBoxChecker();
 
+                  Map<String, dynamic> Body = {
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": password,
+                    "age": age
+                  };
+
                   if (errorEmail == EnumError.hide &&
                       errorFirstName == EnumError.hide &&
                       errorLastName == EnumError.hide &&
                       errorAge == EnumError.hide &&
                       errorPassword == EnumError.hide &&
                       checkBoxValue == true) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return CheckEmailScreen(email);
-                        },
-                      ),
-                    );
+
+                    NetworkHelper req = new NetworkHelper(
+                        "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/signup?id=44");
+
+                    var res = await req.postData(Body);
+
+                    if (res.statusCode == 200) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) {
+                              return CheckEmailScreen(email);
+                            }
+                        ),
+                      );
+                    }
+                    else if (res.statusCode == 422) {
+                      emailErrorText = 'Email unavailable';
+
+                    }
+                    else if (res.statusCode == 500) {
+                      emailErrorText = 'Failed to create user';
+                    }
                   }
                 },
                 style: ButtonStyle(

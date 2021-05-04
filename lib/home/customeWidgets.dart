@@ -398,3 +398,137 @@ class _ImageViewState extends State<ImageView> {
     );
   }
 }
+
+class UserCard extends StatefulWidget {
+  UserCard({
+    @required this.authorId,
+    @required this.authorImage,
+    @required this.numberOfPhotos,
+    @required this.numberOfFollowers,
+  });
+
+  final String authorId; // author name
+  final String authorImage; // author profile pic
+  final numberOfPhotos;
+  final numberOfFollowers;
+
+  @override
+  _UserCardState createState() => _UserCardState();
+}
+
+class _UserCardState extends State<UserCard> {
+  bool followed = false;
+  String text='+ Follow';
+  @override
+  Widget build(BuildContext context) {
+    return ListTileTheme(
+      tileColor: Colors.grey[300],
+      child: ListTile(
+        leading: Container(
+ width: 50,
+ decoration: BoxDecoration(
+ shape: BoxShape.circle,
+ image: DecorationImage(
+ image: NetworkImage(widget.authorImage),
+ )
+    ),
+ ),
+          title: Text(widget.authorId,
+          style: TextStyle(
+            fontFamily: 'Frutiger',
+            fontSize: 17.0,
+          ),
+          ),
+          subtitle: Text(widget.numberOfPhotos + ' photos — ' + widget.numberOfFollowers + ' followers'),
+          trailing: TextButton (
+      style: ButtonStyle(
+      backgroundColor:
+      MaterialStateProperty.all(Colors.grey[300]),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          side: BorderSide(color: Colors.black, width: 2.0),
+        ),
+      ),
+    ),
+    onPressed: () {
+    setState(() {
+      if (followed == false)
+        {
+          text = '✔';
+          followed = true;
+        }
+      else
+        {
+          text = '+ Follow';
+          followed = false;
+        }
+    });
+    },
+
+    child: Text(text,
+    style: TextStyle(
+    color: Colors.black,
+    fontSize: 16.0,
+    ),
+    ),
+    ),
+
+      ),
+    );
+  }
+}
+
+
+class GroupCard extends StatefulWidget {
+  GroupCard({
+    @required this.authorId,
+    @required this.authorImage,
+    @required this.numberOfPhotos,
+    @required this.numberOfMembers,
+  });
+
+  final String authorId; // author name
+  final String authorImage; // author profile pic
+  final numberOfPhotos;
+  final numberOfMembers;
+
+  @override
+  _GroupCardState createState() => _GroupCardState();
+}
+
+class _GroupCardState extends State<GroupCard> {
+  bool followed = false;
+  String text='+ Follow';
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.fromLTRB(10.0,10.0, 10.0,10.0),
+      child: ListTile(
+        leading: Container(
+          width: 100,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                alignment: Alignment.center,
+                image: NetworkImage(widget.authorImage),
+              )
+          ),
+        ),
+        title: Text(widget.authorId,
+          style: TextStyle(
+            fontFamily: 'Frutiger',
+            fontSize: 17.0,
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget> [
+            Text(widget.numberOfMembers + ' members'),
+            Text(widget.numberOfPhotos + ' photos'),
+          ],
+        ),
+
+      ),
+    );
+  }
+}

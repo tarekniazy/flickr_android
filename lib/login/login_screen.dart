@@ -7,9 +7,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 import 'forgortPW_screen.dart';
 import 'loginStyling/login_BasicLayout.dart';
-// import '../signup/signup_screen.dart';
 import '../Services/networking.dart';
-
 import '../signup/signup_screen.dart';
 
 Widget LoggingInScreen() {
@@ -257,7 +255,7 @@ class _LoginState extends State<Login> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SignUpScreen(); //TODO//;
+                          return SignUpScreen();
                         },
                       ),
                     );

@@ -1,8 +1,8 @@
-import 'package:flickr_android/signup/signupStyling/signup_Widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import 'signupStyling/signup_BasicLayout.dart';
+import 'signupStyling/signup_Widgets.dart';
 
 
 Widget CheckEmailScreen(String mail) {
@@ -19,10 +19,21 @@ class CheckEmail extends StatefulWidget {
 }
 
 class _CheckEmailState extends State<CheckEmail> {
-
+bool emailSent=false;
 
   @override
   Widget build(BuildContext context) {
+    var _onPressed;
+
+    if (emailSent==false){
+      _onPressed = () {
+        setState(() {
+          emailSent=true;
+
+        });
+      };
+      }
+
     return Container(
       margin: EdgeInsets.all(25.0),
       child: SingleChildScrollView(
@@ -60,26 +71,41 @@ class _CheckEmailState extends State<CheckEmail> {
               height: 40.0,
               width: double.infinity,
               child: TextButton(
-                onPressed: () {
-                },
+                onPressed: _onPressed,
                 style: ButtonStyle(
                   backgroundColor:
-                  MaterialStateProperty.all(KFlickrNormalBlueColor),
+                  MaterialStateProperty.all(emailSent == true ? KFlickrNormalGreyColor : KFlickrNormalBlueColor),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                 ),
-                child: Text(
-                  'Resend email',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
+                child: Row (
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget> [
+
+                Visibility(
+                visible: (emailSent == true) ? true : false,
+                        child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget> [
+                          kCorrectIcon,
+                      ],
+                ),
+                ),
+                  SizedBox(
+                    width: 5.0,
                   ),
+                  Text(emailSent == true ? 'Email sent' : 'Resend email',
+                    style: TextStyle(
+                      color: emailSent == true ? Colors.grey[700] : Colors.white,
+                      fontSize: 16.0,
+                    ),
+                  ),
+              ],
                 ),
               ),
-
             ), // Sign up button
            ],
         ),

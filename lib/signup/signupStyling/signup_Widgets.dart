@@ -14,6 +14,7 @@ const KHyperlinkedTexts = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
+
 const KEmailHyperlinkedTexts = TextStyle(
   color: KFlickrNormalBlueColor,
   fontSize: 16.0,
@@ -81,4 +82,42 @@ Icon(
 FontAwesomeIcons.solidEnvelope,
 color: Colors.grey[700],
 size: KSizeOfIconMail,
+);
+
+Icon kCorrectIcon =
+Icon(
+//FontAwesomeIcons.flickr,
+  FontAwesomeIcons.check,
+  color: Colors.grey[700],
+  size: KSizeOfIconCorrect,
+);
+
+Icon kCorrectIconLarge =
+Icon(
+//FontAwesomeIcons.flickr,
+  FontAwesomeIcons.check,
+  color: Colors.grey[700],
+  size: KSizeOfIconCorrectLarge,
+);
+
+Icon kSearchIcon =
+Icon(
+//FontAwesomeIcons.flickr,
+  FontAwesomeIcons.search,
+  color: Colors.grey,
+  size: KSizeOfIconSearch,
+);
+
+TextStyle selectedText= TextStyle (
+shadows: [
+Shadow(
+color: Colors.black,
+offset: Offset(0, -5))
+],
+
+decorationThickness: 2,
+decoration: TextDecoration.underline,
+decorationColor: Colors.black,
+fontSize: 20,
+color: Colors.transparent,
 );
