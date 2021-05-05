@@ -498,6 +498,7 @@ class GroupCard extends StatefulWidget {
   final numberOfPhotos;
   final numberOfMembers;
 
+
   @override
   _GroupCardState createState() => _GroupCardState();
 }
@@ -505,47 +506,101 @@ class GroupCard extends StatefulWidget {
 class _GroupCardState extends State<GroupCard> {
   bool followed = false;
   String text='+ Follow';
+ // bool lessPadding=false;
+
+  // void checkPadding()  {
+  //   if (widget.lengthOfName > 30) {
+  //     setState(() {
+  //       lessPadding = true;
+  //       print (widget.lengthOfName + " ana akbar mn 30 ");
+  //     });
+  //
+  //   }
+  //   else
+  //   {
+  //     setState(() {
+  //       lessPadding = false;
+  //       print (widget.lengthOfName + " ana asghar mn 30 ");
+  //     });
+  //
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal:10.0),
-      height: 85,
-      child: ListTile(
-        leading: Container(
-          height: 100,
-          width: 50,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                alignment: Alignment.center,
-                image: NetworkImage(widget.authorImage),
-              )
+      margin: EdgeInsets.fromLTRB(12.0,11.0,12.0,6.0),
+      height: 105,
+      child : Row(
+        children: <Widget> [
+        Container(
+            height: 78,
+            width: 105,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  alignment: Alignment.center,
+                  image: NetworkImage(widget.authorImage),
+                )
+            ),
+          ),
+          SizedBox(
+            width: 1.7,
+            child: Container(
+              color: Colors.grey[300],
+            ),
+          ),
+      Align(
+        alignment: Alignment.topLeft,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(15.0, 17.0, 0, 4.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget> [
+
+              Container(
+                width: 250,
+                child: Text(widget.authorName,
+                  maxLines: 2,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Frutiger',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top:15.0),
+                child: Text(widget.numberOfMembers + ' members',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Frutiger',
+                  color: Colors.grey[700],
+                ),
+                ),
+              ),
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Text(widget.numberOfPhotos + ' photos',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Frutiger',
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                ),
+
+      ],
           ),
         ),
-
-        title: Text(widget.authorName,
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'Frutiger',
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget> [
-            Padding(
-              padding: const EdgeInsets.only(top:20.0),
-              child: Text(widget.numberOfMembers + ' members'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: Text(widget.numberOfPhotos + ' photos'),
-            ),
-          ],
-        ),
-
+      ),
+        ],
       ),
     );
   }
