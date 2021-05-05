@@ -1,5 +1,4 @@
 
-import 'package:flickr_android/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -390,18 +389,24 @@ class _ImageViewState extends State<ImageView> {
   }
 }
 
+
 class UserCard extends StatefulWidget {
   UserCard({
     @required this.authorName,
     @required this.authorImage,
     @required this.numberOfPhotos,
     @required this.numberOfFollowers,
+    @required this.comments,
+    @required this.favs
   });
 
+  final  List< dynamic>  comments;
   final String authorName; // author name
   final String authorImage; // author profile pic
   final numberOfPhotos;
   final numberOfFollowers;
+  final   List<dynamic> favs;
+
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -413,67 +418,207 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
+      // tileColor: Colors.grey[300],
       child: ListTile(
         leading: Container(
- width: 50,
- decoration: BoxDecoration(
- shape: BoxShape.circle,
- image: DecorationImage(
- image: NetworkImage(widget.authorImage),
- )
-    ),
- ),
-          title: Text(widget.authorName,
+          width: 50,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: NetworkImage(widget.authorImage),
+              )
+          ),
+        ),
+        title: Text(widget.authorName,
           style: TextStyle(
             fontSize: 16,
             fontFamily: 'Frutiger',
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
-          ),
-          subtitle: Text(widget.numberOfPhotos + ' photos — ' + widget.numberOfFollowers + ' followers'),
-          trailing: Container(
-            width: (followed == true) ? 35.0 : 80.0,
-            child: TextButton (
-
-      style: ButtonStyle(
-      backgroundColor:
-      MaterialStateProperty.all(kBackgroundColor),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-            side: BorderSide(color: Colors.black, width: 2.0),
         ),
-      ),
-    ),
-    onPressed: () {
-    setState(() {
-      if (followed == false)
-        {
-            text = '✔';
-            followed = true;
-        }
-      else
-        {
-            text = '+ Follow';
-            followed = false;
-        }
-    });
-    },
+        subtitle: Text(widget.numberOfPhotos + ' photos — ' + widget.numberOfFollowers + ' followers'),
+        trailing: Container(
+          width: (followed == true) ? 35.0 : 80.0,
+          child: TextButton (
 
-    child: Text(text,
-    style: TextStyle(
-    color: Colors.black,
-    fontSize: 16.0,
-    ),
-    ),
-    ),
+            style: ButtonStyle(
+              backgroundColor:
+              MaterialStateProperty.all(Colors.grey[300]),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.black, width: 2.0),
+                ),
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                if (followed == false)
+                {
+                  if (widget.favs!=null){
+                    widget.favs.forEach((element) {
+
+                    if (element["owner_name"]=="Garyyy")
+                    {
+                      var count= int.parse(element["number_of_followers"]);
+                      count++;
+                      element["number_of_followers"]='$count';
+                    }
+                  });
+                  }
+                  text = '✔';
+                  followed = true;
+                }
+                else
+                {
+                  text = '+ Follow';
+                  followed = false;
+                }
+
+
+              });
+
+
+            },
+
+            child: Text(text,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
           ),
+        ),
 
       ),
     );
   }
 }
 
+class UserView extends StatefulWidget {
+
+  UserView({
+    @required this.userBody,
+    //@required this.favs,
+  });
+
+
+
+  final   List<dynamic> userBody;
+  //final   List<dynamic> favs;
+
+  @override
+  _UserViewState createState() => _UserViewState();
+}
+
+class _UserViewState extends State<UserView> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          children:[ Expanded(child: new ListView.builder(
+            itemCount: widget.userBody.length,
+            itemBuilder:(BuildContext context, int index)
+            {
+              return widget.userBody[index];
+            },
+          )
+          ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+// class UserCard extends StatefulWidget {
+//   UserCard({
+//     @required this.authorName,
+//     @required this.authorImage,
+//     @required this.numberOfPhotos,
+//     @required this.numberOfFollowers,
+//   });
+//
+//   final String authorName; // author name
+//   final String authorImage; // author profile pic
+//   final numberOfPhotos;
+//   final numberOfFollowers;
+//
+//   @override
+//   _UserCardState createState() => _UserCardState();
+// }
+//
+// class _UserCardState extends State<UserCard> {
+//   bool followed = false;
+//   String text='+ Follow';
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTileTheme(
+//       child: ListTile(
+//         leading: Container(
+//  width: 50,
+//  decoration: BoxDecoration(
+//  shape: BoxShape.circle,
+//  image: DecorationImage(
+//  image: NetworkImage(widget.authorImage),
+//  )
+//     ),
+//  ),
+//           title: Text(widget.authorName,
+//           style: TextStyle(
+//             fontSize: 16,
+//             fontFamily: 'Frutiger',
+//             color: Colors.black,
+//             fontWeight: FontWeight.bold,
+//           ),
+//           ),
+//           subtitle: Text(widget.numberOfPhotos + ' photos — ' + widget.numberOfFollowers + ' followers'),
+//           trailing: Container(
+//             width: (followed == true) ? 35.0 : 80.0,
+//             child: TextButton (
+//
+//       style: ButtonStyle(
+//       backgroundColor:
+//       MaterialStateProperty.all(kBackgroundColor),
+//       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+//         RoundedRectangleBorder(
+//             side: BorderSide(color: Colors.black, width: 2.0),
+//         ),
+//       ),
+//     ),
+//     onPressed: () {
+//     setState(() {
+//       if (followed == false)
+//         {
+//             text = '✔';
+//             followed = true;
+//         }
+//       else
+//         {
+//             text = '+ Follow';
+//             followed = false;
+//         }
+//     });
+//     },
+//
+//     child: Text(text,
+//     style: TextStyle(
+//     color: Colors.black,
+//     fontSize: 16.0,
+//     ),
+//     ),
+//     ),
+//           ),
+//
+//       ),
+//     );
+//   }
+// }
+//
 
 class GroupCard extends StatefulWidget {
   GroupCard({
