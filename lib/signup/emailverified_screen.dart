@@ -5,7 +5,6 @@ import 'signupStyling/signup_BasicLayout.dart';
 import 'signupStyling/signup_Widgets.dart';
 import '../login/login_screen.dart';
 
-
 Widget emailVerifiedScreen() {
   SignUpBasicLayout signupBasicLayout = SignUpBasicLayout(EmailVerified());
   return signupBasicLayout;

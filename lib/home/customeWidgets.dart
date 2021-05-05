@@ -554,7 +554,8 @@ class _GroupCardState extends State<GroupCard> {
                 width: 250,
                 child: Text(widget.authorName,
                   maxLines: 2,
-                  softWrap: true,
+                  textAlign: TextAlign.justify,
+
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 16,

@@ -40,7 +40,7 @@ class _SearchState extends State<Search> {
   bool iconCrossVisibility=false;
   bool iconCancelVisibility=false;
   bool rowVisibility=false;
-  bool photos=false;
+  bool photos=true;
   bool people=false;
   bool groups=false;
   bool noResults = false;
@@ -255,6 +255,23 @@ class _SearchState extends State<Search> {
                ],
                ),
              ),
+             //////////////////////////////////////If no results were found show this/////////////////////////////
+             // Visibility(
+             //   visible: (noResults == true) ? true : false,
+             //   child: Container(
+             //     color: kBackgroundColor,
+             //     child: Column(
+             //       mainAxisAlignment: MainAxisAlignment.center,
+             //       crossAxisAlignment: CrossAxisAlignment.center,
+             //       children: <Widget> [
+             //         kSearchIcon,
+             //         SizedBox(height: 15.0),
+             //         Text('No results found',
+             //         ),
+             //       ],
+             //     ),
+             //   ),
+             // ),
           ],
         ),
     ),
