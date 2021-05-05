@@ -401,13 +401,13 @@ class _ImageViewState extends State<ImageView> {
 
 class UserCard extends StatefulWidget {
   UserCard({
-    @required this.authorId,
+    @required this.authorName,
     @required this.authorImage,
     @required this.numberOfPhotos,
     @required this.numberOfFollowers,
   });
 
-  final String authorId; // author name
+  final String authorName; // author name
   final String authorImage; // author profile pic
   final numberOfPhotos;
   final numberOfFollowers;
@@ -433,7 +433,7 @@ class _UserCardState extends State<UserCard> {
  )
     ),
  ),
-          title: Text(widget.authorId,
+          title: Text(widget.authorName,
           style: TextStyle(
             fontSize: 16,
             fontFamily: 'Frutiger',
@@ -442,16 +442,16 @@ class _UserCardState extends State<UserCard> {
           ),
           ),
           subtitle: Text(widget.numberOfPhotos + ' photos — ' + widget.numberOfFollowers + ' followers'),
-          trailing: TextButton (
-            
+          trailing: Container(
+            width: (followed == true) ? 35.0 : 80.0,
+            child: TextButton (
+
       style: ButtonStyle(
       backgroundColor:
       MaterialStateProperty.all(Colors.grey[300]),
-      // minimumSize: MaterialStateProperty.all<Size>(
-      //     2),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
-          side: BorderSide(color: Colors.black, width: 2.0),
+            side: BorderSide(color: Colors.black, width: 2.0),
         ),
       ),
     ),
@@ -459,13 +459,13 @@ class _UserCardState extends State<UserCard> {
     setState(() {
       if (followed == false)
         {
-          text = '✔';
-          followed = true;
+            text = '✔';
+            followed = true;
         }
       else
         {
-          text = '+ Follow';
-          followed = false;
+            text = '+ Follow';
+            followed = false;
         }
     });
     },
@@ -477,6 +477,7 @@ class _UserCardState extends State<UserCard> {
     ),
     ),
     ),
+          ),
 
       ),
     );
@@ -486,13 +487,13 @@ class _UserCardState extends State<UserCard> {
 
 class GroupCard extends StatefulWidget {
   GroupCard({
-    @required this.authorId,
+    @required this.authorName,
     @required this.authorImage,
     @required this.numberOfPhotos,
     @required this.numberOfMembers,
   });
 
-  final String authorId; // author name
+  final String authorName; // author name
   final String authorImage; // author profile pic
   final numberOfPhotos;
   final numberOfMembers;
@@ -507,11 +508,12 @@ class _GroupCardState extends State<GroupCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10.0),
-      height: 65,
+      color: Colors.white,
+      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal:10.0),
+      height: 85,
       child: ListTile(
         leading: Container(
-          height: 65,
+          height: 100,
           width: 50,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -522,7 +524,7 @@ class _GroupCardState extends State<GroupCard> {
           ),
         ),
 
-        title: Text(widget.authorId,
+        title: Text(widget.authorName,
           style: TextStyle(
             fontSize: 16,
             fontFamily: 'Frutiger',
@@ -533,12 +535,10 @@ class _GroupCardState extends State<GroupCard> {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget> [
-
             Padding(
-              padding: const EdgeInsets.only(top:8.0),
+              padding: const EdgeInsets.only(top:20.0),
               child: Text(widget.numberOfMembers + ' members'),
             ),
-            
             Padding(
               padding: const EdgeInsets.only(top: 4.0),
               child: Text(widget.numberOfPhotos + ' photos'),

@@ -26,7 +26,6 @@ class _EmailVerifiedState extends State<EmailVerified> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-
             kCorrectIconLarge,
             SizedBox(
               height: 10.0,
@@ -43,7 +42,7 @@ class _EmailVerifiedState extends State<EmailVerified> {
             ),
 
             Text(
-              'For security purposes, you\'ll need to sign in',
+              'For security purposes, you\'ll need to sign in.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: KVerificationTextSize,

@@ -11,7 +11,7 @@ const double KSizeOfIcon = 12.0;
 const double KLogInToFlickrTextSize = 20.0;
 const double KVerificationTextSize = 17.0;
 const double KSizeOfIconMail = 24.0;
-const double KSizeOfIconCorrectLarge = 21.0;
+const double KSizeOfIconCorrectLarge = 24.0;
 const double KSizeOfIconCorrect = 16.0;
 const double KSizeOfIconSearch = 20.0;
 //

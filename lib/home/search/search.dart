@@ -13,21 +13,21 @@ class _SearchState extends State<Search> {
 
   List<UserCard> userPost=[
     UserCard (
-      authorId: "SpongeBob",
+      authorName: "SpongeBob",
       authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
       numberOfPhotos: '1290',
       numberOfFollowers:'1.2K',
     ),
 
     UserCard(
-      authorId: "Baseet",
+      authorName: "Baseet",
       authorImage: "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
       numberOfPhotos: '90',
       numberOfFollowers:'3.4K',
     ),
 
     UserCard(
-      authorId: "Boo",
+      authorName: "Boo",
       authorImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
       numberOfPhotos: '120',
       numberOfFollowers:'349',
@@ -221,14 +221,14 @@ class _SearchState extends State<Search> {
             // ),
              Visibility(
                visible: (people == true) ? true : false,
-               child: UserCard(authorId: "SpongeBob",
+               child: UserCard(authorName: "SpongeBob",
                  authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
                numberOfPhotos: '456',
                numberOfFollowers: '2.4k'),
              ),
              Visibility(
                visible: (groups == true) ? true : false,
-               child: GroupCard(authorId: "SpongeBob Lovers",
+               child: GroupCard(authorName: "SpongeBob Lovers",
                    authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
                    numberOfPhotos: '456',
                    numberOfMembers: '135'),

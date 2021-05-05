@@ -1,4 +1,4 @@
-import 'package:flickr_android/signup/emailverified_screen.dart';
+import 'emailverified_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
@@ -370,7 +370,7 @@ class _SignUpState extends State<SignUp> {
                         MaterialPageRoute(
                             builder: (context) {
                               return CheckEmailScreen(email);
-                              
+                             // return emailVerifiedScreen();
                             }
                         ),
                       );
