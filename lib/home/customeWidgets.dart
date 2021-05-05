@@ -677,6 +677,16 @@ class _CommentViewState extends State<CommentView> {
                           print(_controller.text);
 
                           commentBody.add(CommentCard(authorId: "Tarek", authorImage: "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg", comment: _controller.text));
+                          widget.comments.add({
+                            "id": 0,
+                            "comment":  _controller.text,
+                            "photo_id": 0,
+                            "comment_owner_id": 0,
+                            "owner_name": "Tarek",
+                            "avater_owner_url": "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg"
+                          });
+                          // CommentView(authorId: widget.authorId,comments: ,);
+
                            _controller.clear();
                           FocusScopeNode currentFocus = FocusScope.of(context);
 
