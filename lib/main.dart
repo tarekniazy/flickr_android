@@ -14,8 +14,8 @@ void main() {
    initialRoute: '/',
     routes: {
         '/':(context)=>GetStarted(),
-        'LogIn':(context)=>LoggingInScreen(),
-        'Home':(context)=>Home(),
+        'LogIn':(context)=>LoggingInScreen()
+
 
     },
   ),
