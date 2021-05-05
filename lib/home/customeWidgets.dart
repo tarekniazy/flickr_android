@@ -435,15 +435,20 @@ class _UserCardState extends State<UserCard> {
  ),
           title: Text(widget.authorId,
           style: TextStyle(
+            fontSize: 16,
             fontFamily: 'Frutiger',
-            fontSize: 17.0,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
           ),
           subtitle: Text(widget.numberOfPhotos + ' photos — ' + widget.numberOfFollowers + ' followers'),
           trailing: TextButton (
+            
       style: ButtonStyle(
       backgroundColor:
       MaterialStateProperty.all(Colors.grey[300]),
+      // minimumSize: MaterialStateProperty.all<Size>(
+      //     2),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           side: BorderSide(color: Colors.black, width: 2.0),
@@ -501,11 +506,13 @@ class _GroupCardState extends State<GroupCard> {
   String text='+ Follow';
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.fromLTRB(10.0,10.0, 10.0,10.0),
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      height: 65,
       child: ListTile(
         leading: Container(
-          width: 100,
+          height: 65,
+          width: 50,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
@@ -514,17 +521,28 @@ class _GroupCardState extends State<GroupCard> {
               )
           ),
         ),
+
         title: Text(widget.authorId,
           style: TextStyle(
+            fontSize: 16,
             fontFamily: 'Frutiger',
-            fontSize: 17.0,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget> [
-            Text(widget.numberOfMembers + ' members'),
-            Text(widget.numberOfPhotos + ' photos'),
+
+            Padding(
+              padding: const EdgeInsets.only(top:8.0),
+              child: Text(widget.numberOfMembers + ' members'),
+            ),
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text(widget.numberOfPhotos + ' photos'),
+            ),
           ],
         ),
 

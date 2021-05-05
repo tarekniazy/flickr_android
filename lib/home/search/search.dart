@@ -35,10 +35,6 @@ class _SearchState extends State<Search> {
 
   ];
 
-
-
-
-
   TextEditingController searchController = new TextEditingController();
   bool iconCrossVisibility=false;
   bool iconCancelVisibility=false;
