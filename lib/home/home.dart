@@ -1,10 +1,21 @@
 import 'dart:core';
-import 'package:flickr_android/home/search/search.dart';
+
+import 'package:flickr_android/Services/networking.dart';
 import 'package:flickr_android/home/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 import 'explore/explore.dart';
+import 'search/search.dart';
+import 'dart:convert';
+
 
 class Home extends StatefulWidget {
+
+Home({
+  @required this.exploreImages,
+});
+
+
+final  List<dynamic> exploreImages;
 
 
   @override
@@ -12,7 +23,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Widget view = Explore();
+
+
+
+  Widget view ;
 
   var exploreClicked=1;
   var searchClicked=0;
@@ -33,11 +47,39 @@ class _HomeState extends State<Home> {
 
   }
 
+  @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+
+    view=Explore(exploreImages: widget.exploreImages,);
+
+
+  }
+
+
+
+  void getExploreData() async
+  {
+    NetworkHelper req = new NetworkHelper("https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/image/explore");
+    var res = await req.getData();
+    print(res.statusCode);
+    if (res.statusCode == 200)
+    {
+      String data = res.body;
+      List<dynamic> response = jsonDecode(data);
+      view = Explore(exploreImages: response);
+    } else
+    {
+      print(res.statusCode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
         body: view,
           backgroundColor: Color(0xFFF2F2F2),
         appBar: AppBar(
@@ -53,7 +95,24 @@ class _HomeState extends State<Home> {
                     color: bottonClicked(exploreClicked),
 
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+
+                    NetworkHelper req = new NetworkHelper("https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/image/explore");
+                    var res = await req.getData();
+                    print(res.statusCode);
+                    if (res.statusCode == 200)
+                    {
+                      String data = res.body;
+                      List<dynamic> response = jsonDecode(data);
+                      // response.forEach((element) => print(element));
+                      view = Explore(exploreImages: response);
+                    } else
+                    {
+                      print(res.statusCode);
+                    }
+
+
+
                     setState(() {
 
                        exploreClicked=1;
@@ -62,7 +121,7 @@ class _HomeState extends State<Home> {
                        profileClicked=0;
                        cameraClicked=0;
 
-                      view = Explore();
+                      // view = Explore();
 
                     });
                   }),
@@ -87,7 +146,7 @@ class _HomeState extends State<Home> {
                       cameraClicked=0;
 
                       //TODO Mariam
-                      view = Search();
+                       view = Search();
                     });
 
 

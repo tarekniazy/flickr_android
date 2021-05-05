@@ -7,7 +7,11 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 import 'forgortPW_screen.dart';
 import 'loginStyling/login_BasicLayout.dart';
+// import '../signup/signup_screen.dart';
 import '../Services/networking.dart';
+import 'dart:convert';
+import '../home/home.dart';
+
 import '../signup/signup_screen.dart';
 
 Widget LoggingInScreen() {
@@ -195,7 +199,25 @@ class _LoginState extends State<Login> {
                   var res = await req.postData(Body);
 
                   if (res.statusCode == 200) {
-                    Navigator.pushNamed(context, 'Home');
+
+                    NetworkHelper req = new NetworkHelper("https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/image/explore");
+                    var res = await req.getData();
+                    print(res.statusCode);
+                    if (res.statusCode == 200)
+                    {
+                      String data = res.body;
+                      List<dynamic> response = jsonDecode(data);
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Home(exploreImages: response,);
+                      }));
+
+                    } else
+                    {
+                      print(res.statusCode);
+                    }
+
+                    // Navigator.pushNamed(context, 'Home');
                   } else {
                     print(res.statusCode);
                   }
@@ -255,7 +277,7 @@ class _LoginState extends State<Login> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SignUpScreen();
+                          return SignUpScreen(); //TODO//;
                         },
                       ),
                     );
