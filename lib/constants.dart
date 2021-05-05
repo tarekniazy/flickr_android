@@ -19,6 +19,7 @@ const double KSizeOfIconMail = 24.0;
 const double KSizeOfIconCorrectLarge = 24.0;
 const double KSizeOfIconCorrect = 16.0;
 const double KSizeOfIconSearch = 15.0;
+const double KSizeOfIconSearchLarge = 55.0;
 //
 const KForgotPW = "Forget your Flickr password?";
 const KWarningText = "Invalid email or password";

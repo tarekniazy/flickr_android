@@ -108,6 +108,23 @@ Icon(
   size: KSizeOfIconSearch,
 );
 
+// Icon kSearchIconLarge =
+// Icon(
+// //FontAwesomeIcons.flickr,
+//   FontAwesomeIcons.search,
+//   color: kSearchIconColor,
+//   size: KSizeOfIconSearchLarge,
+// );
+
+
+Icon kSearchIconLarge = Icon(
+Icons.search,
+size: 70,
+color: Colors.grey[400],
+);
+
+
+
 TextStyle selectedText= TextStyle (
 shadows: [
 Shadow(

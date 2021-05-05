@@ -413,7 +413,6 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
-      tileColor: kBackgroundColor,
       child: ListTile(
         leading: Container(
  width: 50,
@@ -497,25 +496,6 @@ class GroupCard extends StatefulWidget {
 class _GroupCardState extends State<GroupCard> {
   bool followed = false;
   String text='+ Follow';
- // bool lessPadding=false;
-
-  // void checkPadding()  {
-  //   if (widget.lengthOfName > 30) {
-  //     setState(() {
-  //       lessPadding = true;
-  //       print (widget.lengthOfName + " ana akbar mn 30 ");
-  //     });
-  //
-  //   }
-  //   else
-  //   {
-  //     setState(() {
-  //       lessPadding = false;
-  //       print (widget.lengthOfName + " ana asghar mn 30 ");
-  //     });
-  //
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -537,7 +517,7 @@ class _GroupCardState extends State<GroupCard> {
             ),
           ),
           SizedBox(
-            width: 1.7,
+            width: 2,
             child: Container(
               color: Colors.grey[300],
             ),

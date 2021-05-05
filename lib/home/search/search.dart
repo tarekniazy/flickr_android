@@ -5,6 +5,7 @@ import '../../signup/signupStyling/signup_Widgets.dart';
 import '../../home/customeWidgets.dart';
 import '../customeWidgets.dart';
 import '../../constants.dart';
+
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
@@ -165,6 +166,7 @@ class _SearchState extends State<Search> {
                         photos=true;
                         people=false;
                         groups=false;
+                        noResults=true;
                       });
                       },
                       child: Text(
@@ -185,6 +187,7 @@ class _SearchState extends State<Search> {
                             photos=false;
                             people=true;
                             groups=false;
+                            noResults=false;
                           });
                         },
                         child: Text(
@@ -204,6 +207,7 @@ class _SearchState extends State<Search> {
                             photos=false;
                             people=false;
                             groups=true;
+                            noResults=false;
                           });
                         },
                         child: Text(
@@ -219,6 +223,7 @@ class _SearchState extends State<Search> {
                 ),
               ),
             ),
+
             // Visibility(
             //   visible: (photos == true) ? true : false,
             // ),
@@ -229,6 +234,7 @@ class _SearchState extends State<Search> {
                numberOfPhotos: '456',
                numberOfFollowers: '2.4k'),
              ),
+
              Visibility(
                visible: (groups == true) ? true : false,
                child: Column(
@@ -236,42 +242,74 @@ class _SearchState extends State<Search> {
                       authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
                      numberOfPhotos: '456',
                      numberOfMembers: '135'),
-                   GroupCard(authorName: "SpongeBob Haterss",
+                   GroupCard(authorName: "SpongeBob Haters",
                        authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-                       numberOfPhotos: '456',
-                       numberOfMembers: '135'),
-                   GroupCard(authorName: "SpongeBob betngan",
+                       numberOfPhotos: '67',
+                       numberOfMembers: '56'),
+                   GroupCard(authorName: "SpongeBob Kids",
                        authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-                       numberOfPhotos: '456',
-                       numberOfMembers: '135'),
-                   GroupCard(authorName: "SpongeBob zeft",
+                       numberOfPhotos: '245',
+                       numberOfMembers: '1.4K'),
+                   GroupCard(authorName: "SpongeBob is the best",
                        authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-                       numberOfPhotos: '456',
-                       numberOfMembers: '135'),
-                   GroupCard(authorName: "SpongeBob nila",
+                       numberOfPhotos: '450',
+                       numberOfMembers: '120'),
+                   GroupCard(authorName: "SpongeBob fav cartoon",
                        authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-                       numberOfPhotos: '456',
-                       numberOfMembers: '135'),
+                       numberOfPhotos: '350',
+                       numberOfMembers: '360'),
                ],
                ),
              ),
+
              //////////////////////////////////////If no results were found show this/////////////////////////////
-             // Visibility(
-             //   visible: (noResults == true) ? true : false,
-             //   child: Container(
-             //     color: kBackgroundColor,
-             //     child: Column(
-             //       mainAxisAlignment: MainAxisAlignment.center,
-             //       crossAxisAlignment: CrossAxisAlignment.center,
-             //       children: <Widget> [
-             //         kSearchIcon,
-             //         SizedBox(height: 15.0),
-             //         Text('No results found',
-             //         ),
-             //       ],
-             //     ),
-             //   ),
-             // ),
+             Visibility(
+               visible: (noResults == true) ? true : false,
+                 child: Container(
+                   color: kBackgroundColor,
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     children: <Widget> [
+                       SizedBox(
+                         height: 170.0,
+                       ),
+                       kSearchIconLarge,
+
+                       SizedBox(
+                         height: 10.0,
+                       ),
+
+                       Padding(
+                         padding: const EdgeInsets.all(15.0),
+                         child: Text(
+                           "No results found",
+                           style: TextStyle(
+                             fontSize: 20,
+                             fontFamily: 'Frutiger',
+                             color: Colors.grey[600],
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                       ),
+
+                       Padding(
+                         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 25.0),
+                         child: Text(
+                           'Wow. We\'ve searched high and low, but can\'t seem to find what you\'re looking for right now.',
+                           textAlign: TextAlign.center,
+                           style: TextStyle(
+                             fontSize: 18,
+                             fontFamily: 'Frutiger',
+                             color: Colors.grey[500],
+                           ),
+                         ),
+                       ),
+
+                     ],
+                   ),
+                 ),
+             ),
           ],
         ),
     ),
