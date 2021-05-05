@@ -11,7 +11,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
 
-  List<UserCard> post=[
+  List<UserCard> userPost=[
     UserCard (
       authorId: "SpongeBob",
       authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
@@ -234,9 +234,8 @@ class _SearchState extends State<Search> {
                visible: (groups == true) ? true : false,
                child: GroupCard(authorId: "SpongeBob Lovers",
                    authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-                   numberOfPhotos: '306',
-                   numberOfMembers: '6'
-               ),
+                   numberOfPhotos: '456',
+                   numberOfMembers: '135'),
              ),
           ],
         ),
