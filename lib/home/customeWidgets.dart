@@ -515,108 +515,15 @@ class _CommentViewState extends State<CommentView> {
   Widget commentOrFavs()
   {
     if (commentViewed==1)
-      {
-        return    Expanded(
-          child: Container(
-            child: Column(children: [
-              Expanded(child: new ListView.builder(
-                itemCount: commentBody.length,
-                itemBuilder:(BuildContext context, int index)
-                {
-                  return commentBody[index];
-                },
-              )
-              ),
-
-              Align(
-                alignment:Alignment.bottomCenter,
-                child: Container(
-                  color: Color(0xFFE6E6E6),
-                  child: ListTile(
-                    title: TextField(
-
-                      controller: _controller,
-
-                      // onChanged: (str) async{
-                      //
-                      // },
-
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Write a comment...",
-                        helperStyle: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Frutiger',
-                          color: Color(0xFF606060),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    trailing: TextButton(
-                      onPressed: (){
-                        setState(() {
-
-                          print(_controller.text);
-
-                          commentBody.add(CommentCard(authorId: "Tarek", authorImage: "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg", comment: _controller.text));
-                          widget.comments.add({
-                            "id": 0,
-                            "comment":  _controller.text,
-                            "photo_id": 0,
-                            "comment_owner_id": 0,
-                            "owner_name": "Tarek",
-                            "avater_owner_url": "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg"
-                          });
-                          _controller.clear();
-                          FocusScopeNode currentFocus = FocusScope.of(context);
-
-                          if (!currentFocus.hasPrimaryFocus) {
-                            currentFocus.unfocus();
-                          }
-                        });
-                      },
-
-                      style: ButtonStyle(
-
-                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                                (states) => Colors.transparent),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black, width: 3),
-                          ),
-                        ), //MaterialProperty
-                      ),
-
-                      child: Text(
-                        "Post",
-                        style:TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Frutiger',
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                    ),
-                  ),
-                ),
-              ),
-
-            ],),
-          ),
-        )    ;
-      }
+    {
+       return CommentSection(comments: widget.comments, commentBody: commentBody,authorName: widget.authorId,favs: widget.faves,);
+    }
     else if (commentViewed==0)
-      {
-       return Expanded(child: new ListView.builder(
-          itemCount: userBody.length,
-          itemBuilder:(BuildContext context, int index)
-          {
-            return userBody[index];
-          },
-        )
-        );
-      }
+    {
+       return UserView(userBody: userBody,favs: widget.faves);
+
+    }
+
   }
 
   void loadComments()
@@ -693,9 +600,7 @@ class _CommentViewState extends State<CommentView> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          // bottomNavigationBar: BottomNavigationBar(
-          //   backgroundColor: Colors.grey,
-          // ),
+
           backgroundColor: Color(0xFFF2F2F2),
           appBar: AppBar(
             title: Text(
@@ -750,8 +655,8 @@ class _CommentViewState extends State<CommentView> {
               ),
 
            commentOrFavs(),
-    //    CommentSection(comments: widget.comments, commentBody: commentBody,authorName: widget.authorId,favs: widget.faves,),
-    //          UserView(userBody: userBody,favs: widget.faves),
+       // CommentSection(comments: widget.comments, commentBody: commentBody,authorName: widget.authorId,favs: widget.faves,),
+       //       UserView(userBody: userBody,favs: widget.faves),
 
 
             ],
@@ -885,7 +790,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
-      tileColor: Colors.grey[300],
+      // tileColor: Colors.grey[300],
       child: ListTile(
         leading: Container(
           width: 50,
@@ -935,15 +840,7 @@ class _UserCardState extends State<UserCard> {
 
 
                     }
-
-
-
-                  });
-
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => CommentView(authorId: widget.authorName,comments: widget.comments,faves: widget.favs,)));
+                    });
 
                   text = '✔';
                   followed = true;
@@ -996,13 +893,20 @@ class _UserViewState extends State<UserView> {
   
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: new ListView.builder(
-      itemCount: widget.userBody.length,
-      itemBuilder:(BuildContext context, int index)
-      {
-        return widget.userBody[index];
-      },
-    )
+    return Expanded(
+      child: Container(
+        child: Column(
+          children:[ Expanded(child: new ListView.builder(
+            itemCount: widget.userBody.length,
+            itemBuilder:(BuildContext context, int index)
+            {
+              return widget.userBody[index];
+            },
+          )
+          ),
+        ],
+        ),
+      ),
     );
   }
 }
