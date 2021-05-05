@@ -1,9 +1,10 @@
 import 'dart:core';
-
 import 'package:flickr_android/Services/networking.dart';
+import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/home/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 import 'explore/explore.dart';
+import 'package:flickr_android/profile/profile_screen.dart';
 import 'search/search.dart';
 import 'dart:convert';
 
@@ -23,28 +24,20 @@ final  List<dynamic> exploreImages;
 }
 
 class _HomeState extends State<Home> {
-
-
-
   Widget view ;
 
-  var exploreClicked=1;
-  var searchClicked=0;
-  var notificationClicked=0;
-  var profileClicked=0;
-  var cameraClicked=0;
+  var exploreClicked = 1;
+  var searchClicked = 0;
+  var notificationClicked = 0;
+  var profileClicked = 0;
+  var cameraClicked = 0;
 
-  Color bottonClicked(var button)
-  {
-    if (button==1)
-      {
-        return Colors.white;
-      }
-    else
-      {
-        return Colors.white38;
-      }
-
+  Color bottonClicked(var button) {
+    if (button == 1) {
+      return Colors.white;
+    } else {
+      return Colors.white38;
+    }
   }
 
   @override
@@ -79,7 +72,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
         body: view,
           backgroundColor: Color(0xFFF2F2F2),
         appBar: AppBar(
@@ -114,12 +106,11 @@ class _HomeState extends State<Home> {
 
 
                     setState(() {
-
-                       exploreClicked=1;
-                       searchClicked=0;
-                       notificationClicked=0;
-                       profileClicked=0;
-                       cameraClicked=0;
+                      exploreClicked = 1;
+                      searchClicked = 0;
+                      notificationClicked = 0;
+                      profileClicked = 0;
+                      cameraClicked = 0;
 
                       // view = Explore();
 
@@ -138,12 +129,11 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () {
                     setState(() {
-
-                      exploreClicked=0;
-                      searchClicked=1;
-                      notificationClicked=0;
-                      profileClicked=0;
-                      cameraClicked=0;
+                      exploreClicked = 0;
+                      searchClicked = 1;
+                      notificationClicked = 0;
+                      profileClicked = 0;
+                      cameraClicked = 0;
 
                       //TODO Mariam
                        view = Search();
@@ -167,18 +157,14 @@ class _HomeState extends State<Home> {
                   onPressed: () {
 
                     setState(() {
-
-                      exploreClicked=0;
-                      searchClicked=0;
-                      notificationClicked=0;
-                      profileClicked=1;
-                      cameraClicked=0;
-
-                      //TODO Arwa
-
+                      exploreClicked = 0;
+                      searchClicked = 0;
+                      notificationClicked = 0;
+                      profileClicked = 1;
+                      cameraClicked = 0;
                     });
-
-
+                    //Navigator.pushReplacementNamed(context, 'Profile');
+                    view = Profile();
                   }),
             ),
             //    SizedBox(width: 40,),
@@ -192,11 +178,11 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () {
                     setState(() {
-                      exploreClicked=0;
-                      searchClicked=0;
-                      notificationClicked=1;
-                      profileClicked=0;
-                      cameraClicked=0;
+                      exploreClicked = 0;
+                      searchClicked = 0;
+                      notificationClicked = 1;
+                      profileClicked = 0;
+                      cameraClicked = 0;
                       view = Notifications();
                     });
                   }),
@@ -214,12 +200,11 @@ class _HomeState extends State<Home> {
                   onPressed: () {
 
                     setState(() {
-
-                      exploreClicked=0;
-                      searchClicked=0;
-                      notificationClicked=0;
-                      profileClicked=0;
-                      cameraClicked=1;
+                      exploreClicked = 0;
+                      searchClicked = 0;
+                      notificationClicked = 0;
+                      profileClicked = 0;
+                      cameraClicked = 1;
 
                       //TODO Mariam
 

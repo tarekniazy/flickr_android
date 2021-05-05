@@ -6,6 +6,9 @@ import 'loginStyling/login_Widgets.dart';
 import 'package:flickr_android/enums.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Services/networking.dart';
+import 'loginServices/emailServices.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Widget ForgotPassWordScreen(String mail) {
   String passedEmail = mail;
@@ -18,13 +21,23 @@ class ForgotPassWord extends StatefulWidget {
   ForgotPassWord(this.passedEmail);
   final passedEmail;
   @override
-  _ForgotPassWordState createState() => _ForgotPassWordState();
+  _ForgotPassWordState createState() => _ForgotPassWordState(passedEmail);
 }
 
 class _ForgotPassWordState extends State<ForgotPassWord> {
+  _ForgotPassWordState(this.email);
   EnumError errorEmail = EnumError.hide;
   String email;
   bool visibilty = false;
+
+  String getPassword(dynamic json) {
+    String temp;
+    setState(() {
+      temp = (json["password"]).toString();
+    });
+    return temp;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,27 +95,23 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
               width: double.infinity,
               child: TextButton(
                 onPressed: () async {
-
-
                   Map<String, dynamic> Body = {
                     "email": email,
                   };
-
                   //TODO change next phases
-
                   NetworkHelper req = new NetworkHelper(
-                      "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/forget?id=56");
+                      //correct ID is 56
+                      "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/forget?id=100");
 
                   var res = await req.postData(Body);
-
                   if (res.statusCode == 200) {
-                    Navigator.pushNamed(context, 'Home');
+                    String data = res.body;
+                    var jsonResults = await jsonDecode(data);
+                    String tempPassword = getPassword(jsonResults);
+                    sendEmail(email: email, passWord: tempPassword);
                   } else {
                     print(res.statusCode);
                   }
-
-
-
                   //TODO arwa- send mail for recovery (probably an equivalent not actual mail)
                 },
                 style: ButtonStyle(
