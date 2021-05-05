@@ -520,7 +520,7 @@ class _CommentViewState extends State<CommentView> {
     }
     else if (commentViewed==0)
     {
-       return UserView(userBody: userBody,favs: widget.faves);
+       return UserView(userBody: userBody,);
 
     }
 
@@ -549,7 +549,7 @@ class _CommentViewState extends State<CommentView> {
     widget.faves.forEach((element) {
 
       {
-        userBody.add(UserCard(authorName: element["owner_name"], authorImage: element["avater_owner_url"], numberOfPhotos: element["number_of_photos"], numberOfFollowers: element["number_of_followers"],favs: widget.faves,comments: widget.comments,));
+        userBody.add(UserCard(authorName: element["owner_name"], authorImage: element["avater_owner_url"], numberOfPhotos: element["number_of_photos"], numberOfFollowers: element["number_of_followers"],favs: widget.faves));
       }
 
     });
@@ -768,11 +768,9 @@ class UserCard extends StatefulWidget {
     @required this.authorImage,
     @required this.numberOfPhotos,
     @required this.numberOfFollowers,
-    @required this.comments,
     @required this.favs
   });
 
-  final  List< dynamic>  comments;
   final String authorName; // author name
   final String authorImage; // author profile pic
   final numberOfPhotos;
@@ -834,17 +832,12 @@ class _UserCardState extends State<UserCard> {
                       var count= int.parse(element["number_of_followers"]);
                       count++;
                       element["number_of_followers"]='$count';
-
-
-
-
-
                     }
                     });
 
                   text = '✔';
                   followed = true;
-                  // print(widget.comments);
+
 
                 }
                 else
@@ -877,13 +870,11 @@ class UserView extends StatefulWidget {
 
   UserView({
     @required this.userBody,
-    @required this.favs,
   });
 
 
 
-  final   List<UserCard> userBody;
-  final   List<dynamic> favs;
+  final   List<dynamic> userBody;
 
   @override
   _UserViewState createState() => _UserViewState();

@@ -79,8 +79,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
         body: view,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF2F2F2),
         appBar: AppBar(
           backgroundColor: Colors.black,
           leading: Container(),
