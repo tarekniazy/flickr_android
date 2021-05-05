@@ -47,6 +47,7 @@ bool emailSent=false;
         Text(
           'Check your inbox',
           style: TextStyle(
+            fontFamily: 'Frutiger',
             fontSize: KLogInToFlickrTextSize,
           ),
         ),
@@ -68,7 +69,7 @@ bool emailSent=false;
             ),
 
             Container(
-              height: 40.0,
+              height: 45.0,
               width: double.infinity,
               child: TextButton(
                 onPressed: _onPressed,
@@ -97,9 +98,9 @@ bool emailSent=false;
                   SizedBox(
                     width: 5.0,
                   ),
-                  Text(emailSent == true ? 'Email sent' : 'Resend email',
+                  Text(emailSent == true ? 'Email sent.' : 'Resend email',
                     style: TextStyle(
-                      color: emailSent == true ? Colors.grey[700] : Colors.white,
+                      color: emailSent == true ? kEmailGreyColor : Colors.white,
                       fontSize: 16.0,
                     ),
                   ),

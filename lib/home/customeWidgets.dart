@@ -1,4 +1,5 @@
 
+import 'package:flickr_android/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -380,16 +381,6 @@ class _ImageViewState extends State<ImageView> {
                     ]),
                   ),
                 ),
-                // child:Row(
-                //         children:<Widget> [
-
-                //
-
-                //
-
-                //
-                //         ],
-                //       ),
               ),
             ),
           ],
@@ -422,7 +413,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
-      tileColor: Colors.grey[300],
+      tileColor: kBackgroundColor,
       child: ListTile(
         leading: Container(
  width: 50,
@@ -448,7 +439,7 @@ class _UserCardState extends State<UserCard> {
 
       style: ButtonStyle(
       backgroundColor:
-      MaterialStateProperty.all(Colors.grey[300]),
+      MaterialStateProperty.all(kBackgroundColor),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
             side: BorderSide(color: Colors.black, width: 2.0),

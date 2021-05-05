@@ -80,7 +80,7 @@ Icon KEmailIcon =
 Icon(
 //FontAwesomeIcons.flickr,
 FontAwesomeIcons.solidEnvelope,
-color: Colors.grey[700],
+color: kIconColor,
 size: KSizeOfIconMail,
 );
 
@@ -88,7 +88,7 @@ Icon kCorrectIcon =
 Icon(
 //FontAwesomeIcons.flickr,
   FontAwesomeIcons.check,
-  color: Colors.grey[700],
+  color: kEmailGreyColor,
   size: KSizeOfIconCorrect,
 );
 
@@ -96,7 +96,7 @@ Icon kCorrectIconLarge =
 Icon(
 //FontAwesomeIcons.flickr,
   FontAwesomeIcons.check,
-  color: Colors.grey[700],
+  color: kIconColor,
   size: KSizeOfIconCorrectLarge,
 );
 
@@ -104,7 +104,7 @@ Icon kSearchIcon =
 Icon(
 //FontAwesomeIcons.flickr,
   FontAwesomeIcons.search,
-  color: Colors.grey,
+  color: kSearchIconColor,
   size: KSizeOfIconSearch,
 );
 

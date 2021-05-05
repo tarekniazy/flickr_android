@@ -54,7 +54,7 @@ class _EmailVerifiedState extends State<EmailVerified> {
             ),
 
             Container(
-              height: 40.0,
+              height: 45.0,
               width: double.infinity,
               child: TextButton(
                 onPressed: (){

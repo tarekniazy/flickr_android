@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import '../../signup/signupStyling/signup_Widgets.dart';
 import '../../home/customeWidgets.dart';
 import '../customeWidgets.dart';
+import '../../constants.dart';
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
@@ -42,11 +43,12 @@ class _SearchState extends State<Search> {
   bool photos=false;
   bool people=false;
   bool groups=false;
+  bool noResults = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[300],
+      color: kBackgroundColor,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,7 +56,7 @@ class _SearchState extends State<Search> {
             Align(
               alignment: Alignment.topLeft,
               child: ListTileTheme(
-                tileColor: Colors.grey[800],
+                tileColor: kSearchTextFieldColor,
                 child: ListTile(
                   leading: kSearchIcon,
                   horizontalTitleGap: -4,
@@ -70,7 +72,7 @@ class _SearchState extends State<Search> {
                         fontFamily: 'Frutiger',
                         fontWeight: FontWeight.bold,
                         fontSize: 17.0,
-                        color: Colors.grey[600],
+                        color: kSearchIconColor,
                       ),
                       border: InputBorder.none,
                     ),
@@ -116,7 +118,7 @@ class _SearchState extends State<Search> {
                         child: TextButton (
                           style: ButtonStyle(
                             backgroundColor:
-                            MaterialStateProperty.all(Colors.grey[800]),
+                            MaterialStateProperty.all(kSearchTextFieldColor),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.white, width: 2.0),
