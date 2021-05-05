@@ -163,24 +163,6 @@ class _ImageCardState extends State<ImageCard> {
                   });
 
 
-
-
-                  // if (like==1)
-                  // {
-                  //   NetworkHelper req = new NetworkHelper(
-                  //       "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/deleteLike?photo_id=0");
-                  //
-                  //   var res = await req.postData(Body);
-                  //
-                  //   if (res.statusCode == 200) {
-                  //     String data=res.body;
-                  //     var response= jsonDecode(data);
-                  //     print(response["message"]);
-                  //   } else {
-                  //     print(res.statusCode);
-                  //   };
-                  // }
-
                 },
                 child: IconButton(
                   icon: likePressed(),
@@ -195,7 +177,7 @@ class _ImageCardState extends State<ImageCard> {
                 onPressed: () {
                   setState(() {
                     Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return CommentView(authorId: widget.authorId, faves: widget.faves, comments: widget.comments);}));
+                      return CommentView(authorId: widget.authorId,faves: widget.faves, comments: widget.comments);}));
                   });
                 },
               ),
@@ -459,8 +441,8 @@ class _ImageViewState extends State<ImageView> {
                                   GestureDetector(
                                     onTap: (){
                                       setState(() {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                                          return CommentView(authorId: widget.authorId,faves:widget.faves, comments: widget.comments);}));
+                                //        Navigator.push(context, MaterialPageRoute(builder: (context){
+                                //          return CommentView(authorId: widget.authorId,faves:widget.faves, comments: widget.comments);}));
                                       });
                                     },
                                     child: Text(
@@ -489,6 +471,12 @@ class _ImageViewState extends State<ImageView> {
   }
 }
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class CommentView extends StatefulWidget {
 
 
@@ -496,11 +484,13 @@ class CommentView extends StatefulWidget {
     @required this.authorId,
     @required this.comments,
     @required this.faves,
+    // @required this.commentClicked
   });
 
   final  String authorId; // author name
   final  List< dynamic>  comments;
   final  List< dynamic>  faves;
+  // var commentClicked;
 
 
   @override
@@ -514,11 +504,120 @@ class _CommentViewState extends State<CommentView> {
 
   List<CommentCard> commentBody=[];
 
-  String str;
+  List<UserCard> userBody=[];
+
    TextEditingController _controller=new TextEditingController();
 
   var commentViewed=1;
   var favedViewed=0;
+
+
+  Widget commentOrFavs()
+  {
+    if (commentViewed==1)
+      {
+        return    Expanded(
+          child: Container(
+            child: Column(children: [
+              Expanded(child: new ListView.builder(
+                itemCount: commentBody.length,
+                itemBuilder:(BuildContext context, int index)
+                {
+                  return commentBody[index];
+                },
+              )
+              ),
+
+              Align(
+                alignment:Alignment.bottomCenter,
+                child: Container(
+                  color: Color(0xFFE6E6E6),
+                  child: ListTile(
+                    title: TextField(
+
+                      controller: _controller,
+
+                      // onChanged: (str) async{
+                      //
+                      // },
+
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Write a comment...",
+                        helperStyle: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Frutiger',
+                          color: Color(0xFF606060),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    trailing: TextButton(
+                      onPressed: (){
+                        setState(() {
+
+                          print(_controller.text);
+
+                          commentBody.add(CommentCard(authorId: "Tarek", authorImage: "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg", comment: _controller.text));
+                          widget.comments.add({
+                            "id": 0,
+                            "comment":  _controller.text,
+                            "photo_id": 0,
+                            "comment_owner_id": 0,
+                            "owner_name": "Tarek",
+                            "avater_owner_url": "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg"
+                          });
+                          _controller.clear();
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                        });
+                      },
+
+                      style: ButtonStyle(
+
+                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                (states) => Colors.transparent),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black, width: 3),
+                          ),
+                        ), //MaterialProperty
+                      ),
+
+                      child: Text(
+                        "Post",
+                        style:TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Frutiger',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                    ),
+                  ),
+                ),
+              ),
+
+            ],),
+          ),
+        )    ;
+      }
+    else if (commentViewed==0)
+      {
+       return Expanded(child: new ListView.builder(
+          itemCount: userBody.length,
+          itemBuilder:(BuildContext context, int index)
+          {
+            return userBody[index];
+          },
+        )
+        );
+      }
+  }
 
   void loadComments()
   {
@@ -535,6 +634,21 @@ class _CommentViewState extends State<CommentView> {
     });
 
   }
+
+  void loadFavs()
+  {
+
+
+    widget.faves.forEach((element) {
+
+      {
+        userBody.add(UserCard(authorName: element["owner_name"], authorImage: element["avater_owner_url"], numberOfPhotos: element["number_of_photos"], numberOfFollowers: element["number_of_followers"],favs: widget.faves,comments: widget.comments,));
+      }
+
+    });
+
+  }
+  
   TextStyle viewed (var check)
   {
     if (check==1)
@@ -572,6 +686,7 @@ class _CommentViewState extends State<CommentView> {
     // TODO: implement initState
     super.initState();
     loadComments();
+    loadFavs();
   }
 
   @override
@@ -607,12 +722,12 @@ class _CommentViewState extends State<CommentView> {
                    GestureDetector(
                       onTap: (){
                         setState(() {
-                          commentViewed=0;
                           favedViewed=1;
+                          commentViewed=0;
                         });
                       },
                       child: Text(
-                        '${widget.faves.length}'+' faves',
+                        '${userBody.length}'+' faves',
                         style:viewed(favedViewed),
                       ),
                     ),
@@ -620,12 +735,12 @@ class _CommentViewState extends State<CommentView> {
                  GestureDetector(
                       onTap: (){
                         setState(() {
-                          commentViewed=1;
                           favedViewed=0;
+                          commentViewed=1;
                         });
                       },
                       child: Text(
-                          '${widget.comments.length}'+' comments',
+                          '${commentBody.length}'+' comments',
                           style:viewed(commentViewed)
                       ),
                     ),
@@ -634,93 +749,10 @@ class _CommentViewState extends State<CommentView> {
                 ),
               ),
 
-          Expanded(child: new ListView.builder(
-            itemCount: commentBody.length,
-            itemBuilder:(BuildContext context, int index)
-            {
-              return commentBody[index];
-            },
-          )
-          ),
+           commentOrFavs(),
+    //    CommentSection(comments: widget.comments, commentBody: commentBody,authorName: widget.authorId,favs: widget.faves,),
+    //          UserView(userBody: userBody,favs: widget.faves),
 
-              Align(
-                alignment:Alignment.bottomCenter,
-                child: Container(
-                  color: Color(0xFFE6E6E6),
-                  child: ListTile(
-                    title: TextField(
-
-                      controller: _controller,
-
-                      // onChanged: (str) async{
-                      //
-                      // },
-
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Write a comment...",
-                        helperStyle: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Frutiger',
-                          color: Color(0xFF606060),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    trailing: TextButton(
-
-
-
-                      onPressed: (){
-                        setState(() {
-
-                          print(_controller.text);
-
-                          commentBody.add(CommentCard(authorId: "Tarek", authorImage: "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg", comment: _controller.text));
-                          widget.comments.add({
-                            "id": 0,
-                            "comment":  _controller.text,
-                            "photo_id": 0,
-                            "comment_owner_id": 0,
-                            "owner_name": "Tarek",
-                            "avater_owner_url": "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg"
-                          });
-                          // CommentView(authorId: widget.authorId,comments: ,);
-
-                           _controller.clear();
-                          FocusScopeNode currentFocus = FocusScope.of(context);
-
-                          if (!currentFocus.hasPrimaryFocus) {
-                            currentFocus.unfocus();
-                          }
-                        });
-                      },
-
-                      style: ButtonStyle(
-
-                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                                (states) => Colors.transparent),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black, width: 3),
-                          ),
-                        ), //MaterialProperty
-                      ),
-
-                      child: Text(
-                        "Post",
-                        style:TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Frutiger',
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                    ),
-                  ),
-                ),
-              ),
 
             ],
           ),
@@ -751,6 +783,13 @@ class CommentCard extends StatefulWidget {
 }
 
 class _CommentCardState extends State<CommentCard> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -818,31 +857,287 @@ class _CommentCardState extends State<CommentCard> {
 
 
 
-// class CommentSection extends StatefulWidget {
-//
-//   CommentSection({
-//     @required this.commentBody
-// });
-//
-//   final   List<CommentCard> commentBody;
-//
-//
-// @override
-//   _CommentSectionState createState() => _CommentSectionState();
-// }
-//
-// class _CommentSectionState extends State<CommentSection> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Expanded(child: new ListView.builder(
-//       itemCount: widget.commentBody.length,
-//       itemBuilder:(BuildContext context, int index)
-//       {
-//         return widget.commentBody[index];
-//       },
-//     )
-//     );
-//   }
-// }
+class UserCard extends StatefulWidget {
+  UserCard({
+    @required this.authorName,
+    @required this.authorImage,
+    @required this.numberOfPhotos,
+    @required this.numberOfFollowers,
+    @required this.comments,
+    @required this.favs
+  });
+
+  final  List< dynamic>  comments;
+  final String authorName; // author name
+  final String authorImage; // author profile pic
+  final numberOfPhotos;
+  final numberOfFollowers;
+  final   List<dynamic> favs;
+
+
+  @override
+  _UserCardState createState() => _UserCardState();
+}
+
+class _UserCardState extends State<UserCard> {
+  bool followed = false;
+  String text='+ Follow';
+  @override
+  Widget build(BuildContext context) {
+    return ListTileTheme(
+      tileColor: Colors.grey[300],
+      child: ListTile(
+        leading: Container(
+          width: 50,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: NetworkImage(widget.authorImage),
+              )
+          ),
+        ),
+        title: Text(widget.authorName,
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Frutiger',
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text(widget.numberOfPhotos + ' photos — ' + widget.numberOfFollowers + ' followers'),
+        trailing: Container(
+          width: (followed == true) ? 35.0 : 80.0,
+          child: TextButton (
+
+            style: ButtonStyle(
+              backgroundColor:
+              MaterialStateProperty.all(Colors.grey[300]),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.black, width: 2.0),
+                ),
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                if (followed == false)
+                {
+                  widget.favs.forEach((element) {
+
+                    if (element["owner_name"]=="Garyyy")
+                    {
+                      var count= int.parse(element["number_of_followers"]);
+                      count++;
+                      element["number_of_followers"]='$count';
+
+
+
+
+
+                    }
+
+
+
+                  });
+
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => CommentView(authorId: widget.authorName,comments: widget.comments,faves: widget.favs,)));
+
+                  text = '✔';
+                  followed = true;
+                  // print(widget.comments);
+
+                }
+                else
+                {
+                  text = '+ Follow';
+                  followed = false;
+                }
+
+
+               });
+
+
+            },
+
+            child: Text(text,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+          ),
+        ),
+
+      ),
+    );
+  }
+}
+
+class UserView extends StatefulWidget {
+
+  UserView({
+    @required this.userBody,
+    @required this.favs,
+  });
+
+
+
+  final   List<UserCard> userBody;
+  final   List<dynamic> favs;
+
+  @override
+  _UserViewState createState() => _UserViewState();
+}
+
+class _UserViewState extends State<UserView> {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(child: new ListView.builder(
+      itemCount: widget.userBody.length,
+      itemBuilder:(BuildContext context, int index)
+      {
+        return widget.userBody[index];
+      },
+    )
+    );
+  }
+}
+
+
+class CommentSection extends StatefulWidget {
+
+  CommentSection({
+    @required this.comments,
+    @required this.commentBody,
+    @required this.authorName,
+    @required this.favs,
+  });
+
+
+  final  List< dynamic>  comments;
+  final  List<CommentCard>  commentBody;
+  final  List< dynamic>  favs;
+  final String authorName;
+
+
+
+  @override
+  _CommentSectionState createState() => _CommentSectionState();
+}
+
+class _CommentSectionState extends State<CommentSection> {
+
+  TextEditingController _controller=new TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return     Expanded(
+      child: Container(
+        child: Column(children: [
+          Expanded(child: new ListView.builder(
+            itemCount: widget.commentBody.length,
+            itemBuilder:(BuildContext context, int index)
+            {
+              return widget.commentBody[index];
+            },
+          )
+          ),
+
+          Align(
+            alignment:Alignment.bottomCenter,
+            child: Container(
+              color: Color(0xFFE6E6E6),
+              child: ListTile(
+                title: TextField(
+
+                  controller: _controller,
+
+                  // onChanged: (str) async{
+                  //
+                  // },
+
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Write a comment...",
+                    helperStyle: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Frutiger',
+                      color: Color(0xFF606060),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                trailing: TextButton(
+
+
+
+                  onPressed: (){
+                    setState(() {
+
+                      print(_controller.text);
+
+                      widget.commentBody.add(CommentCard(authorId: "Tarek", authorImage: "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg", comment: _controller.text));
+                      widget.comments.add({
+                        "id": 0,
+                        "comment":  _controller.text,
+                        "photo_id": 0,
+                        "comment_owner_id": 0,
+                        "owner_name": "Tarek",
+                        "avater_owner_url": "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg"
+                      });
+
+                      print(widget.comments);
+
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => CommentView(authorId: widget.authorName,comments: widget.comments,faves: widget.favs,)));
+
+                      _controller.clear();
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
+                    });
+                  },
+
+                  style: ButtonStyle(
+
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (states) => Colors.transparent),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.black, width: 3),
+                      ),
+                    ), //MaterialProperty
+                  ),
+
+                  child: Text(
+                    "Post",
+                    style:TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Frutiger',
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                ),
+              ),
+            ),
+          ),
+
+        ],),
+      ),
+    )    ;
+
+  }
+}
+
 
 
