@@ -11,6 +11,8 @@ Widget CheckEmailScreen(String mail) {
   return signupBasicLayout;
 }
 
+
+
 class CheckEmail extends StatefulWidget {
   CheckEmail(this.passedEmail);
   final passedEmail;

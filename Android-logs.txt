@@ -1,0 +1,313 @@
+commit 8e1f97eb573b67fb94b4741f787f450bd7ee0dc5
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Wed May 5 18:25:31 2021 +0200
+
+    Integrated Modified
+
+commit 2fbdfe0919e6af80b0475a427ccee974266cfaf0
+Merge: e43271e 212b5c2
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 17:35:19 2021 +0200
+
+    Phase1Integrated
+
+commit e43271e26491acfe63cb890812fe9a99f110ac0c
+Merge: 9e3b7af 7aeee60
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 17:09:29 2021 +0200
+
+    Explore and Search integrated
+
+commit 7aeee60f5c6cdefadf2e9073288f69b41bae597a
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Wed May 5 16:57:20 2021 +0200
+
+    Explore3_updated5
+
+commit 9e3b7af3d746b98b55a510c84c630364bab47aaf
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 16:40:36 2021 +0200
+
+    Search Integrated with SignupLast
+
+commit 45c3b80bf37dbcad16a4b6c2e7ab0425b7cec142
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 15:48:06 2021 +0200
+
+    Search Integrated with Signup2
+
+commit be6ae3bf948d68a7d322987fe62815fdba7be9e5
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Wed May 5 15:32:07 2021 +0200
+
+    Explore3_updated4
+
+commit 7bb59c164943f698ba1f1ac39b934976b243e87b
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Wed May 5 15:08:23 2021 +0200
+
+    Explore3_updated3
+
+commit 6e469f60d42c19e36b653ad1595b4c36a1849c80
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 13:33:32 2021 +0200
+
+    Search Integrated with Signup2
+
+commit eb93ce596075d32a26793c7a9cab4c9093cf9326
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 13:07:03 2021 +0200
+
+    Search Integrated with Signup2
+
+commit 299cd93944d847ab015f18a43e3cc8adb80fa7f4
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 12:25:14 2021 +0200
+
+    Search Integrated with Signup2
+
+commit a0168dec0b81b6072255b897a871d6da69713c6e
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 10:22:34 2021 +0200
+
+    Search Integrated with Signup2
+
+commit eafa28605d6ec9991d55902ad377b2b26fabbe73
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Wed May 5 10:14:59 2021 +0200
+
+    Explore3_updated2
+
+commit e314080212979838a9257783164c0eb1bb12dd33
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Wed May 5 04:02:08 2021 +0200
+
+    Explore3_updated
+
+commit fb753c42e0b95d3556d064866e65fc7d93802955
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 03:56:37 2021 +0200
+
+    Search Integrated with Signup2
+
+commit 1dc225aa578b29b0ec1946211710af012088f522
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Wed May 5 02:18:20 2021 +0200
+
+    Search Integrated with Signup2
+
+commit facb8cdfa5dafc0b2536bdf7bb5d461b83662c5b
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Tue May 4 18:47:05 2021 +0200
+
+    Explore3
+
+commit 7780c473d5a7a518d75a497abeb2f7265dfb7175
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Tue May 4 17:47:13 2021 +0200
+
+    Search Integrated with Signup
+
+commit 212b5c2c14d8f219a8eef1e14f94a84b9c04cbd0
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Tue May 4 17:31:55 2021 +0200
+
+    Modified Main profile Screen (added photos icons,texts)
+
+commit 687ad963ec3d198d7850db7201c3f7d8e6c4180a
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Tue May 4 16:05:56 2021 +0200
+
+    Added About page
+
+commit fc9aa713d28dba70d495d550f67d07860cb8e102
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Tue May 4 14:08:38 2021 +0200
+
+    Added profile's About UI
+
+commit 2279a825d101752e49f2255e1cc594741042db12
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Tue May 4 12:11:36 2021 +0200
+
+    Added Profile screen with starting widgets
+
+commit 57aaf09c04f8e94e9f6eca907a8a85df193fea2f
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Mon May 3 21:22:56 2021 +0200
+
+    Added sending an email in forgot PW. Modified login requests
+
+commit 724f9e3096e3584a060a2b493b8b8f8390fbdfcf
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Mon May 3 16:34:15 2021 +0200
+
+    Integrated Updated 2
+
+commit 388fbbaf15717f2e7c828bc79b1bbf2f4b162682
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Mon May 3 16:01:54 2021 +0200
+
+    Integrated Updated 1
+
+commit d31a44189b95538c09b656cc4b0ff5e4b45b28d3
+Merge: bc4271c b318ac4
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Fri Apr 30 22:43:01 2021 +0200
+
+    Integration (explore, home, login and signup)
+
+commit b318ac4e791443aa7ea16c782a99813a2e8d55ee
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Fri Apr 30 21:55:43 2021 +0200
+
+    Explore2
+
+commit bc4271ce8ec837e31d1d26a0f4dbe7911ce7f276
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Fri Apr 30 20:04:16 2021 +0200
+
+    SignUp Feature 2
+
+commit febc81d5da4f3d74e5285cc96f928142d6f5ce19
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Fri Apr 30 01:17:58 2021 +0200
+
+    Explore
+
+commit 4e5f6582d93f7e1ce0326d500601c27b871f07bb
+Author: MariamMohammed99 <mariammohammed99999@gmail.com>
+Date:   Tue Apr 27 21:27:39 2021 +0200
+
+    SignUp Feature
+
+commit ae4c828c5cf806218ee159f6753dcd82237356c2
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Mon Apr 26 17:32:54 2021 +0200
+
+    Explore first commit
+
+commit 2d2715199241a52b5a02d35714b232de25250e31
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sun Apr 25 20:27:19 2021 +0200
+
+    passed the email to Forgot password screen
+
+commit dd277f072ec7f719f89621b3531b1514e88cb5cd
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sun Apr 25 20:07:38 2021 +0200
+
+    Added TODOs
+
+commit a5767db3fa516a0ec8595a311e719c3eb8cbf7a4
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sun Apr 25 18:38:26 2021 +0200
+
+    Added Forgot Password screen
+
+commit d87c446ad4e0821067f26e5238916d897d1fc3e8
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Sun Apr 25 09:21:10 2021 +0200
+
+    get-started-modified
+
+commit 1dc5f92206205f6b0f9bf02bac455b643c551f0d
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Sat Apr 24 22:51:56 2021 +0200
+
+    integeration2
+
+commit acf2b36da95aff05558bef1957e121f61eba72b8
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Sat Apr 24 22:48:47 2021 +0200
+
+    integeration2
+
+commit 20330ecda625bdcca261397ee0b821eeb8e0f0cd
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 22:09:01 2021 +0200
+
+    integration
+
+commit d684ecd76d2d6865fe5e5ec4c0ab47cb4990d7dd
+Merge: 55729a4 7df37ec
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 21:57:09 2021 +0200
+
+    Merge branch 'arwa'
+    
+    # Conflicts:
+    #       pubspec.yaml
+
+commit 7df37ec26e4574337efe71c74e3d8af64b850657
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 21:02:48 2021 +0200
+
+    Added password TextField and forgot PW
+
+commit 55729a4d62508cf45cbfbf863f5e3442fe6d016d
+Merge: 1fda65d 60f612d
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Sat Apr 24 20:55:43 2021 +0200
+
+    merge1
+
+commit 60f612d8b258b6af332d6264b6d28843dcb34317
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Sat Apr 24 20:32:47 2021 +0200
+
+    GetStarted_done2
+
+commit 0fd7216df8e53d6a4d10425a8d3319b753b06f8a
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Sat Apr 24 20:28:23 2021 +0200
+
+    GetStarted_done
+
+commit 79ebdf5c76687fec4309c7240c12e0f480ea3687
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 18:18:22 2021 +0200
+
+    Added A validation for Email
+
+commit d06b20ca58d4b66e6c6e7bf7195541094514a2c9
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 14:37:49 2021 +0200
+
+    Finished login intial layout
+
+commit dc1c85e184bb4f3939bea435a3dd6cac5bc5480c
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 13:34:17 2021 +0200
+
+    Added Email Address Text Field
+
+commit 196b016a8ef5a4bff1c48aaa3dbe0461d2b9b587
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 10:39:02 2021 +0200
+
+    Added AppBar to login page
+
+commit 88202bc5f1f40ed18695709335f8d48792030d8b
+Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
+Date:   Sat Apr 24 09:16:46 2021 +0200
+
+    Branching trial
+
+commit 490665f5584b12adee1c1cba2ef0657cfbb1e997
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Fri Apr 23 19:00:57 2021 +0200
+
+    second_get_started
+
+commit 1fda65d6a121539525f4ef753680c09a5ccd6b36
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Fri Apr 23 18:57:06 2021 +0200
+
+    Second
+
+commit 46b678260e1ece1644c0a741dcb58f629cb64ea1
+Author: tarekniazy <tarek.niazy2@gmail.com>
+Date:   Wed Apr 21 20:26:06 2021 +0200
+
+    first commit

@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
 
   void getExploreData() async
   {
-    NetworkHelper req = new NetworkHelper("https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/image/explore");
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/image/explore");
     var res = await req.getData();
     print(res.statusCode);
     if (res.statusCode == 200)
@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () async {
 
-                    NetworkHelper req = new NetworkHelper("https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/image/explore");
+                    NetworkHelper req = new NetworkHelper("$KBaseUrl/image/explore");
                     var res = await req.getData();
                     print(res.statusCode);
                     if (res.statusCode == 200)

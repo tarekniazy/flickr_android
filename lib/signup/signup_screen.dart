@@ -360,7 +360,7 @@ class _SignUpState extends State<SignUp> {
                       checkBoxValue == true) {
 
                     NetworkHelper req = new NetworkHelper(
-                        "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/signup?id=44");
+                        "$KBaseUrl/v3/signup?id=44");
 
                     var res = await req.postData(Body);
 

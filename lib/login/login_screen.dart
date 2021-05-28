@@ -226,10 +226,10 @@ class _LoginState extends State<Login> {
 
                     // 200 for ID=134 , 500 for ID=135
                     NetworkHelper req = new NetworkHelper(
-                        "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/login?id=$logInID");
+                        "$KBaseUrl/v3/login?id=$logInID");
                     var res = await req.postData(Body);
                     if (res.statusCode == 200) {
-                      NetworkHelper req2 = new NetworkHelper("https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/image/explore");
+                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/image/explore");
                       var res2 = await req2.getData();
                       print(res2.statusCode);
                       if (res2.statusCode == 200)

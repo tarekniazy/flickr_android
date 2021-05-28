@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../constants.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class _ImageCardState extends State<ImageCard> {
 
                   if (like == 0) {
                     NetworkHelper req = new NetworkHelper(
-                        "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/fave?id =23");
+                        "$KBaseUrl/v3/fave?id =23");
 
                     var res = await req.postData(Body);
 
@@ -321,7 +322,7 @@ class _ImageViewState extends State<ImageView> {
 
                             if (likePressed == false) {
                               NetworkHelper req = new NetworkHelper(
-                                  "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/fave?id =23");
+                                  "$KBaseUrl/v3/fave?id =23");
 
                               var res = await req.postData(Body);
 

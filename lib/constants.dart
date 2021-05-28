@@ -12,7 +12,6 @@ const kBackgroundColor = Color(0xFFF2F2F2);
 const kSearchTextFieldColor = Color(0xFF333333);
 const kSearchIconColor = Color(0xFF6F6F6F);
 const kIconColor = Color(0xFF898989);
-
 //
 const double KSizeOfIcon = 12.0;
 const double KLogInToFlickrTextSize = 20.0;
@@ -34,5 +33,6 @@ const String KPopupMessageBody =
     "@domain.com) if you still log in through Yahoo, click below to continue)";
 const String CAPTCHA_SITE_KEY = "6Le-hMAaAAAAAN_thMimm8huA_tmitcfEdofTCc4";
 
-const String baseUrl =
-    "https://d82c3e6a-0d2d-4f44-9133-4a465a154079.mock.pstmn.io";
+const String KBaseUrl =
+    "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io";
+
