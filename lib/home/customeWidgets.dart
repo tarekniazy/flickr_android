@@ -16,7 +16,7 @@ class ImageCard extends StatefulWidget {
 
   final String imageUrl; // image path
   final String authorId; // author name
-  final String authorImage; // author profile pic
+  final String authorImage; // author home.profile pic
   final List<dynamic> comments;
   final List<dynamic> faves;
 
@@ -236,7 +236,7 @@ class ImageView extends StatefulWidget {
 
   final String imageUrl; // image path
   final String authorId; // author name
-  final String authorImage; // author profile pic
+  final String authorImage; // author home.profile pic
   final List<dynamic> comments;
   final List<dynamic> faves;
 
@@ -605,7 +605,7 @@ class CommentCard extends StatefulWidget {
   });
 
   final String authorId; // author name
-  final String authorImage; // author profile pic
+  final String authorImage; // author home.profile pic
   final String comment; // top comment
 
   @override
@@ -684,7 +684,7 @@ class UserCard extends StatefulWidget {
       @required this.favs});
 
   final String authorName; // author name
-  final String authorImage; // author profile pic
+  final String authorImage; // author home.profile pic
   final numberOfPhotos;
   final numberOfFollowers;
   final List<dynamic> favs;
@@ -932,7 +932,7 @@ class GroupCard extends StatefulWidget {
   });
 
   final String authorName; // author name
-  final String authorImage; // author profile pic
+  final String authorImage; // author home.profile pic
   final numberOfPhotos;
   final numberOfMembers;
 
@@ -1017,6 +1017,106 @@ class _GroupCardState extends State<GroupCard> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AlbumCard extends StatefulWidget {
+
+  AlbumCard({
+    @required this.AlbumName,
+    @required this.dateCreated,
+    @required this.numberOfPhotos,
+    @required this.imageUrl,
+  });
+
+
+  final String AlbumName;
+  final String dateCreated;
+  final String numberOfPhotos;
+  final String imageUrl;
+
+  @override
+  _AlbumCardState createState() => _AlbumCardState();
+}
+
+class _AlbumCardState extends State<AlbumCard> {
+  @override
+
+
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        color: Colors.white,
+       child: Row(
+         children:<Widget> [
+           Image(
+             width: 100,
+             height: 100,
+             fit: BoxFit.fill,
+               image:NetworkImage(
+                 widget.imageUrl,
+               ),
+           ),
+
+           Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+               children:<Widget> [
+                 Padding(
+                   padding: const EdgeInsets.only(left: 10,top: 10),
+                   child: Text(
+               widget.AlbumName,
+                     style: TextStyle(
+                         fontWeight: FontWeight.bold,
+                       fontFamily: 'Frutiger',
+                       color: Colors.black,
+                       fontSize: 17,
+                     ),
+             ),
+                 ),
+
+             Expanded(
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.end,
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children:<Widget> [
+                   Padding(
+                     padding: const EdgeInsets.only(left: 8),
+                     child: Text(
+                     widget.dateCreated,
+                     style: TextStyle(
+                       fontFamily: 'Frutiger',
+                       color: Color(0xFF8F8F8F),
+                       fontSize: 17,
+                       fontWeight: FontWeight.bold,
+
+                     ),
+                 ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.only(left: 8),
+                     child: Text(
+                     widget.numberOfPhotos+' photos',
+                     style: TextStyle(
+                       fontFamily: 'Frutiger',
+                       color: Color(0xFF8F8F8F),
+                       fontSize: 17,
+                       fontWeight: FontWeight.bold,
+
+                     ),
+                 ),
+                   ),
+                ]
+               ),
+             ),
+           ]
+           )
+
+         ],
+       ),
       ),
     );
   }

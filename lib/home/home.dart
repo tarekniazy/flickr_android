@@ -4,7 +4,7 @@ import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/home/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 import 'explore/explore.dart';
-import 'package:flickr_android/profile/profile_screen.dart';
+import 'profile/profile_screen.dart';
 import 'search/search.dart';
 import 'dart:convert';
 

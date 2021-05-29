@@ -1,3 +1,4 @@
+import 'package:flickr_android/home/profile/profilePages/Albums/albums.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'profileStyling/profile_Widgets.dart';
@@ -12,6 +13,8 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      backgroundColor: Color(0xFFF2F2F2),
       body: DefaultTabController(
         length: 5, // This is the number of tabs.
         child: NestedScrollView(
@@ -136,8 +139,7 @@ class _ProfileState extends State<Profile> {
                 Text(
                     ''), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
                 Text(''), //TODO Arwa- this text is For public
-                Text(
-                    ''), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
+                Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
                 Text(''), //TODO Tarek- this text is For Groups
               ]),
         ),

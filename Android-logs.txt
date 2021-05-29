@@ -112,7 +112,7 @@ commit 212b5c2c14d8f219a8eef1e14f94a84b9c04cbd0
 Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
 Date:   Tue May 4 17:31:55 2021 +0200
 
-    Modified Main profile Screen (added photos icons,texts)
+    Modified Main home.profile Screen (added photos icons,texts)
 
 commit 687ad963ec3d198d7850db7201c3f7d8e6c4180a
 Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
@@ -124,7 +124,7 @@ commit fc9aa713d28dba70d495d550f67d07860cb8e102
 Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>
 Date:   Tue May 4 14:08:38 2021 +0200
 
-    Added profile's About UI
+    Added home.profile's About UI
 
 commit 2279a825d101752e49f2255e1cc594741042db12
 Author: ArwaShamardal <arwa.ibrahim.2000@gmail.com>

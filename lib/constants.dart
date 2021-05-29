@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login/login_screen.dart';
 
 const KAppBarBackgroundColor = Color(0xFF212121);
 const KFlickrNormalBlueColor = Color(0xFF0288D1);
@@ -36,3 +37,4 @@ const String CAPTCHA_SITE_KEY = "6Le-hMAaAAAAAN_thMimm8huA_tmitcfEdofTCc4";
 const String KBaseUrl =
     "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io";
 
+final String KUserToken=userToken;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flickr_android/profile/profilePages/aboutSub/about_SubScreens.dart';
+import '../profilePages/aboutSub/about_SubScreens.dart';
 
 const KTabBarTextsStyle = TextStyle(
   // color: Colors.black,
@@ -54,3 +54,5 @@ Widget createAboutTextTile({
     },
   );
 }
+
+

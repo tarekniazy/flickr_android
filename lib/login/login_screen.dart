@@ -18,6 +18,8 @@ Widget LoggingInScreen() {
   return loginBasicLayout;
 }
 
+String userToken;
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -33,6 +35,8 @@ class _LoginState extends State<Login> {
   String buttonText = 'Next';
   String email;
   String password;
+
+
 
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
@@ -229,6 +233,11 @@ class _LoginState extends State<Login> {
                         "$KBaseUrl/v3/login?id=$logInID");
                     var res = await req.postData(Body);
                     if (res.statusCode == 200) {
+
+                      print(jsonDecode(res.body)["token"]);
+
+                      userToken=jsonDecode(res.body)["token"];
+
                       NetworkHelper req2 = new NetworkHelper("$KBaseUrl/image/explore");
                       var res2 = await req2.getData();
                       print(res2.statusCode);

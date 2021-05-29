@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
-import 'package:flickr_android/profile/profileStyling/profile_Widgets.dart';
+import '../profilePages/../profileStyling/profile_Widgets.dart';
 
 Widget BuildAbout(BuildContext context) => SingleChildScrollView(
       child: Container(
