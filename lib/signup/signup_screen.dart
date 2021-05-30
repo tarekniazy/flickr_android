@@ -360,7 +360,7 @@ class _SignUpState extends State<SignUp> {
                       checkBoxValue == true) {
 
                     NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/v3/signup?id=44");
+                        "$KBaseUrl/user");
 
                     var res = await req.postData(Body);
 
