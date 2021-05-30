@@ -120,8 +120,8 @@ class _ImageCardState extends State<ImageCard> {
                   Map<String, dynamic> Body = {"photo_id": "1"};
 
                   if (like == 0) {
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/v3/fave?id =23");
+                    NetworkHelper req =
+                        new NetworkHelper("$KBaseUrl/v3/fave?id =23");
 
                     var res = await req.postData(Body);
 
@@ -321,8 +321,8 @@ class _ImageViewState extends State<ImageView> {
                             Map<String, dynamic> Body = {"photo_id": "1"};
 
                             if (likePressed == false) {
-                              NetworkHelper req = new NetworkHelper(
-                                  "$KBaseUrl/v3/fave?id =23");
+                              NetworkHelper req =
+                                  new NetworkHelper("$KBaseUrl/v3/fave?id =23");
 
                               var res = await req.postData(Body);
 
@@ -1023,14 +1023,12 @@ class _GroupCardState extends State<GroupCard> {
 }
 
 class AlbumCard extends StatefulWidget {
-
   AlbumCard({
     @required this.AlbumName,
     @required this.dateCreated,
     @required this.numberOfPhotos,
     @required this.imageUrl,
   });
-
 
   final String AlbumName;
   final String dateCreated;
@@ -1043,80 +1041,71 @@ class AlbumCard extends StatefulWidget {
 
 class _AlbumCardState extends State<AlbumCard> {
   @override
-
-
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 100,
         color: Colors.white,
-       child: Row(
-         children:<Widget> [
-           Image(
-             width: 100,
-             height: 100,
-             fit: BoxFit.fill,
-               image:NetworkImage(
-                 widget.imageUrl,
-               ),
-           ),
-
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-               children:<Widget> [
-                 Padding(
-                   padding: const EdgeInsets.only(left: 10,top: 10),
-                   child: Text(
-               widget.AlbumName,
-                     style: TextStyle(
-                         fontWeight: FontWeight.bold,
-                       fontFamily: 'Frutiger',
-                       color: Colors.black,
-                       fontSize: 17,
-                     ),
-             ),
-                 ),
-
-             Expanded(
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.end,
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children:<Widget> [
-                   Padding(
-                     padding: const EdgeInsets.only(left: 8),
-                     child: Text(
-                     widget.dateCreated,
-                     style: TextStyle(
-                       fontFamily: 'Frutiger',
-                       color: Color(0xFF8F8F8F),
-                       fontSize: 17,
-                       fontWeight: FontWeight.bold,
-
-                     ),
-                 ),
-                   ),
-                   Padding(
-                     padding: const EdgeInsets.only(left: 8),
-                     child: Text(
-                     widget.numberOfPhotos+' photos',
-                     style: TextStyle(
-                       fontFamily: 'Frutiger',
-                       color: Color(0xFF8F8F8F),
-                       fontSize: 17,
-                       fontWeight: FontWeight.bold,
-
-                     ),
-                 ),
-                   ),
-                ]
-               ),
-             ),
-           ]
-           )
-
-         ],
-       ),
+        child: Row(
+          children: <Widget>[
+            Image(
+              width: 100,
+              height: 100,
+              fit: BoxFit.fill,
+              image: NetworkImage(
+                widget.imageUrl,
+              ),
+            ),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: Text(
+                      widget.AlbumName,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Frutiger',
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Text(
+                              widget.dateCreated,
+                              style: TextStyle(
+                                fontFamily: 'Frutiger',
+                                color: Color(0xFF8F8F8F),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Text(
+                              widget.numberOfPhotos + ' photos',
+                              style: TextStyle(
+                                fontFamily: 'Frutiger',
+                                color: Color(0xFF8F8F8F),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ]),
+                  ),
+                ])
+          ],
+        ),
       ),
     );
   }
