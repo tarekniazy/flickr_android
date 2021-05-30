@@ -8,18 +8,15 @@ import 'login/login_screen.dart';
 import 'home/explore/explore.dart';
 import 'home/customeWidgets.dart';
 
+//Pull Request test
 void main() {
   runApp(
-  MaterialApp(
-   initialRoute: '/',
-    routes: {
-        '/':(context)=>GetStarted(),
-        'LogIn':(context)=>LoggingInScreen()
-
-
-    },
-  ),
+    MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => GetStarted(),
+        'LogIn': (context) => LoggingInScreen()
+      },
+    ),
   );
 }
-
-
