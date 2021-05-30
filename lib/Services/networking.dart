@@ -1,33 +1,68 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../Services/../constants.dart';
 
 class NetworkHelper {
   NetworkHelper(this.url);
 
   String url;
 
-  Future getData() async
+  Future getData(bool ifToken) async
   {
-    var uri= Uri.parse(url);
-    http.Response response= await http.get(uri);
-    if (response.statusCode==200)
-    {
-      return response;
+    if (ifToken)
+      {
+        var uri= Uri.parse(url);
+        http.Response response= await http.get(uri,
+          headers: {
+            'token': KUserToken,
+          },);
+        if (response.statusCode==200)
+        {
+          return response;
 
+        }
+        else
+        {
+          //    print(response.statusCode);
+        }
+      }
+    else{
+      var uri= Uri.parse(url);
+      http.Response response= await http.get(uri);
+      if (response.statusCode==200)
+      {
+        return response;
+
+      }
+      else
+      {
+        //    print(response.statusCode);
+      }
     }
-    else
-    {
-  //    print(response.statusCode);
-    }
+
 
   }
 
-  Future postData( Map<String, dynamic> Body) async
+  Future postData( Map<String, dynamic> Body,bool ifToken) async
   {
-    var uri= Uri.parse(url);
-    var response = await http.post(uri,body:Body);
+    if (ifToken)
+      {
+        var uri= Uri.parse(url);
+        var response = await http.post(uri,body:Body,
+        );
 
-    return response;
+        return response;
+      }
+    else
+      {
+        var uri= Uri.parse(url);
+        var response = await http.post(uri,body:Body, headers: {
+          'token': KUserToken,
+        },);
+
+        return response;
+      }
+
 
     // if (response.statusCode==200)
     // {

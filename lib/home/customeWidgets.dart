@@ -8,15 +8,13 @@ import '../Services/networking.dart';
 class ImageCard extends StatefulWidget {
   ImageCard({
     @required this.imageUrl,
-    @required this.authorId,
-    @required this.authorImage,
+    @required this.author,
     @required this.comments,
     @required this.faves,
   });
 
   final String imageUrl; // image path
-  final String authorId; // author name
-  final String authorImage; // author home.profile pic
+  final List<dynamic> author; // author name
   final List<dynamic> comments;
   final List<dynamic> faves;
 
@@ -75,8 +73,8 @@ class _ImageCardState extends State<ImageCard> {
                     builder: (context) {
                       return ImageView(
                         imageUrl: widget.imageUrl,
-                        authorId: widget.authorId,
-                        authorImage: widget.authorImage,
+                        authorId: "widget.authorId",
+                        authorImage: "widget.authorImage",
                         faves: widget.faves,
                         comments: widget.comments,
                       );
@@ -95,7 +93,7 @@ class _ImageCardState extends State<ImageCard> {
           Card(
             child: ListTile(
                 title: Text(
-                  widget.authorId,
+                  "widget.authorId",
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Frutiger',
@@ -108,7 +106,7 @@ class _ImageCardState extends State<ImageCard> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: NetworkImage(widget.authorImage),
+                        image: NetworkImage("widget.authorImage"),
                       )),
                 )),
           ),
@@ -123,7 +121,7 @@ class _ImageCardState extends State<ImageCard> {
                     NetworkHelper req = new NetworkHelper(
                         "$KBaseUrl/v3/fave?id =23");
 
-                    var res = await req.postData(Body);
+                    var res = await req.postData(Body,true);
 
                     if (res.statusCode == 200) {
                       String data = res.body;
@@ -158,7 +156,7 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId: widget.authorId,
+                          authorId: "widget.authorId",
                           faves: widget.faves,
                           comments: widget.comments);
                     }));
@@ -204,7 +202,7 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId: widget.authorId,
+                          authorId:" widget.authorId",
                           faves: widget.faves,
                           comments: widget.comments);
                     }));
@@ -324,7 +322,7 @@ class _ImageViewState extends State<ImageView> {
                               NetworkHelper req = new NetworkHelper(
                                   "$KBaseUrl/v3/fave?id =23");
 
-                              var res = await req.postData(Body);
+                              var res = await req.postData(Body,true);
 
                               if (res.statusCode == 200) {
                                 String data = res.body;

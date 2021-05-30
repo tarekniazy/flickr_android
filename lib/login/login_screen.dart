@@ -231,7 +231,7 @@ class _LoginState extends State<Login> {
                     // 200 for ID=134 , 500 for ID=135
                     NetworkHelper req = new NetworkHelper(
                         "$KBaseUrl/user/login");
-                    var res = await req.postData(Body);
+                    var res = await req.postData(Body,false);
                     if (res.statusCode == 200) {
 
                       print(jsonDecode(res.body)["token"]);
@@ -239,7 +239,7 @@ class _LoginState extends State<Login> {
                       userToken=jsonDecode(res.body)["token"];
 
                       NetworkHelper req2 = new NetworkHelper("$KMockSeverBaseUrl/image/explore");
-                      var res2 = await req2.getData();
+                      var res2 = await req2.getData(true);
                       print(res2.statusCode);
                       if (res2.statusCode == 200)
                       {

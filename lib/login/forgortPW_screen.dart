@@ -103,7 +103,7 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
                       //correct ID is 56
                       "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/forget?id=100");
 
-                  var res = await req.postData(Body);
+                  var res = await req.postData(Body,false);
                   if (res.statusCode == 200) {
                     String data = res.body;
                     var jsonResults = await jsonDecode(data);
