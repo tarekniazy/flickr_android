@@ -1,45 +1,38 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
+import 'dart:io';
+import 'package:flickr_android/constants.dart';
 
 class NetworkHelper {
   NetworkHelper(this.url);
 
   String url;
 
-  Future getData() async
-  {
-    var uri= Uri.parse(url);
-    http.Response response= await http.get(uri);
-    if (response.statusCode==200)
-    {
+  Future getData() async {
+    var uri = Uri.parse(url);
+    Map<String, String> headers = {'Token': KUserToken};
+    http.Response response = await http.get(uri, headers: headers);
+    if (response.statusCode == 200) {
       return response;
-
     }
-    else
-    {
-  //    print(response.statusCode);
-    }
-
   }
 
-  Future postData( Map<String, dynamic> Body) async
-  {
-    var uri= Uri.parse(url);
-    var response = await http.post(uri,body:Body);
+  Future postData(Map<String, dynamic> Body) async {
+    var uri = Uri.parse(url);
+    var response = await http.post(uri, body: Body);
 
     return response;
-
-    // if (response.statusCode==200)
-    // {
-    //   String data=response.body;
-    //   return jsonDecode(data);
-    //
-    // }
-    // else
-    // {
-    //   print(response.statusCode);
-    // }
-
   }
 
+  Future putData(Map<String, String> Body) async {
+    var uri = Uri.parse(url);
+    Map<String, String> headers = {'Token': KUserToken};
+    var response = await http.put(uri,
+        body: Body,
+        headers: headers //  HttpHeaders.authorizationHeader: KUserToken,
+        );
+    print(Body);
+    return response;
+  }
 }

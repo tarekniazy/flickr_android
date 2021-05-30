@@ -10,7 +10,6 @@ import 'loginStyling/login_BasicLayout.dart';
 import '../Services/networking.dart';
 import 'dart:convert';
 import '../home/home.dart';
-
 import '../signup/signup_screen.dart';
 
 Widget LoggingInScreen() {
@@ -228,6 +227,7 @@ class _LoginState extends State<Login> {
                     NetworkHelper req =
                         new NetworkHelper("$KBaseUrl/user/login");
                     var res = await req.postData(Body);
+                    print(Body);
                     if (res.statusCode == 200) {
                       setState(() {
                         _emailPWInvalidText = false;
