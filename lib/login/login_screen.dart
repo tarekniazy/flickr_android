@@ -36,8 +36,6 @@ class _LoginState extends State<Login> {
   String email;
   String password;
 
-
-
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
   }
@@ -208,52 +206,38 @@ class _LoginState extends State<Login> {
                       "password": password
                     };
 
-                    // //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
-                    // //TODO arwa- Edit in Next phases
-                    setState(() {
-                      if (email == "Arwa@gmail.com" || password == "flickr") {
-                        if (email != "Arwa@gmail.com") {
-                          _emailPWInvalidText = true;
-                        } else if (password != "flickr") {
-                          errorPassword = EnumError.show;
-                          _emailPWInvalidText = false;
-                        } else {
-                          logInID = 134;
-                          _emailPWInvalidText = false;
-                        }
-                      } else {
-                        _emailPWInvalidText = true;
-                      }
-                    });
-
-
-
                     // 200 for ID=134 , 500 for ID=135
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/v3/login?id=$logInID");
+                    NetworkHelper req =
+                        new NetworkHelper("$KBaseUrl/user/login");
                     var res = await req.postData(Body);
                     if (res.statusCode == 200) {
-
+                      setState(() {
+                        _emailPWInvalidText = false;
+                      });
                       print(jsonDecode(res.body)["token"]);
 
-                      userToken=jsonDecode(res.body)["token"];
+                      userToken = jsonDecode(res.body)["token"];
 
-                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/image/explore");
+                      NetworkHelper req2 =
+                          new NetworkHelper("$KMockSeverBaseUrl/image/explore");
                       var res2 = await req2.getData();
                       print(res2.statusCode);
-                      if (res2.statusCode == 200)
-                      {
+                      if (res2.statusCode == 200) {
                         String data2 = res2.body;
                         List<dynamic> response2 = jsonDecode(data2);
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Home(exploreImages: response2,);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Home(
+                            exploreImages: response2,
+                          );
                         }));
-
-                      } else
-                      {
-                        print(res2.statusCode);
-                      }
+                      } else if (res2.statusCode == 404) {
+                      } else if (res2.statusCode == 500) {}
+                    } else if (res.statusCode == 404) {
+                      setState(() {
+                        _emailPWInvalidText = true;
+                      });
                     } else {
                       print(res.statusCode);
                     }
