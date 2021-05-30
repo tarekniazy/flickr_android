@@ -34,7 +34,10 @@ const String KPopupMessageBody =
     "@domain.com) if you still log in through Yahoo, click below to continue)";
 const String CAPTCHA_SITE_KEY = "6Le-hMAaAAAAAN_thMimm8huA_tmitcfEdofTCc4";
 
-const String KBaseUrl =
+const String KMockSeverBaseUrl =
     "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io";
+
+const String KBaseUrl=
+    "http://dropoids.me/api/v1";
 
 final String KUserToken=userToken;

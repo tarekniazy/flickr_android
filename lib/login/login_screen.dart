@@ -211,26 +211,26 @@ class _LoginState extends State<Login> {
                     // //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
                     // //TODO arwa- Edit in Next phases
                     setState(() {
-                      if (email == "Arwa@gmail.com" || password == "flickr") {
-                        if (email != "Arwa@gmail.com") {
-                          _emailPWInvalidText = true;
-                        } else if (password != "flickr") {
-                          errorPassword = EnumError.show;
-                          _emailPWInvalidText = false;
-                        } else {
-                          logInID = 134;
-                          _emailPWInvalidText = false;
-                        }
-                      } else {
-                        _emailPWInvalidText = true;
-                      }
+                      // if (email == "Arwa@gmail.com" || password == "flickr") {
+                      //   if (email != "Arwa@gmail.com") {
+                      //     _emailPWInvalidText = true;
+                      //   } else if (password != "flickr") {
+                      //     errorPassword = EnumError.show;
+                      //     _emailPWInvalidText = false;
+                      //   } else {
+                      //     logInID = 134;
+                      //     _emailPWInvalidText = false;
+                      //   }
+                      // } else {
+                      //   _emailPWInvalidText = true;
+                      // }
                     });
 
 
 
                     // 200 for ID=134 , 500 for ID=135
                     NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/v3/login?id=$logInID");
+                        "$KBaseUrl/user/login");
                     var res = await req.postData(Body);
                     if (res.statusCode == 200) {
 
@@ -238,7 +238,7 @@ class _LoginState extends State<Login> {
 
                       userToken=jsonDecode(res.body)["token"];
 
-                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/image/explore");
+                      NetworkHelper req2 = new NetworkHelper("$KMockSeverBaseUrl/image/explore");
                       var res2 = await req2.getData();
                       print(res2.statusCode);
                       if (res2.statusCode == 200)
