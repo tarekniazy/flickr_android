@@ -36,8 +36,6 @@ class _LoginState extends State<Login> {
   String email;
   String password;
 
-
-
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
   }
@@ -226,35 +224,44 @@ class _LoginState extends State<Login> {
                       // }
                     });
 
-
-
                     // 200 for ID=134 , 500 for ID=135
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/user/login");
+                    NetworkHelper req =
+                        new NetworkHelper("$KBaseUrl/user/login");
                     var res = await req.postData(Body);
                     if (res.statusCode == 200) {
+                      setState(() {
+                        _emailPWInvalidText = false;
+                      });
 
                       print(jsonDecode(res.body)["token"]);
 
-                      userToken=jsonDecode(res.body)["token"];
+                      userToken = jsonDecode(res.body)["token"];
 
-                      NetworkHelper req2 = new NetworkHelper("$KMockSeverBaseUrl/image/explore");
+                      NetworkHelper req2 =
+                          new NetworkHelper("$KMockSeverBaseUrl/image/explore");
                       var res2 = await req2.getData();
                       print(res2.statusCode);
-                      if (res2.statusCode == 200)
-                      {
+                      if (res2.statusCode == 200) {
                         String data2 = res2.body;
                         List<dynamic> response2 = jsonDecode(data2);
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Home(exploreImages: response2,);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Home(
+                            exploreImages: response2,
+                          );
                         }));
-
-                      } else
-                      {
+                      } else {
                         print(res2.statusCode);
                       }
+                    } else if (res.statusCode == 404) {
+                      setState(() {
+                        _emailPWInvalidText = true;
+                        errorPassword = EnumError.hide;
+                      });
                     } else {
+                      errorPassword = EnumError.show;
+                      _emailPWInvalidText = false;
                       print(res.statusCode);
                     }
                   }
