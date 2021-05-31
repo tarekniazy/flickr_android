@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
       List<dynamic> response = jsonDecode(data);
 
       view = Explore(exploreImages: response);
+      print(response);
     }
     else
     {

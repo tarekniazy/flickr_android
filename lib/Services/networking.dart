@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../Services/../constants.dart';
+import 'package:flickr_android/constants.dart';
 
 class NetworkHelper {
   NetworkHelper(this.url);

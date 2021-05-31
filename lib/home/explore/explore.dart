@@ -63,7 +63,7 @@ class _ExploreState extends State<Explore> {
         "ownerUsername":element["ownerUsername"],
         "Avatar":element["Avatar"]
       };
-      print(owner);
+      print(element["photoUrl"]);
 
 
 
