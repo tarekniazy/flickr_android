@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../signup/signupStyling/signup_Widgets.dart';
 import '../../../customeWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CameraRoll extends StatefulWidget {
   @override
@@ -76,44 +76,89 @@ class _CameraRollState extends State<CameraRoll> {
           ),
             Visibility(
               visible: (row == true) ? true : false,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+              child: Container(
+                color: Colors.black,
+                height: 50.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton( icon: Icon(
+                                Icons.lock,
+                                 size: 25,
+                                 color: kBackgroundColor
+                          ),
+                        onPressed: () {
+                          setState(() { });
+                        },
+                        ),
+                      IconButton( icon: Icon(
+                            Icons.folder_open_outlined,
+                            size: 25,
+                            color: kBackgroundColor
+                        ),
+                        onPressed: () {
+                       setState(() { });
+                        },
+                      ),
+                      IconButton( icon: Icon(
+                            Icons.share,
+                            size: 25,
+                            color: kBackgroundColor
+                        ),
+                        onPressed: () {
+                          setState(() { });
+                        },
+                      ),
+                      IconButton( icon: Icon(
+                     FontAwesomeIcons.trash,
+                    size: 20,
+                    color: kBackgroundColor
+                    ),
+                        onPressed: () {
+                          setState(() { });
+                        },
+                      ),
+                      // Icon(
+                      //     Icons.share,
+                      //     size: 25,
+                      //     color: kBackgroundColor
+                      // ),
 
-                    // ElevatedButton.icon(
-                    //     onPressed: () {
-                    //       setState(() {
-                    //         row = true;
-                    //       });
-                    //     },
-                    //     icon: kSearchIcon,
-                    //   label: labe,
-                    //     )
-                    // TextButton(
-                    //   style: ButtonStyle(
-                    //     backgroundColor: MaterialStateProperty.all(kBackgroundColor),
-                    //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    //       RoundedRectangleBorder(
-                    //         side: BorderSide(color: Colors.black, width: 2.0),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   onPressed: () {
-                    //     setState(() {
-                    //
-                    //     });
-                    //   },
-                    //   child: Text(
-                    //     'Select',
-                    //     style: TextStyle(
-                    //       fontWeight: FontWeight.bold,
-                    //       color: Colors.black,
-                    //       fontFamily: 'Frutiger',
-                    //       fontSize: 16.0,
-                    //     ),
-                    //   ),
-                    // ),
-                    ],
+                      // ElevatedButton.icon(
+                      //     onPressed: () {
+                      //       setState(() {
+                      //         row = true;
+                      //       });
+                      //     },
+                      //     icon: kSearchIcon,
+                      //   label: labe,
+                      //     )
+                      // TextButton(
+                      //   style: ButtonStyle(
+                      //     backgroundColor: MaterialStateProperty.all(kBackgroundColor),
+                      //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      //       RoundedRectangleBorder(
+                      //         side: BorderSide(color: Colors.black, width: 2.0),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   onPressed: () {
+                      //     setState(() {
+                      //
+                      //     });
+                      //   },
+                      //   child: Text(
+                      //     'Select',
+                      //     style: TextStyle(
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.black,
+                      //       fontFamily: 'Frutiger',
+                      //       fontSize: 16.0,
+                      //     ),
+                      //   ),
+                      // ),
+                      ],
+                ),
               ),
             ),
           ],
