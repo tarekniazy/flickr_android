@@ -36,6 +36,7 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
       print(res.body);
     } else {
       print('weeee');
+
       print(res.statusCode);
     }
   }

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'profilePages/camera.dart';
 import 'package:flickr_android/home/profile/profilePages/Albums/albums.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -128,10 +128,14 @@ class _ProfileState extends State<Profile> {
                                     PopupMenuItem(
                                       child: ListTile(
                                         onTap: () async {
-                                          if (await Permission.contacts
-                                              .request()
-                                              .isGranted) {
-                                            // Either the permission was already granted before or the user just granted it.
+                                          var status =
+                                              await Permission.camera.status;
+                                          if (status.isGranted) {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return CameraApp();
+                                            }));
                                           }
                                           Map<Permission, PermissionStatus>
                                               statuses = await [
