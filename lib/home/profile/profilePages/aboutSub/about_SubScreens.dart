@@ -35,6 +35,7 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
       print('get Success');
       print(res.body);
     } else {
+      print('weeee');
       print(res.statusCode);
     }
   }
@@ -56,17 +57,23 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                   child: TextButton(
                       onPressed: () async {
                         if (buttonText == 'Done') {
-                          Map<String, dynamic> body = {
-                            "About": {
-                              widget.subScreenMainText: givenUserData,
-                            },
-                          };
-                          Map<String, String> stringQueryParameters = body.map(
-                              (key, value) => MapEntry(key, value?.toString()));
-
+                          // Map<String, String> body;
+                          // body = {subScreenMainText: givenUserData};
+                          // Map<String, Map<String, dynamic>> theSnapShot;
+                          // theSnapShot = {'About': body};
+                          //
+                          // Map<String, String> stringQueryParameters =
+                          //     theSnapShot.map((key, value) =>
+                          //         MapEntry(key, value?.toString()));
+                          //
+                          // print(stringQueryParameters);
+                          // print(body.runtimeType);
+                          var stringQueryParameters =
+                              " {About: {Description: Yarbffg}}";
                           NetworkHelper req =
                               new NetworkHelper("$KBaseUrl/user");
-                          var res = await req.putData(stringQueryParameters);
+                          var res =
+                              await req.putDataString(stringQueryParameters);
                           if (res.statusCode == 200) {
                             print('Success');
                           } else {
@@ -74,6 +81,7 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                             print(res.body);
                           }
                         }
+                        ;
                       },
                       child: Text(
                         buttonText,

@@ -37,6 +37,7 @@ dependencies:
   fluttertoast: ^8.0.6
   http: ^0.13.1
   mailer: ^5.0.0
+  permission_handler: ^8.0.0+2
 
 dev_dependencies:
   flutter_test:

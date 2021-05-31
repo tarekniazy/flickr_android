@@ -11,6 +11,7 @@ import '../Services/networking.dart';
 import 'dart:convert';
 import '../home/home.dart';
 import '../signup/signup_screen.dart';
+import 'package:flickr_android/globals.dart' as globals;
 
 Widget LoggingInScreen() {
   LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
@@ -235,7 +236,8 @@ class _LoginState extends State<Login> {
 
                       print(jsonDecode(res.body)["token"]);
 
-                      userToken = jsonDecode(res.body)["token"];
+                      globals.userToken = jsonDecode(res.body)["token"];
+                      print(globals.userToken);
 
                       NetworkHelper req2 =
                           new NetworkHelper("$KMockSeverBaseUrl/image/explore");
