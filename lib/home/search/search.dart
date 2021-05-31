@@ -6,41 +6,43 @@ import '../../home/customeWidgets.dart';
 import '../customeWidgets.dart';
 import '../../constants.dart';
 
+
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
+
   List<GroupCard> groupPost = [
     GroupCard(
         authorName: "SpongeBob Lovers",
         authorImage:
-            "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+        "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
         numberOfPhotos: '456',
         numberOfMembers: '135'),
     GroupCard(
         authorName: "Kung fu panda lovers",
         authorImage:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
         numberOfPhotos: '67',
         numberOfMembers: '56'),
     GroupCard(
         authorName: "Baseet Lovers",
         authorImage:
-            "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
+        "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
         numberOfPhotos: '245',
         numberOfMembers: '1.4K'),
     GroupCard(
         authorName: "SpongeBob is the best",
         authorImage:
-            "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+        "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
         numberOfPhotos: '450',
         numberOfMembers: '120'),
     GroupCard(
         authorName: "We love Kung fu Panda series very much",
         authorImage:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
         numberOfPhotos: '350',
         numberOfMembers: '360'),
   ];
@@ -49,31 +51,57 @@ class _SearchState extends State<Search> {
     UserCard(
       authorName: "SpongeBob",
       authorImage:
-          "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+      "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
       numberOfPhotos: '1290',
       numberOfFollowers: '1.2K',
     ),
     UserCard(
       authorName: "Baseet",
       authorImage:
-          "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
+      "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
       numberOfPhotos: '90',
       numberOfFollowers: '3.4K',
     ),
     UserCard(
       authorName: "Boo",
       authorImage:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
       numberOfPhotos: '120',
       numberOfFollowers: '349',
     )
   ];
 
+  List<PhotoCard> photoPost = [
+    PhotoCard(
+        imageUrl:
+        "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg"),
+
+    PhotoCard(
+
+        imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU"),
+    PhotoCard(
+        imageUrl:
+        "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033"),
+
+    PhotoCard(
+
+        imageUrl:
+        "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg"),
+
+    PhotoCard(
+        imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU")
+
+  ];
+
+
   TextEditingController searchController = new TextEditingController();
   bool iconCrossVisibility = false;
   bool iconCancelVisibility = false;
   bool rowVisibility = false;
-  bool photos = true;
+  bool randomPhotos = true;
+  bool photos = false;
   bool people = false;
   bool groups = false;
   bool noResults = false;
@@ -112,6 +140,8 @@ class _SearchState extends State<Search> {
                     setState(() {
                       iconCancelVisibility = true;
                       rowVisibility = true;
+                      randomPhotos = false;
+                      photos = true;
                     });
                   },
                   onChanged: (String str) async {
@@ -144,9 +174,9 @@ class _SearchState extends State<Search> {
                       child: TextButton(
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(kSearchTextFieldColor),
+                          MaterialStateProperty.all(kSearchTextFieldColor),
                           shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                          MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               side: BorderSide(color: Colors.white, width: 2.0),
                             ),
@@ -161,6 +191,7 @@ class _SearchState extends State<Search> {
                             photos = false;
                             people = false;
                             groups = false;
+                            randomPhotos = true;
                           });
                         },
                         child: Text(
@@ -193,7 +224,8 @@ class _SearchState extends State<Search> {
                           photos = true;
                           people = false;
                           groups = false;
-                          noResults = true;
+                          noResults = false;
+                          randomPhotos = false;
                           FocusScopeNode currentFocus = FocusScope.of(context);
 
                           if (!currentFocus.hasPrimaryFocus) {
@@ -206,9 +238,9 @@ class _SearchState extends State<Search> {
                         style: (photos == true)
                             ? selectedText
                             : TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 20.0,
-                              ),
+                          color: Colors.grey[600],
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
                   ),
@@ -221,6 +253,7 @@ class _SearchState extends State<Search> {
                           people = true;
                           groups = false;
                           noResults = false;
+                          randomPhotos = false;
                         });
                       },
                       child: Text(
@@ -228,9 +261,9 @@ class _SearchState extends State<Search> {
                         style: (people == true)
                             ? selectedText
                             : TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 20.0,
-                              ),
+                          color: Colors.grey[600],
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
                   ),
@@ -243,6 +276,7 @@ class _SearchState extends State<Search> {
                           people = false;
                           groups = true;
                           noResults = false;
+                          randomPhotos = false;
                         });
                       },
                       child: Text(
@@ -250,9 +284,9 @@ class _SearchState extends State<Search> {
                         style: (groups == true)
                             ? selectedText
                             : TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 20.0,
-                              ),
+                          color: Colors.grey[600],
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
                   ),
@@ -260,10 +294,20 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          //TODO : Mariam -> photos if exists
-          // Visibility(
-          //   visible: (photos == true) ? true : false,
-          // ),
+
+          Visibility(
+            visible: (photos == true) ? true : false,
+            child: UserView(
+              userBody: photoPost,
+            ),
+          ),
+
+          Visibility(
+            visible: (randomPhotos == true) ? true : false,
+            child: UserView(
+              userBody: photoPost,
+            ),
+          ),
 
           Visibility(
             visible: (people == true) ? true : false,

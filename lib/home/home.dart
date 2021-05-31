@@ -87,35 +87,36 @@ class _HomeState extends State<Home> {
                     color: bottonClicked(exploreClicked),
 
                   ),
-                  onPressed: () async {
-
-                    NetworkHelper req = new NetworkHelper("$KBaseUrl/image/explore");
-                    var res = await req.getData();
-                    print(res.statusCode);
-                    if (res.statusCode == 200)
-                    {
-                      String data = res.body;
-                      List<dynamic> response = jsonDecode(data);
-                      // response.forEach((element) => print(element));
-                      view = Explore(exploreImages: response);
-                    } else
-                    {
-                      print(res.statusCode);
-                    }
-
-
-
-                    setState(() {
-                      exploreClicked = 1;
-                      searchClicked = 0;
-                      notificationClicked = 0;
-                      profileClicked = 0;
-                      cameraClicked = 0;
-
-                      // view = Explore();
-
-                    });
-                  }),
+                  // onPressed: () async {
+                  //
+                  //   NetworkHelper req = new NetworkHelper("$KBaseUrl/image/explore");
+                  //   var res = await req.getData();
+                  //   print(res.statusCode);
+                  //   if (res.statusCode == 200)
+                  //   {
+                  //     String data = res.body;
+                  //     List<dynamic> response = jsonDecode(data);
+                  //     // response.forEach((element) => print(element));
+                  //     view = Explore(exploreImages: response);
+                  //   } else
+                  //   {
+                  //     print(res.statusCode);
+                  //   }
+                  //
+                  //
+                  //
+                  //   setState(() {
+                  //     exploreClicked = 1;
+                  //     searchClicked = 0;
+                  //     notificationClicked = 0;
+                  //     profileClicked = 0;
+                  //     cameraClicked = 0;
+                  //
+                  //     // view = Explore();
+                  //
+                  //   });
+                  //}
+                  ),
             ),
 
             //  SizedBox(width: 40,),

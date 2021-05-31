@@ -1121,3 +1121,37 @@ class _AlbumCardState extends State<AlbumCard> {
     );
   }
 }
+class PhotoCard extends StatefulWidget {
+
+  PhotoCard({
+    @required this.imageUrl,
+  });
+
+  final String imageUrl;
+
+  @override
+  _PhotoCardState createState() => _PhotoCardState();
+}
+
+class _PhotoCardState extends State<PhotoCard> {
+  @override
+
+
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4.0,4.0,4.0,0.0),
+      child: Container(
+        height: 150,
+        color: kBackgroundColor,
+        child: Image(
+          fit: BoxFit.fill,
+          image:NetworkImage(
+            widget.imageUrl,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+

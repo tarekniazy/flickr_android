@@ -1,4 +1,5 @@
 import 'package:flickr_android/home/profile/profilePages/Albums/albums.dart';
+import 'package:flickr_android/home/profile/profilePages/CameraRoll/camera_Roll.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'profileStyling/profile_Widgets.dart';
@@ -136,8 +137,7 @@ class _ProfileState extends State<Profile> {
               // These are the contents of the tab views, below the tabs.
               children: [
                 BuildAbout(context),
-                Text(
-                    ''), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
+                CameraRoll(), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
                 Text(''), //TODO Arwa- this text is For public
                 Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
                 Text(''), //TODO Tarek- this text is For Groups
