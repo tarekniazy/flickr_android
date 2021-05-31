@@ -12,10 +12,10 @@ class NetworkHelper {
     if (ifToken)
       {
         var uri= Uri.parse(url);
+        Map<String, String> headers = {'Token': KUserToken};
+        print(headers);
         http.Response response= await http.get(uri,
-          headers: {
-            'token': KUserToken,
-          },);
+        headers:headers);
         if (response.statusCode==200)
         {
           return response;
@@ -23,7 +23,7 @@ class NetworkHelper {
         }
         else
         {
-          //    print(response.statusCode);
+             print(response.statusCode);
         }
       }
     else{

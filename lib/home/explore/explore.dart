@@ -28,55 +28,47 @@ class _ExploreState extends State<Explore> {
 
  void loadUsers(userId) async{
 
-   NetworkHelper req = new NetworkHelper(
-       "$KMockSeverBaseUrl/people/id");
-
-   var res = await req.getData(true);
-
-   if (res.statusCode == 200)
-     {
-       String data = res.body;
-         print(jsonDecode(data));
-     }
+   // NetworkHelper req = new NetworkHelper(
+   //     "$KMockSeverBaseUrl/people/id");
+   //
+   // var res = await req.getData(true);
+   //
+   // if (res.statusCode == 200)
+   //   {
+   //     String data = res.body;
+   //       print(jsonDecode(data));
+   //   }
 
  }
 
   void loadImageCard()
   {
 
-    Map<String,dynamic> about={
-      "About": {
 
-        "City":"blll",
-        "Description":"ggggggg"
 
-        }
+
+
+    // print(widget.exploreImages);
+
+    widget.exploreImages.forEach((element)  {
+
+      // print(element["title"]);
+
+      // // print(element["photos"]);
+      // print(element["photos"].first["photoUrl"]);
+      // print(element["photos"].first["ownerId"]);
+
+      Map<String,dynamic> owner={
+        "ownerName":element["ownerName"],
+        "ownerUsername":element["ownerUsername"],
+        "Avatar":element["Avatar"]
       };
+      print(owner);
 
 
 
-
-        widget.exploreImages.forEach((element)  {
-
-
-
-
-
-
-      if (element["ownerId"]!=null)
-        {
-          print(element["ownerId"]);
-
-
-        }
-
-        // ImageCard imageCard= new ImageCard(imageUrl: element["photo_url"],
-        //   authorId: element["photo_owner_name"],
-        //   authorImage: element["avatar_owner_url"],
-        //   faves:element["favs"],
-        //   comments:element["comment"],
-        // );
-          print(post.length);
+      post.add(
+          ImageCard(imageUrl:element["photoUrl"] ,author: owner,comments: element["comment"],faves: element["fav"])) ;
     });
 
 
@@ -98,15 +90,15 @@ class _ExploreState extends State<Explore> {
         color: Colors.black87,
         child: Column(
           children:<Widget> [
-            // Expanded(child: new ListView.builder(
-            //   itemCount: post.length,
-            //   itemBuilder:(BuildContext context, int index)
-            //   {
-            //     return post[index];
-            //   },
-            // )
-            //  )
-            Text("data")
+            Expanded(child: new ListView.builder(
+              itemCount: post.length,
+              itemBuilder:(BuildContext context, int index)
+              {
+                return post[index];
+              },
+            )
+             )
+            // Text("data")
           ],
         ),
         // child: post[0],

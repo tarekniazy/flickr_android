@@ -54,15 +54,17 @@ class _HomeState extends State<Home> {
 
   void getExploreData() async
   {
-    NetworkHelper req = new NetworkHelper("$KBaseUrl/image/explore");
-    var res = await req.getData(true);
+    NetworkHelper req2 = new NetworkHelper("http://dropoids.me/api/v1/user/explore");
+    var res = await req2.getData(true);
     print(res.statusCode);
     if (res.statusCode == 200)
     {
       String data = res.body;
       List<dynamic> response = jsonDecode(data);
+
       view = Explore(exploreImages: response);
-    } else
+    }
+    else
     {
       print(res.statusCode);
     }
@@ -89,20 +91,20 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () async {
 
-                    NetworkHelper req = new NetworkHelper("$KBaseUrl/image/explore");
-                    var res = await req.getData(true);
+                    NetworkHelper req2 = new NetworkHelper("http://dropoids.me/api/v1/user/explore");
+                    var res = await req2.getData(true);
                     print(res.statusCode);
                     if (res.statusCode == 200)
                     {
                       String data = res.body;
                       List<dynamic> response = jsonDecode(data);
-                      // response.forEach((element) => print(element));
+
                       view = Explore(exploreImages: response);
-                    } else
+                    }
+                    else
                     {
                       print(res.statusCode);
                     }
-
 
 
                     setState(() {

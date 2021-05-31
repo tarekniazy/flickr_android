@@ -237,14 +237,17 @@ class _LoginState extends State<Login> {
                       print(jsonDecode(res.body)["token"]);
 
                       userToken=jsonDecode(res.body)["token"];
+                      KUserToken=userToken;
 
-                      NetworkHelper req2 = new NetworkHelper("$KMockSeverBaseUrl/image/explore");
+                      NetworkHelper req2 = new NetworkHelper("http://dropoids.me/api/v1/user/explore");
                       var res2 = await req2.getData(true);
                       print(res2.statusCode);
                       if (res2.statusCode == 200)
                       {
                         String data2 = res2.body;
                         List<dynamic> response2 = jsonDecode(data2);
+
+                        // print(response2);
 
                         Navigator.push(context, MaterialPageRoute(builder: (context){
                           return Home(exploreImages: response2,);
