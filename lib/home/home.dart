@@ -7,6 +7,7 @@ import 'explore/explore.dart';
 import 'profile/profile_screen.dart';
 import 'search/search.dart';
 import 'dart:convert';
+import 'customeWidgets.dart';
 
 
 class Home extends StatefulWidget {
@@ -167,7 +168,7 @@ class _HomeState extends State<Home> {
                       cameraClicked = 0;
                     });
                     //Navigator.pushReplacementNamed(context, 'Profile');
-                    view = Profile();
+                    view = LoadingScreen();
                   }),
             ),
             //    SizedBox(width: 40,),

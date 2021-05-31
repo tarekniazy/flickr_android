@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flickr_android/home/profile/profile_screen.dart';
+
 import '../constants.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -477,7 +480,6 @@ class _CommentViewState extends State<CommentView> {
         favs: widget.faves,
       );
     } else if (commentViewed == 0) {
-      print(userBody[0]);
       return UserView(
         userBody: userBody,
       );
@@ -498,7 +500,6 @@ class _CommentViewState extends State<CommentView> {
   void loadFavs() {
     widget.faves.forEach((element) {
       {
-        print(element["num_photos"].runtimeType);
         userBody.add(UserCard(
             authorName: element["username"],
             authorImage: element["avatar"],
@@ -698,9 +699,6 @@ class UserCard extends StatefulWidget {
 class _UserCardState extends State<UserCard> {
   bool followed = false;
   String text = '+ Follow';
-
-
-
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
@@ -1038,6 +1036,7 @@ class AlbumCard extends StatefulWidget {
     @required this.imageUrl,
   });
 
+
   final String AlbumName;
   final String dateCreated;
   final List<dynamic> photos;
@@ -1141,6 +1140,96 @@ class _AlbumCardState extends State<AlbumCard> {
          ),
         ),
       ),
+    );
+  }
+}
+
+class LoadingScreen extends StatefulWidget {
+  @override
+  _LoadingScreenState createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
+
+  String firstName,
+      lastName,
+      avatarUrl,
+      coverUrl,
+      email,
+      description,
+      occupation,
+      currentCity,
+      homeTown;
+  int photosCount = 0, followingCount = 0, followersCount = 0;
+
+  void getUserDetails() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
+    var res = await req.getData(true);
+    if (res.statusCode == 200) {
+      print('get Success');
+      print(res.body);
+      var json = jsonDecode(res.body);
+      // sleep(const Duration(seconds: 5));
+
+      // setState(() {
+     // if (json!=null) {
+
+
+
+       firstName = json['Fname'];
+       lastName = json['Lname'];
+       avatarUrl = json['Avatar'];
+       coverUrl = json['BackGround'];
+       description = json['Description'];
+       occupation = json['Occupation'];
+       currentCity = json['CurrentCity'];
+       homeTown = json['Hometown'];
+       // print(coverUrl);
+       //photosCount = json['Photo'];
+       //followingCount = json['Following'];
+       //followersCount = json['Followers'];
+
+       Navigator.push(context, MaterialPageRoute(builder: (context) {
+         return Profile(
+           firstName: firstName,
+           lastName: lastName,
+           avatarUrl: avatarUrl,
+           coverUrl: coverUrl,
+           description: description,
+           occupation: occupation,
+           currentCity: currentCity,
+           homeTown: homeTown,
+
+         );
+       }));
+     // }
+      // });
+    //
+
+
+    } else {
+      print(res.statusCode);
+    }
+
+
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserDetails();
+
+
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
     );
   }
 }

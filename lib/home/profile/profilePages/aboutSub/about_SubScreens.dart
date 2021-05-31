@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
+import 'package:flickr_android/Services/networking.dart';
+import 'dart:convert';
 
 class AboutSubscreen extends StatefulWidget {
   AboutSubscreen(this.subScreenMainText, this.subScreenSubText);
@@ -17,6 +19,27 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
   final subScreenSubText;
   bool buttonBoolean = false;
   String buttonText = 'Next';
+  String givenUserData;
+  String userToken;
+
+  @override
+  void initState() {
+    super.initState();
+    getOriginalAbout();
+  }
+
+  void getOriginalAbout() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user/about");
+    var res = await req.getData(true);
+    if (res.statusCode == 200) {
+      print('get Success');
+      print(res.body);
+    } else {
+      print('weeee');
+
+      print(res.statusCode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +56,34 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: 3.0)),
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (buttonText == 'Done') {
+                          // Map<String, String> body;
+                          // body = {subScreenMainText: givenUserData};
+                          // Map<String, Map<String, dynamic>> theSnapShot;
+                          // theSnapShot = {'About': body};
+                          //
+                          // Map<String, String> stringQueryParameters =
+                          //     theSnapShot.map((key, value) =>
+                          //         MapEntry(key, value?.toString()));
+                          //
+                          // print(stringQueryParameters);
+                          // print(body.runtimeType);
+                          var stringQueryParameters =
+                              " {About: {Description: Yarbffg}}";
+                          NetworkHelper req =
+                              new NetworkHelper("$KBaseUrl/user");
+                          var res =
+                              await req.putDataString(stringQueryParameters);
+                          if (res.statusCode == 200) {
+                            print('Success');
+                          } else {
+                            print(res.statusCode);
+                            print(res.body);
+                          }
+                        }
+                        ;
+                      },
                       child: Text(
                         buttonText,
                         style: TextStyle(color: Colors.white),
@@ -48,6 +98,9 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
               buttonText = 'Done';
               //TODO Arwa- Modify to do a functionality in the Next phase
             });
+          },
+          onChanged: (value) {
+            givenUserData = value;
           },
           decoration: InputDecoration(
             isDense: true,

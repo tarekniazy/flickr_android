@@ -233,6 +233,9 @@ class _LoginState extends State<Login> {
                         "$KBaseUrl/user/login");
                     var res = await req.postData(Body,false);
                     if (res.statusCode == 200) {
+                      setState(() {
+                        _emailPWInvalidText = false;
+                      });
 
                       print(jsonDecode(res.body)["token"]);
 
@@ -247,8 +250,6 @@ class _LoginState extends State<Login> {
                         String data2 = res2.body;
                         List<dynamic> response2 = jsonDecode(data2);
 
-                        // print(response2);
-
                         Navigator.push(context, MaterialPageRoute(builder: (context){
                           return Home(exploreImages: response2,);
                         }));
@@ -257,7 +258,14 @@ class _LoginState extends State<Login> {
                       {
                         print(res2.statusCode);
                       }
+                    } else if (res.statusCode == 404) {
+                      setState(() {
+                        _emailPWInvalidText = true;
+                        errorPassword = EnumError.hide;
+                      });
                     } else {
+                      errorPassword = EnumError.show;
+                      _emailPWInvalidText = false;
                       print(res.statusCode);
                     }
                   }
