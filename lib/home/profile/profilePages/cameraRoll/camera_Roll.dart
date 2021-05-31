@@ -3,18 +3,14 @@ import '../../../../signup/signupStyling/signup_Widgets.dart';
 import '../../../customeWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../constants.dart';
-//import '../../signup/signupStyling/signup_Widgets.dart';
+
 class CameraRoll extends StatefulWidget {
   @override
   _CameraRollState createState() => _CameraRollState();
 }
 
 class _CameraRollState extends State<CameraRoll> {
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
+
 
   List<PhotoCard> photoPost = [
     PhotoCard(

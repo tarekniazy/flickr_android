@@ -14,62 +14,164 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
 
-  List<GroupCard> groupPost = [
-    GroupCard(
-        authorName: "SpongeBob Lovers",
-        authorImage:
-        "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-        numberOfPhotos: '456',
-        numberOfMembers: '135'),
-    GroupCard(
-        authorName: "Kung fu panda lovers",
-        authorImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
-        numberOfPhotos: '67',
-        numberOfMembers: '56'),
-    GroupCard(
-        authorName: "Baseet Lovers",
-        authorImage:
-        "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
-        numberOfPhotos: '245',
-        numberOfMembers: '1.4K'),
-    GroupCard(
-        authorName: "SpongeBob is the best",
-        authorImage:
-        "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-        numberOfPhotos: '450',
-        numberOfMembers: '120'),
-    GroupCard(
-        authorName: "We love Kung fu Panda series very much",
-        authorImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
-        numberOfPhotos: '350',
-        numberOfMembers: '360'),
-  ];
+  List<GroupCard> groupList=[];
 
-  List<UserCard> userPost = [
-    UserCard(
-      authorName: "SpongeBob",
-      authorImage:
-      "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-      numberOfPhotos: '1290',
-      numberOfFollowers: '1.2K',
-    ),
-    UserCard(
-      authorName: "Baseet",
-      authorImage:
-      "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
-      numberOfPhotos: '90',
-      numberOfFollowers: '3.4K',
-    ),
-    UserCard(
-      authorName: "Boo",
-      authorImage:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
-      numberOfPhotos: '120',
-      numberOfFollowers: '349',
-    )
-  ];
+  void loadGroupCard(List<dynamic> groups)
+  {
+
+    groups.forEach((element)  {
+
+      // print(element["name"]);
+      // print("https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg");
+      // print(element["num_photos"].toString());
+      // print(element["num_members"].toString());
+
+      groupList.add(
+          GroupCard(authorName: element["name"], authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg", numberOfPhotos: element["num_photos"].toString(), numberOfMembers: element["num_members"].toString())
+      ) ;
+    });
+
+
+    // print(groupList.length);
+
+  }
+
+  List<UserCard> usersList=[];
+
+  void loadUserCard(List<dynamic> users)
+  {
+
+    users.forEach((element)  {
+
+      // print(element["UserName"]);
+      // print(element["avatarUrl"]);
+      // print(element["numberOfPublicPhotos"].toString());
+      // print(element["numberOfFollowers"].toString());
+
+      usersList.add(
+          UserCard(authorName: element["UserName"], authorImage: element["avatarUrl"], numberOfPhotos: element["numberOfPublicPhotos"].toString(), numberOfFollowers: element["numberOfFollowers"].toString())
+      ) ;
+    });
+    // print(usersList.length);
+
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    List<dynamic> users=[
+      {
+
+         "Fname": "Mariam",
+         "Lname": "Ameen",
+         "UserName": "MariamAmeen",
+          "_id": 0,
+          "Date_joined": "2021-05-31",
+          "numberOfPublicPhotos": 0,
+          "numberOfFollowers": 0,
+          "avatarUrl": "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+          "isFollowed": false
+      }
+      ,
+      {
+           "Fname": "Mariam",
+           "Lname": "Ameen",
+           "UserName": "MariamAmeen",
+            "_id": 0,
+            "Date_joined": "2021-05-31",
+            "numberOfPublicPhotos": 0,
+            "numberOfFollowers": 0,
+            "avatarUrl": "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "isFollowed": false
+      }
+    ];
+    loadUserCard(users);
+
+    List<dynamic> groups=[
+      {
+
+        "description": null,
+        "privacy": "public",
+        "visibility": "public",
+        "id": "608c80ce54e3d74b34d9bb5a",
+        "name": "ABC",
+        "num_photos": 0,
+        "num_members": 1,
+        "role": "member"
+      }
+      ,
+      {
+        "description": null,
+        "privacy": "public",
+        "visibility": "public",
+        "id": "608c80ce54e3d74b34d9bb5a",
+        "name": "ABC",
+        "num_photos": 0,
+        "num_members": 1,
+        "role": "member"
+      }
+    ];
+    loadGroupCard(groups);
+  }
+
+  // List<GroupCard> groupPost = [
+  //   GroupCard(
+  //       authorName: "SpongeBob Lovers",
+  //       authorImage:
+  //       "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+  //       numberOfPhotos: '456',
+  //       numberOfMembers: '135'),
+  //   GroupCard(
+  //       authorName: "Kung fu panda lovers",
+  //       authorImage:
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
+  //       numberOfPhotos: '67',
+  //       numberOfMembers: '56'),
+  //   GroupCard(
+  //       authorName: "Baseet Lovers",
+  //       authorImage:
+  //       "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
+  //       numberOfPhotos: '245',
+  //       numberOfMembers: '1.4K'),
+  //   GroupCard(
+  //       authorName: "SpongeBob is the best",
+  //       authorImage:
+  //       "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+  //       numberOfPhotos: '450',
+  //       numberOfMembers: '120'),
+  //   GroupCard(
+  //       authorName: "We love Kung fu Panda series very much",
+  //       authorImage:
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
+  //       numberOfPhotos: '350',
+  //       numberOfMembers: '360'),
+  // ];
+
+  // List<UserCard> userPost = [
+  //   UserCard(
+  //     authorName: "SpongeBob",
+  //     authorImage:
+  //     "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+  //     numberOfPhotos: '1290',
+  //     numberOfFollowers: '1.2K',
+  //   ),
+  //   UserCard(
+  //     authorName: "Baseet",
+  //     authorImage:
+  //     "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033",
+  //     numberOfPhotos: '90',
+  //     numberOfFollowers: '3.4K',
+  //   ),
+  //   UserCard(
+  //     authorName: "Boo",
+  //     authorImage:
+  //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU",
+  //     numberOfPhotos: '120',
+  //     numberOfFollowers: '349',
+  //   )
+  // ];
 
   List<PhotoCard> photoPost = [
     PhotoCard(
@@ -311,16 +413,33 @@ class _SearchState extends State<Search> {
 
           Visibility(
             visible: (people == true) ? true : false,
-            child: UserView(
-              userBody: userPost,
+
+            child: Expanded(child: new ListView.builder(
+              itemCount: usersList.length,
+              itemBuilder:(BuildContext context, int index)
+              {
+                return usersList[index];
+              },
             ),
+            ),
+            // child: UserView(
+            //   userBody: usersList,
+            // ),
           ),
 
           Visibility(
             visible: (groups == true) ? true : false,
-            child: UserView(
-              userBody: groupPost,
+            child: Expanded(child: new ListView.builder(
+              itemCount: groupList.length,
+              itemBuilder:(BuildContext context, int index)
+              {
+                return groupList[index];
+              },
             ),
+            ),
+            // child: UserView(
+            //   userBody: groupPost,
+            // ),
           ),
 
           //////////////////////////////////////If no results were found show this/////////////////////////////
