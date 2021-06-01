@@ -24,9 +24,10 @@ class _AlbumsState extends State<Albums> {
 
 
     NetworkHelper req = new NetworkHelper(
-        "$KMockSeverBaseUrl/album");
+        "$KBaseUrl/album");
 
     var res = await req.getData(false);
+    print(res.statusCode);
     if (res.statusCode == 200) {
       albums = jsonDecode(res.body);
     }

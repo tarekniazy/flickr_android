@@ -78,7 +78,6 @@ class _LoginState extends State<Login> {
               // can't launch url, there is some error
               throw "Could not launch $url";
           },
-          //TODO arwa- Redirect to yahoo page
           color: Colors.grey,
         ),
         DialogButton(
@@ -245,19 +244,19 @@ class _LoginState extends State<Login> {
                       userToken = jsonDecode(res.body)["token"];
                       KUserToken = userToken;
 
-                      NetworkHelper req2 =
-                          new NetworkHelper("$KBaseUrl/user/explore");
+
+                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
+
                       var res2 = await req2.getData(true);
                       print(res2.statusCode);
                       if (res2.statusCode == 200) {
                         String data2 = res2.body;
                         List<dynamic> response2 = jsonDecode(data2);
 
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Home(
-                            exploreImages: response2,
-                          );
+                         // print(response2);
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return Home(exploreImages: response2,);
+
                         }));
                       } else {
                         print(res2.statusCode);
