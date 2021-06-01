@@ -728,10 +728,11 @@ class _UserCardState extends State<UserCard> {
           ),
         ),
         subtitle: Text(
-            '${widget.numberOfPhotos}' ?? '0' +
-            ' photos — ' +
-            '${widget.numberOfFollowers}' ?? '0' +
-            ' followers'),
+            '${widget.numberOfPhotos ?? 0 }' +
+                ' photos — ' +
+                '${widget.numberOfFollowers ?? 0}' +
+                ' followers'),
+
         trailing: Container(
           width: (widget.isFollowed == true) ? 35.0 : 80.0,
           child: TextButton(
@@ -1262,11 +1263,35 @@ class _PhotoCardState extends State<PhotoCard> {
       child: Container(
         height: 150,
         color: kBackgroundColor,
-        child: Image(
-          fit: BoxFit.fill,
-          image:NetworkImage(
-            widget.imageUrl,
-          ),
+        child: GestureDetector(
+           onTap: () {
+       setState(() {
+         print ("hii");
+      // Navigator.push(
+      // context,
+      // MaterialPageRoute(
+      // builder: (context) {
+      //     return ImageView(
+      //     imageUrl: widget.imageUrl,
+      //     authorId: widget.author["ownerName"],
+      //     authorImage: widget.author["Avatar"],
+      //     faves: widget.faves,
+      //     comments: widget.comments,
+       //     );
+       //     },
+        //    ),
+         //   );
+         //   }
+      //       );
+       //     },
+       });
+           },
+              child: Image(
+                fit: BoxFit.fill,
+                image:NetworkImage(
+                  widget.imageUrl,
+                ),
+              ),
         ),
       ),
     );

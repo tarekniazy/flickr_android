@@ -5,6 +5,8 @@ import '../../signup/signupStyling/signup_Widgets.dart';
 import '../../home/customeWidgets.dart';
 import '../customeWidgets.dart';
 import '../../constants.dart';
+import '../../Services/networking.dart';
+import 'dart:convert';
 
 
 class Search extends StatefulWidget {
@@ -242,11 +244,66 @@ class _SearchState extends State<Search> {
                           Icons.check,
                           color: Colors.grey[600]
                       ),
-                        onPressed: () {
-                          setState(() {
-                            print(searchController.text);
-                          });
-                        },
+                        // onPressed: () async {
+                        //     print(searchController.text);
+                        //     if (photos == true)
+                        //       {
+                        ////     Map<String, dynamic> Body = {"photo_id": "1"};
+                        //                         //
+                        //                         //
+                        //                         //       NetworkHelper req = new NetworkHelper(
+                        //                         //           "$KBaseUrl/v3/fave?id =23");
+                        //                         //
+                        //                         //       var res = await req.postData(Body,true);
+                        //                         //
+                        //                         //       if (res.statusCode == 200) {
+                        //                         //         String data = res.body;
+                        //                         //         var response = jsonDecode(data);
+                        //                         //         print(response["message"]);
+                        //                         //       } else {
+                        //                         //         print(res.statusCode);
+                        //                         //       };
+                        //       }
+                        //     if (groups == true)
+                        //       {
+                        ////     Map<String, dynamic> Body = {"photo_id": "1"};
+                        //                         //
+                        //                         //
+                        //                         //       NetworkHelper req = new NetworkHelper(
+                        //                         //           "$KBaseUrl/v3/fave?id =23");
+                        //                         //
+                        //                         //       var res = await req.postData(Body,true);
+                        //                         //
+                        //                         //       if (res.statusCode == 200) {
+                        //                         //         String data = res.body;
+                        //                         //         var response = jsonDecode(data);
+                        //                         //         print(response["message"]);
+                        //                         //       } else {
+                        //                         //         print(res.statusCode);
+                        //                         //       };
+                        //       }
+                        //     if (people == true)
+                        //       {
+                        ////     Map<String, dynamic> Body = {"photo_id": "1"};
+                        //                         //
+                        //                         //
+                        //                         //       NetworkHelper req = new NetworkHelper(
+                        //                         //           "$KBaseUrl/v3/fave?id =23");
+                        //                         //
+                        //                         //       var res = await req.postData(Body,true);
+                        //                         //
+                        //                         //       if (res.statusCode == 200) {
+                        //                         //         String data = res.body;
+                        //                         //         var response = jsonDecode(data);
+                        //                         //         print(response["message"]);
+                        //                         //       } else {
+                        //                         //         print(res.statusCode);
+                        //                         //       };
+                        //       }
+
+                        //     setState(() {
+                        //   });
+                       // },
                       ),
                     ),
                     Visibility(
@@ -438,9 +495,6 @@ class _SearchState extends State<Search> {
               },
             ),
             ),
-            // child: UserView(
-            //   userBody: groupPost,
-            // ),
           ),
 
           //////////////////////////////////////If no results were found show this/////////////////////////////
