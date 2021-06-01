@@ -16,7 +16,42 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
 
+
+  List<PhotoCard> photoList=[];
   List<GroupCard> groupList=[];
+  List<UserCard> usersList=[];
+
+
+  void LoadPhoto( ) async {
+
+    NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
+    var res2 = await req2.getData(true);
+    print(res2.statusCode);
+    if (res2.statusCode == 200)
+    {
+      String data2 = res2.body;
+      List<dynamic> response2 = jsonDecode(data2);
+      // print(response2);
+    setState(() {
+      response2.forEach((element)  {
+
+        print(element["photoUrl"]);
+        photoList.add(
+            PhotoCard(imageUrl: element["photoUrl"])
+        ) ;
+      });
+    });
+
+
+    } else
+    {
+      print(res2.statusCode);
+    }
+
+  }
+
+
+
 
   void loadGroupCard(List<dynamic> groups)
   {
@@ -30,7 +65,7 @@ class _SearchState extends State<Search> {
 
   }
 
-  List<PhotoCard> photoList=[];
+
 
   void loadPhotoCard(List<dynamic> photos)
   {
@@ -41,8 +76,6 @@ class _SearchState extends State<Search> {
     });
 
   }
-
-  List<UserCard> usersList=[];
 
   void loadUserCard(List<dynamic> users)
   {
@@ -86,30 +119,30 @@ class _SearchState extends State<Search> {
     ];
     loadUserCard(users);
 
-    List<dynamic> groups=[
-      {
-        "description": null,
-        "privacy": "public",
-        "visibility": "public",
-        "id": "608c80ce54e3d74b34d9bb5a",
-        "name": "ABC",
-        "num_photos": 0,
-        "num_members": 1,
-        "role": "member"
-      }
-      ,
-      {
-        "description": null,
-        "privacy": "public",
-        "visibility": "public",
-        "id": "608c80ce54e3d74b34d9bb5a",
-        "name": "ABC",
-        "num_photos": 0,
-        "num_members": 1,
-        "role": "member"
-      }
-    ];
-    loadGroupCard(groups);
+    // List<dynamic> groups=[
+    //   {
+    //     "description": null,
+    //     "privacy": "public",
+    //     "visibility": "public",
+    //     "id": "608c80ce54e3d74b34d9bb5a",
+    //     "name": "ABC",
+    //     "num_photos": 0,
+    //     "num_members": 1,
+    //     "role": "member"
+    //   }
+    //   ,
+    //   {
+    //     "description": null,
+    //     "privacy": "public",
+    //     "visibility": "public",
+    //     "id": "608c80ce54e3d74b34d9bb5a",
+    //     "name": "ABC",
+    //     "num_photos": 0,
+    //     "num_members": 1,
+    //     "role": "member"
+    //   }
+    // ];
+
 
     List<dynamic> photos=[
       {
@@ -150,7 +183,9 @@ class _SearchState extends State<Search> {
         "UserName": "ashrafosama536"
       }
     ];
-    loadPhotoCard(photos);
+    // loadPhotoCard(photos);
+    LoadPhoto();
+
   }
 
   // List<PhotoCard> photoPost = [
@@ -244,62 +279,45 @@ class _SearchState extends State<Search> {
                           Icons.check,
                           color: Colors.grey[600]
                       ),
-                        // onPressed: () async {
-                        //     print(searchController.text);
-                        //     if (photos == true)
-                        //       {
-                        ////     Map<String, dynamic> Body = {"photo_id": "1"};
-                        //                         //
-                        //                         //
-                        //                         //       NetworkHelper req = new NetworkHelper(
-                        //                         //           "$KBaseUrl/v3/fave?id =23");
-                        //                         //
-                        //                         //       var res = await req.postData(Body,true);
-                        //                         //
-                        //                         //       if (res.statusCode == 200) {
-                        //                         //         String data = res.body;
-                        //                         //         var response = jsonDecode(data);
-                        //                         //         print(response["message"]);
-                        //                         //       } else {
-                        //                         //         print(res.statusCode);
-                        //                         //       };
-                        //       }
-                        //     if (groups == true)
-                        //       {
-                        ////     Map<String, dynamic> Body = {"photo_id": "1"};
-                        //                         //
-                        //                         //
-                        //                         //       NetworkHelper req = new NetworkHelper(
-                        //                         //           "$KBaseUrl/v3/fave?id =23");
-                        //                         //
-                        //                         //       var res = await req.postData(Body,true);
-                        //                         //
-                        //                         //       if (res.statusCode == 200) {
-                        //                         //         String data = res.body;
-                        //                         //         var response = jsonDecode(data);
-                        //                         //         print(response["message"]);
-                        //                         //       } else {
-                        //                         //         print(res.statusCode);
-                        //                         //       };
-                        //       }
-                        //     if (people == true)
-                        //       {
-                        ////     Map<String, dynamic> Body = {"photo_id": "1"};
-                        //                         //
-                        //                         //
-                        //                         //       NetworkHelper req = new NetworkHelper(
-                        //                         //           "$KBaseUrl/v3/fave?id =23");
-                        //                         //
-                        //                         //       var res = await req.postData(Body,true);
-                        //                         //
-                        //                         //       if (res.statusCode == 200) {
-                        //                         //         String data = res.body;
-                        //                         //         var response = jsonDecode(data);
-                        //                         //         print(response["message"]);
-                        //                         //       } else {
-                        //                         //         print(res.statusCode);
-                        //                         //       };
-                        //       }
+                        onPressed: () async {
+
+
+
+
+                          NetworkHelper groupreq = new NetworkHelper("$KBaseUrl/group/"+searchController.text+"/search");
+                          var groupresp = await groupreq.getData(true);
+
+                        setState(() {
+                          print(searchController.text);
+                          if (photos == true) {
+
+
+
+                          }
+                          if (groups == true)  {
+
+
+                            if (groupresp.statusCode == 200)
+                            {
+                              String data2 = groupresp.body;
+                              List<dynamic> response2 = jsonDecode(data2);
+                              loadGroupCard(response2);
+
+
+
+                            } else
+                            {
+                              print(groupresp.statusCode);
+                            }
+
+
+                          }
+                          if (people == true) {
+
+                          }
+                        });
+
+                        }
 
                         //     setState(() {
                         //   });

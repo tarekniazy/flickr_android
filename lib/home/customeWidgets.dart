@@ -80,7 +80,7 @@ class _ImageCardState extends State<ImageCard> {
                     builder: (context) {
                       return ImageView(
                         imageUrl: widget.imageUrl,
-                        authorId: widget.author["ownerName"],
+                        authorId: widget.author["Fname"],
                         authorImage: widget.author["Avatar"],
                         faves: widget.faves,
                         comments: widget.comments,
@@ -1309,6 +1309,7 @@ class PhotoCard extends StatefulWidget {
 }
 
 class _PhotoCardState extends State<PhotoCard> {
+
   @override
 
 
