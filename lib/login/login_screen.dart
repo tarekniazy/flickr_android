@@ -242,7 +242,7 @@ class _LoginState extends State<Login> {
                       userToken=jsonDecode(res.body)["token"];
                       KUserToken=userToken;
 
-                      NetworkHelper req2 = new NetworkHelper("http://dropoids.me/api/v1/user/explore");
+                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/user/explore");
                       var res2 = await req2.getData(true);
                       print(res2.statusCode);
                       if (res2.statusCode == 200)

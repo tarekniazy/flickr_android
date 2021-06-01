@@ -16,12 +16,14 @@ class ImageCard extends StatefulWidget {
     @required this.author,
     @required this.comments,
     @required this.faves,
+    @required this.imageId,
   });
 
   final String imageUrl; // image path
   final Map<String,dynamic> author; // author name
   final List<dynamic> comments;
   final List<dynamic> faves;
+  final imageId;
 
   // final numberOfFaves; // number of likes
   // final numberOfComments; // number of comments
