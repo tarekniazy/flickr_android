@@ -87,10 +87,8 @@ class _ProfileState extends State<Profile> {
                           PopupMenuItem(
                             child: ListTile(
                               onTap: () async {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return GetStarted();
-                                }));
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
                               },
                               title: Text(
                                 'Signout',

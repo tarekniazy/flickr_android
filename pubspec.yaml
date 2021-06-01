@@ -38,6 +38,7 @@ dependencies:
   http: ^0.13.1
   mailer: ^5.0.0
   permission_handler: ^8.0.0+2
+  dio: ^4.0.0
 
 dev_dependencies:
   flutter_test:
