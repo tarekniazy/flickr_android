@@ -81,6 +81,7 @@ class _ProfileState extends State<Profile> {
                     backgroundColor: Colors.white,
                     actions: <Widget>[
                       PopupMenuButton(
+                        color: Colors.grey[700],
                         icon: Icon(Icons.more_vert),
                         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                           PopupMenuItem(
@@ -91,8 +92,10 @@ class _ProfileState extends State<Profile> {
                                   return GetStarted();
                                 }));
                               },
-                              title:
-                                  Text('Signout', textAlign: TextAlign.center),
+                              title: Text(
+                                'Signout',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ],
@@ -166,7 +169,7 @@ class _ProfileState extends State<Profile> {
                                     PopupMenuItem(
                                       child: ListTile(
                                         onTap: () {
-                                          print(widget.description);
+                                          print(widget.email);
                                         },
                                         title: Text('Edit Cover Photo',
                                             textAlign: TextAlign.center),
@@ -245,8 +248,14 @@ class _ProfileState extends State<Profile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                BuildAbout(context, widget.description, widget.occupation,
-                    widget.currentCity, widget.homeTown),
+                BuildAbout(
+                    context,
+                    widget.description,
+                    widget.occupation,
+                    widget.currentCity,
+                    widget.homeTown,
+                    widget.email,
+                    widget.photosCount),
                 CameraRoll(), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
                 Text(''), //TODO Arwa- this text is For public
                 Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)

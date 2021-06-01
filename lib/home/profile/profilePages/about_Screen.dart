@@ -4,7 +4,7 @@ import 'package:flickr_android/constants.dart';
 import '../profilePages/../profileStyling/profile_Widgets.dart';
 
 Widget BuildAbout(BuildContext context, String description, String occupation,
-        String currentCity, String homeTown) =>
+        String currentCity, String homeTown, String email, int photosCount) =>
     SingleChildScrollView(
       child: Container(
         color: KAboutBackgroundColor,
@@ -14,6 +14,15 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
             color: Colors.white,
             child: Column(
               children: <Widget>[
+                ListTile(
+                  title: Text(
+                    photosCount.toString() + ' Photos',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Divider(
+                  color: Colors.grey[500],
+                ),
                 createAboutTextTile(
                     mainText: 'Description',
                     subText:
@@ -46,50 +55,8 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Website',
-                    subText: 'Add Website',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Tumblr',
-                    subText: 'Add Tumblr',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Facebook',
-                    subText: 'Add Facebook',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Twitter',
-                    subText: 'Add Twitter',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Instagram',
-                    subText: 'Add Instagram',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Pinterest',
-                    subText: 'Add Pinterest',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
                     mainText: 'Email',
-                    subText: 'Arwa@gmail.com',
+                    subText: email,
                     thirdText: 'Visible to: People You Follow',
                     thirdLine: true,
                     context: context),

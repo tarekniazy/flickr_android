@@ -58,14 +58,14 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                   child: TextButton(
                       onPressed: () async {
                         if (buttonText == 'Done') {
-                          Map<String, dynamic> body = {
-                            "Description": givenUserData,
+                          Map<String, String> body = {
+                            subScreenMainText: givenUserData,
                           };
                           NetworkHelper req =
                               new NetworkHelper("$KBaseUrl/user/about");
                           var res = await req.putData(body);
                           if (res.statusCode == 200) {
-                            print('Success');
+                            print(res.statusCode);
                           } else {
                             print(res.statusCode);
                             print(givenUserData);

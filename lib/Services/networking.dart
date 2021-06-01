@@ -67,7 +67,7 @@ class NetworkHelper {
     // }
   }
 
-  Future putData(Map<String, dynamic> Body) async {
+  Future putData(Map<String, String> Body) async {
     var uri = Uri.parse(url);
     var response = await http.put(
       uri,
