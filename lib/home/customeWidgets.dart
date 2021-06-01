@@ -100,7 +100,7 @@ class _ImageCardState extends State<ImageCard> {
           Card(
             child: ListTile(
                 title: Text(
-                  widget.author["ownerName"],
+                  widget.author["Fname"],
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Frutiger',
@@ -163,7 +163,7 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId:  widget.author["ownerName"],
+                          authorId:widget.author["Fname"],
                           faves: widget.faves,
                           comments: widget.comments);
                     }));
@@ -186,7 +186,7 @@ class _ImageCardState extends State<ImageCard> {
                 size: 20,
               ),
               title: Text(
-               widget.comments.last["ownerusername"],
+               widget.comments.last["user"]["Fname"],
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'Frutiger',
@@ -196,7 +196,7 @@ class _ImageCardState extends State<ImageCard> {
               ),
               subtitle: GestureDetector(
                 child: Text(
-                  widget.comments.last["comment"]["comment"],
+                  widget.comments.last["comment"],
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Frutiger',
@@ -491,10 +491,11 @@ class _CommentViewState extends State<CommentView> {
   void loadComments() {
     widget.comments.forEach((element) {
       {
+        print(element);
         commentBody.add(CommentCard(
-            authorId: element["ownerusername"],
-            authorImage: element["avatar"],
-            comment: element["comment"]["comment"]));
+            authorId: element["user"]["Fname"],
+            authorImage: element["user"]["Avatar"],
+            comment: element["comment"]));
       }
     });
   }
@@ -503,10 +504,10 @@ class _CommentViewState extends State<CommentView> {
     widget.faves.forEach((element) {
       {
         userBody.add(UserCard(
-            authorName: element["username"],
-            authorImage: element["avatar"],
-            numberOfPhotos: element["num_photos"],
-            numberOfFollowers: element["num_following"],
+            authorName: element["Fname"],
+            authorImage: element["Avatar"],
+            numberOfPhotos: element["numPhotos"],
+            numberOfFollowers: element["numFollowing"],
             favs: widget.faves));
       }
     });
@@ -728,9 +729,9 @@ class _UserCardState extends State<UserCard> {
           ),
         ),
         subtitle: Text(
-            '${widget.numberOfPhotos}' ?? '0' +
+            '${widget.numberOfPhotos ?? 0 }' +
             ' photos — ' +
-            '${widget.numberOfFollowers}' ?? '0' +
+            '${widget.numberOfFollowers ?? 0}' +
             ' followers'),
         trailing: Container(
           width: (widget.isFollowed == true) ? 35.0 : 80.0,
@@ -831,6 +832,61 @@ class CommentSection extends StatefulWidget {
 class _CommentSectionState extends State<CommentSection> {
   TextEditingController _controller = new TextEditingController();
 
+  String firstName,
+      lastName,
+      avatarUrl,
+      coverUrl,
+      email,
+      description,
+      occupation,
+      currentCity,
+      homeTown;
+  int photosCount = 0, followingCount = 0, followersCount = 0;
+
+  void getUserDetails() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
+    var res = await req.getData(true);
+    if (res.statusCode == 200) {
+      print('get Success');
+      print(res.body);
+      var json = jsonDecode(res.body);
+      // sleep(const Duration(seconds: 5));
+
+      // setState(() {
+      // if (json!=null) {
+
+
+
+      firstName = json['Fname'];
+      lastName = json['Lname'];
+      avatarUrl = json['Avatar'];
+      coverUrl = json['BackGround'];
+      description = json['Description'];
+      occupation = json['Occupation'];
+      currentCity = json['CurrentCity'];
+      homeTown = json['Hometown'];
+      // print(avatarUrl);
+      photosCount = json['Photo'];
+      followingCount = json['Following'];
+      followersCount = json['Followers'];
+      // }
+      // });
+      //
+    } else {
+      print(res.statusCode);
+    }
+
+
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -873,18 +929,19 @@ class _CommentSectionState extends State<CommentSection> {
                         print(_controller.text);
 
                         widget.commentBody.add(CommentCard(
-                            authorId: "Tarek",
-                            authorImage:
-                                "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg",
+                            authorId: firstName,
+                            authorImage: avatarUrl,
                             comment: _controller.text));
                         widget.comments.add({
-                          "id": 0,
                           "comment": _controller.text,
-                          "photo_id": 0,
-                          "comment_owner_id": 0,
-                          "owner_name": "Tarek",
-                          "avater_owner_url":
-                              "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg"
+                          "user": {
+                            "_id": 0,
+                            "Fname": firstName,
+                            "Lname": lastName,
+                            "UserName": "Mostafa123",
+                            "Email": "test@test.com",
+                            "Avatar": avatarUrl
+                          },
                         });
 
                         print(widget.comments);

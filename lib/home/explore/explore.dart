@@ -58,17 +58,17 @@ class _ExploreState extends State<Explore> {
       // print(element["photos"].first["photoUrl"]);
       // print(element["photos"].first["ownerId"]);
 
-      Map<String,dynamic> owner={
-        "ownerName":element["ownerName"],
-        "ownerUsername":element["ownerUsername"],
-        "Avatar":element["Avatar"]
-      };
-      print(element["photoUrl"]);
+      // Map<String,dynamic> owner={
+      //   "ownerName":element["ownerName"],
+      //   "ownerUsername":element["ownerUsername"],
+      //   "Avatar":element["Avatar"]
+      // };
+      // print(element["ownerId"]);
 
 
 
       post.add(
-          ImageCard(imageUrl:element["photoUrl"] ,author: owner,comments: element["comment"],faves: element["fav"])) ;
+          ImageCard(imageUrl:element["photoUrl"] ,author: element["ownerId"],comments: element["comments"],faves: element["Fav"])) ;
     });
 
 

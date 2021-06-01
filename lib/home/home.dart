@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
 
   void getExploreData() async
   {
-    NetworkHelper req2 = new NetworkHelper("$KBaseUrl/user/explore");
+    NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
     var res = await req2.getData(true);
     print(res.statusCode);
     if (res.statusCode == 200)
@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
                   ),
                   onPressed: () async {
 
-                    NetworkHelper req2 = new NetworkHelper("$KBaseUrl/user/explore");
+                    NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
                     var res = await req2.getData(true);
                     print(res.statusCode);
                     if (res.statusCode == 200)
