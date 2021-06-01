@@ -25,21 +25,21 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
   @override
   void initState() {
     super.initState();
-    getOriginalAbout();
+   // getOriginalAbout();
   }
 
-  void getOriginalAbout() async {
-    NetworkHelper req = new NetworkHelper("$KBaseUrl/user/about");
-    var res = await req.getData(true);
-    if (res.statusCode == 200) {
-      print('get Success');
-      print(res.body);
-    } else {
-      print('weeee');
-
-      print(res.statusCode);
-    }
-  }
+  // void getOriginalAbout() async {
+  //   NetworkHelper req = new NetworkHelper("$KBaseUrl/user/about");
+  //   var res = await req.getData(true);
+  //   if (res.statusCode == 200) {
+  //     print('get Success');
+  //     print(res.body);
+  //   } else {
+  //     print('weeee');
+  //
+  //     print(res.statusCode);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -9,6 +9,7 @@ import 'profilePages/about_Screen.dart';
 import 'package:flickr_android/Services/networking.dart';
 import 'package:flickr_android/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flickr_android/getStarted/getStarted_Page.dart';
 
 class Profile extends StatefulWidget {
   Profile({
@@ -24,9 +25,7 @@ class Profile extends StatefulWidget {
     // @required this.description,
     // @required this.occupation,
     // @required this.currentCity,
-
   });
-
 
   String firstName,
       lastName,
@@ -38,7 +37,6 @@ class Profile extends StatefulWidget {
       currentCity,
       homeTown;
   int photosCount = 0, followingCount = 0, followersCount = 0;
-
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -62,7 +60,6 @@ class _ProfileState extends State<Profile> {
     if (res.statusCode == 200) {
       print('get Success');
       print(res.body);
-
     } else {
       print(res.statusCode);
     }
@@ -81,7 +78,6 @@ class _ProfileState extends State<Profile> {
     //   //followingCount = json['Following'];
     //   //followersCount = json['Followers'];
     // });
-
   }
 
   @override
@@ -110,11 +106,22 @@ class _ProfileState extends State<Profile> {
                     pinned: true,
                     backgroundColor: Colors.white,
                     actions: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          FontAwesomeIcons.ellipsisV,
-                          color: Colors.grey[800],
-                        ),
+                      PopupMenuButton(
+                        icon: Icon(Icons.more_vert),
+                        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                          PopupMenuItem(
+                            child: ListTile(
+                              onTap: () async {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return GetStarted();
+                                }));
+                              },
+                              title:
+                                  Text('Signout', textAlign: TextAlign.center),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                     leading: IconButton(
@@ -201,7 +208,8 @@ class _ProfileState extends State<Profile> {
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    'followers ' + widget.followersCount.toString(),
+                                    'followers ' +
+                                        widget.followersCount.toString(),
                                     style: TextStyle(
                                         fontSize: 10.0,
                                         color: Colors.grey[800]),
@@ -210,7 +218,8 @@ class _ProfileState extends State<Profile> {
                                     width: 10.0,
                                   ),
                                   Text(
-                                    'following ' + widget.followingCount.toString(),
+                                    'following ' +
+                                        widget.followingCount.toString(),
                                     style: TextStyle(
                                         fontSize: 10.0,
                                         color: Colors.grey[800]),
