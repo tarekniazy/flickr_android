@@ -10,7 +10,7 @@ import 'loginStyling/login_BasicLayout.dart';
 import '../Services/networking.dart';
 import 'dart:convert';
 import '../home/home.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../signup/signup_screen.dart';
 
 Widget LoggingInScreen() {
@@ -35,8 +35,6 @@ class _LoginState extends State<Login> {
   String buttonText = 'Next';
   String email;
   String password;
-
-
 
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
@@ -72,7 +70,14 @@ class _LoginState extends State<Login> {
               fontSize: 15,
             ),
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () async {
+            const url = "https://mail.yahoo.com";
+            if (await canLaunch(url))
+              await launch(url);
+            else
+              // can't launch url, there is some error
+              throw "Could not launch $url";
+          },
           //TODO arwa- Redirect to yahoo page
           color: Colors.grey,
         ),
@@ -226,12 +231,10 @@ class _LoginState extends State<Login> {
                       // }
                     });
 
-
-
                     // 200 for ID=134 , 500 for ID=135
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/user/login");
-                    var res = await req.postData(Body,false);
+                    NetworkHelper req =
+                        new NetworkHelper("$KBaseUrl/user/login");
+                    var res = await req.postData(Body, false);
                     if (res.statusCode == 200) {
                       setState(() {
                         _emailPWInvalidText = false;
@@ -239,23 +242,24 @@ class _LoginState extends State<Login> {
 
                       print(jsonDecode(res.body)["token"]);
 
-                      userToken=jsonDecode(res.body)["token"];
-                      KUserToken=userToken;
+                      userToken = jsonDecode(res.body)["token"];
+                      KUserToken = userToken;
 
-                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/user/explore");
+                      NetworkHelper req2 =
+                          new NetworkHelper("$KBaseUrl/user/explore");
                       var res2 = await req2.getData(true);
                       print(res2.statusCode);
-                      if (res2.statusCode == 200)
-                      {
+                      if (res2.statusCode == 200) {
                         String data2 = res2.body;
                         List<dynamic> response2 = jsonDecode(data2);
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Home(exploreImages: response2,);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Home(
+                            exploreImages: response2,
+                          );
                         }));
-
-                      } else
-                      {
+                      } else {
                         print(res2.statusCode);
                       }
                     } else if (res.statusCode == 404) {
@@ -263,9 +267,10 @@ class _LoginState extends State<Login> {
                         _emailPWInvalidText = true;
                         errorPassword = EnumError.hide;
                       });
-                    } else {
+                    } else if (res.statusCode == 401) {
                       errorPassword = EnumError.show;
                       _emailPWInvalidText = false;
+                    } else {
                       print(res.statusCode);
                     }
                   }
