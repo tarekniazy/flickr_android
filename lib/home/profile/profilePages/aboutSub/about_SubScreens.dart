@@ -148,8 +148,11 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
               ),
             ),
           ),
-          Divider(
-            color: Colors.grey[500],
+          Visibility(
+            visible: visibility,
+            child: Divider(
+              color: Colors.grey[500],
+            ),
           ),
         ]),
       ),
