@@ -17,6 +17,7 @@ class ImageCard extends StatefulWidget {
     @required this.comments,
     @required this.faves,
     @required this.imageId,
+    @required this.isfaved,
   });
 
   final String imageUrl; // image path
@@ -24,6 +25,7 @@ class ImageCard extends StatefulWidget {
   final List<dynamic> comments;
   final List<dynamic> faves;
   final imageId;
+  final isfaved;
 
   // final numberOfFaves; // number of likes
   // final numberOfComments; // number of comments

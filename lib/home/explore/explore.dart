@@ -26,6 +26,10 @@ class _ExploreState extends State<Explore> {
 
  List<ImageCard> post=[];
 
+ List<dynamic> favedPhotos=[];
+
+ bool isFaved=false;
+
  void loadUsers(userId) async{
 
    // NetworkHelper req = new NetworkHelper(
@@ -41,9 +45,36 @@ class _ExploreState extends State<Explore> {
 
  }
 
-  void loadImageCard()
+ void getUserfavs() async{
+
+   // NetworkHelper req = new NetworkHelper(
+   //     "$KMockSeverBaseUrl/people/id");
+   //
+   // var res = await req.getData(true);
+   //
+   // if (res.statusCode == 200)
+   //   {
+   //     String data = res.body;
+   //       print(jsonDecode(data));
+   //   }
+
+ }
+
+
+  void loadImageCard() async
   {
 
+
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user/fav");
+
+    var res = await req.getData(true);
+
+    if (res.statusCode == 200)
+      {
+        String data2 = res.body;
+        favedPhotos = jsonDecode(data2);
+
+      }
 
 
 
@@ -66,8 +97,9 @@ class _ExploreState extends State<Explore> {
 
 
 
+
       post.add(
-          ImageCard(imageUrl:element["photoUrl"] ,author: element["ownerId"],comments: element["comments"],faves: element["Fav"])) ;
+          ImageCard(imageUrl:element["photoUrl"],imageId:element["_id"]  ,author: element["ownerId"],comments: element["comments"],faves: element["Fav"])) ;
     });
 
 

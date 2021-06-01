@@ -71,9 +71,8 @@ class _SearchState extends State<Search> {
 
 
   void loadPhotoCard(List<dynamic> photos)
-  {
-    photos.forEach((element)  {
-      photoSearchList.clear();
+  {      photoSearchList.clear();
+  photos.forEach((element)  {
       photoSearchList.add(
           PhotoCard(imageUrl : element["photoUrl"])
       ) ;
@@ -254,7 +253,7 @@ class _SearchState extends State<Search> {
   bool iconCancelVisibility = false;
   bool rowVisibility = false;
   bool randomPhotos = true;
-  bool photos = true;
+  bool photos = false;
   bool people = false;
   bool groups = false;
   bool noResults = false;
