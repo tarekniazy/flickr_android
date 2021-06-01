@@ -2,23 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/Services/networking.dart';
-import 'dart:convert';
+import 'package:flickr_android/home/customeWidgets.dart';
 
 class AboutSubscreen extends StatefulWidget {
-  AboutSubscreen(this.subScreenMainText, this.subScreenSubText);
+  AboutSubscreen(this.subScreenMainText, this.subScreenSubText,
+      this.isSubScreenSubTextEmpty);
   final subScreenMainText;
   final subScreenSubText;
+  final isSubScreenSubTextEmpty;
   @override
-  _AboutSubscreenState createState() =>
-      _AboutSubscreenState(subScreenMainText, subScreenSubText);
+  _AboutSubscreenState createState() => _AboutSubscreenState(
+      subScreenMainText, subScreenSubText, isSubScreenSubTextEmpty);
 }
 
 class _AboutSubscreenState extends State<AboutSubscreen> {
-  _AboutSubscreenState(this.subScreenMainText, this.subScreenSubText);
+  _AboutSubscreenState(this.subScreenMainText, this.subScreenSubText,
+      this.isSubScreenSubTextEmpty);
   final subScreenMainText;
   final subScreenSubText;
+  final isSubScreenSubTextEmpty;
   bool buttonBoolean = false;
-  String buttonText = 'Next';
+  String buttonText = 'Edit';
   String givenUserData;
   String userToken;
 
@@ -71,6 +75,10 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                             print(res.statusCode);
                             print(givenUserData);
                           }
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return LoadingScreen();
+                          }));
                         }
                         ;
                       },
@@ -81,21 +89,32 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                 ),
               ), // Edit and Done Button
             ]),
-        body: TextField(
+        body: TextFormField(
           maxLines: null,
           onTap: () {
             setState(() {
               buttonText = 'Done';
-              //TODO Arwa- Modify to do a functionality in the Next phase
             });
           },
+          initialValue: (isSubScreenSubTextEmpty == true)
+              ? null
+              : widget.subScreenSubText,
+          // controller: TextEditingController()
+          //   ..text = (isSubScreenSubTextEmpty == true)
+          //       ? null
+          //       : widget.subScreenSubText,
           onChanged: (value) {
             givenUserData = value;
           },
           decoration: InputDecoration(
             isDense: true,
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            labelText: "   " + widget.subScreenSubText + "...",
+            labelText: (isSubScreenSubTextEmpty == true)
+                ? "   " + widget.subScreenSubText + "..."
+                : null,
+            hintText: (isSubScreenSubTextEmpty == true)
+                ? null
+                : widget.subScreenSubText,
           ),
         ),
       ),

@@ -10,6 +10,8 @@ const KTabBarTextsStyle = TextStyle(
 Widget createAboutTextTile({
   String mainText,
   String subText,
+  bool isSubEmptyText,
+  int typeSelected,
   String thirdText = '',
   bool thirdLine = false,
   BuildContext context,
@@ -47,12 +49,10 @@ Widget createAboutTextTile({
         context,
         MaterialPageRoute(
           builder: (context) {
-            return AboutSubscreen(mainText, subText);
+            return AboutSubscreen(mainText, subText, isSubEmptyText);
           },
         ),
       );
     },
   );
 }
-
-
