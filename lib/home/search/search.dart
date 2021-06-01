@@ -55,12 +55,16 @@ class _SearchState extends State<Search> {
 
   void loadGroupCard(List<dynamic> groups)
   {
+groupList.clear();
+    groups.forEach((element)
+    {
+        groupList.add(
+            GroupCard(authorName: element["name"],
+                authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+                numberOfPhotos: element["num_photos"].toString(),
+                numberOfMembers: element["num_members"].toString())
 
-    groups.forEach((element)  {
-
-      groupList.add(
-          GroupCard(authorName: element["name"], authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg", numberOfPhotos: element["num_photos"].toString(), numberOfMembers: element["num_members"].toString())
-      ) ;
+        );
     });
 
   }
@@ -79,6 +83,7 @@ class _SearchState extends State<Search> {
 
   void loadUserCard(List<dynamic> users)
   {
+    usersList.clear();
     users.forEach((element)  {
       usersList.add(
           UserCard(authorName: element["UserName"], authorImage: element["avatarUrl"], numberOfPhotos: element["numberOfPublicPhotos"].toString(), numberOfFollowers: element["numberOfFollowers"].toString(), isFollowed: element["isFollowed"])
@@ -92,32 +97,32 @@ class _SearchState extends State<Search> {
     // TODO: implement initState
     super.initState();
 
-    List<dynamic> users=[
-      {
-         "Fname": "Mariam",
-         "Lname": "Ameen",
-         "UserName": "MariamAmeen",
-          "_id": 0,
-          "Date_joined": "2021-05-31",
-          "numberOfPublicPhotos": 2,
-          "numberOfFollowers": 5,
-          "avatarUrl": "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-          "isFollowed": false
-      }
-      ,
-      {
-           "Fname": "Mariam",
-           "Lname": "Ameen",
-           "UserName": "MariamAmeen",
-            "_id": 0,
-            "Date_joined": "2021-05-31",
-            "numberOfPublicPhotos": 0,
-            "numberOfFollowers": 0,
-            "avatarUrl": "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            "isFollowed": true
-      }
-    ];
-    loadUserCard(users);
+    // List<dynamic> users=[
+    //   {
+    //      "Fname": "Mariam",
+    //      "Lname": "Ameen",
+    //      "UserName": "MariamAmeen",
+    //       "_id": 0,
+    //       "Date_joined": "2021-05-31",
+    //       "numberOfPublicPhotos": 2,
+    //       "numberOfFollowers": 5,
+    //       "avatarUrl": "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+    //       "isFollowed": false
+    //   }
+    //   ,
+    //   {
+    //        "Fname": "Mariam",
+    //        "Lname": "Ameen",
+    //        "UserName": "MariamAmeen",
+    //         "_id": 0,
+    //         "Date_joined": "2021-05-31",
+    //         "numberOfPublicPhotos": 0,
+    //         "numberOfFollowers": 0,
+    //         "avatarUrl": "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    //         "isFollowed": true
+    //   }
+    // ];
+    // loadUserCard(users);
 
     // List<dynamic> groups=[
     //   {
@@ -218,7 +223,7 @@ class _SearchState extends State<Search> {
   bool iconCancelVisibility = false;
   bool rowVisibility = false;
   bool randomPhotos = true;
-  bool photos = false;
+  bool photos = true;
   bool people = false;
   bool groups = false;
   bool noResults = false;
@@ -258,7 +263,6 @@ class _SearchState extends State<Search> {
                       iconCancelVisibility = true;
                       rowVisibility = true;
                       randomPhotos = false;
-                      photos = true;
                     });
                   },
                   onChanged: (String str) async {
@@ -287,8 +291,19 @@ class _SearchState extends State<Search> {
                           NetworkHelper groupreq = new NetworkHelper("$KBaseUrl/group/"+searchController.text+"/search");
                           var groupresp = await groupreq.getData(true);
 
+                          NetworkHelper userreq = new NetworkHelper("$KBaseUrl/people/search/"+searchController.text);
+                          var userresp = await userreq.getData(true);
+
+
+
                         setState(() {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
                           print(searchController.text);
+
+                          noResults = false;
                           if (photos == true) {
 
 
@@ -303,16 +318,28 @@ class _SearchState extends State<Search> {
                               List<dynamic> response2 = jsonDecode(data2);
                               loadGroupCard(response2);
 
-
-
                             } else
                             {
                               print(groupresp.statusCode);
+                              noResults = true;
                             }
 
 
                           }
                           if (people == true) {
+
+                            if (userresp.statusCode == 201)
+                            {
+                              String data3 = userresp.body;
+                              List<dynamic> response3 = jsonDecode(data3);
+                              loadUserCard(response3);
+
+                            } else
+                            {
+                              print(userresp.statusCode);
+                              noResults = true;
+                            }
+
 
                           }
                         });
@@ -422,6 +449,11 @@ class _SearchState extends State<Search> {
                           groups = false;
                           noResults = false;
                           randomPhotos = false;
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
                         });
                       },
                       child: Text(
@@ -445,6 +477,11 @@ class _SearchState extends State<Search> {
                           groups = true;
                           noResults = false;
                           randomPhotos = false;
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
                         });
                       },
                       child: Text(

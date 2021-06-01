@@ -20,15 +20,8 @@ class NetworkHelper {
         print(headers);
         http.Response response= await http.get(uri,
         headers:headers);
-        if (response.statusCode==200)
-        {
-          return response;
 
-        }
-        else
-        {
-             print(response.statusCode);
-        }
+          return response;
       }
     else{
       var uri= Uri.parse(url);
