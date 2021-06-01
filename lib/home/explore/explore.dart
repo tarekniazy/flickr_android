@@ -47,12 +47,12 @@ class _ExploreState extends State<Explore> {
 
 
 
-
+    print(widget.exploreImages.length);
     // print(widget.exploreImages);
 
     widget.exploreImages.forEach((element)  {
 
-      // print(element["title"]);
+      print(element["comments"].length);
 
       // // print(element["photos"]);
       // print(element["photos"].first["photoUrl"]);
@@ -63,7 +63,6 @@ class _ExploreState extends State<Explore> {
       //   "ownerUsername":element["ownerUsername"],
       //   "Avatar":element["Avatar"]
       // };
-      // print(element["ownerId"]);
 
 
 

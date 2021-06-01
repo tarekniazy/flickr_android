@@ -254,7 +254,7 @@ class _SearchState extends State<Search> {
   bool iconCancelVisibility = false;
   bool rowVisibility = false;
   bool randomPhotos = true;
-  bool photos = false;
+  bool photos = true;
   bool people = false;
   bool groups = false;
   bool noResults = false;
@@ -295,9 +295,11 @@ class _SearchState extends State<Search> {
                       iconCancelVisibility = true;
                       rowVisibility = true;
                       randomPhotos = false;
+
                       x++;
                       if (x==1)
                        photos = true;
+
 
                     });
                   },
@@ -334,6 +336,7 @@ class _SearchState extends State<Search> {
                           if (groups == true) {
 
                            groupreq = new NetworkHelper("$KBaseUrl/group/"+searchController.text+"/search");
+
                           groupresp = await groupreq.getData(true);
                         }
 
@@ -342,6 +345,7 @@ class _SearchState extends State<Search> {
                             NetworkHelper peoplereq = new NetworkHelper("$KBaseUrl/people/search/"+searchController.text);
                             peopleresp = await peoplereq.getData(true);
                           }
+
 
                           if (photos == true)
                             {
@@ -356,6 +360,7 @@ class _SearchState extends State<Search> {
                               currentFocus.unfocus();
                             }
                            // noResults = false;
+
                           // print(searchController.text);
                           if (photos == true) {
 
@@ -406,7 +411,7 @@ class _SearchState extends State<Search> {
                             } else
                             {
                               print(peopleresp.statusCode);
-                              //noResults = true;
+
                             }
 
 
