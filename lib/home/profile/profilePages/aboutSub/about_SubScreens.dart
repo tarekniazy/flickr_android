@@ -61,9 +61,10 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                           Map<String, String> body = {
                             subScreenMainText: givenUserData,
                           };
+                          print(body);
                           NetworkHelper req =
                               new NetworkHelper("$KBaseUrl/user/about");
-                          var res = await req.putData(body);
+                          var res = await req.putDataDio(body);
                           if (res.statusCode == 200) {
                             print(res.statusCode);
                           } else {

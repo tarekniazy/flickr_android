@@ -1159,7 +1159,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var res = await req.getData(true);
     if (res.statusCode == 200) {
       print('get Success');
-      // print(res.body);
+      print(res.body);
       var json = jsonDecode(res.body);
 
       firstName = json['Fname'];
@@ -1167,11 +1167,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
       avatarUrl = json['Avatar'];
       coverUrl = json['BackGround'];
       email = json['Email'];
-      description = json['Description'];
-      occupation = json['Occupation'];
-      currentCity = json['CurrentCity'];
-      homeTown = json['Hometown'];
-      // print(coverUrl);
+      description = json['About']['Description'];
+      occupation = json['About']['Occupation'];
+      currentCity = json['About']['CurrentCity'];
+      homeTown = json['About']['Hometown'];
+      print(description);
       //photosCount = json['Photo'];
       //followingCount = json['Following'];
       //followersCount = json['Followers'];

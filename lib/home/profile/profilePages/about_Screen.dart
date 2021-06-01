@@ -33,14 +33,16 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
                 ),
                 createAboutTextTile(
                     mainText: 'Occupation',
-                    subText: 'Add Occupation',
+                    subText:
+                        (occupation == null) ? 'Add Occupation' : occupation,
                     context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
                     mainText: 'CurrentCity',
-                    subText: 'Add Current City',
+                    subText:
+                        (currentCity == null) ? 'Add CurrentCity' : currentCity,
                     thirdText: 'Visible to: Anyone',
                     thirdLine: true,
                     context: context),
@@ -48,8 +50,8 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Homtown',
-                    subText: 'Add Homtown',
+                    mainText: 'Hometown',
+                    subText: (homeTown == null) ? 'Add Hometown' : homeTown,
                     context: context),
                 Divider(
                   color: Colors.grey[500],
