@@ -37,6 +37,11 @@ class _CameraRollState extends State<CameraRoll> {
   ];
 
   bool row = false;
+  bool selected = false;
+  bool privacy = false;
+  bool share = false;
+  bool album = false;
+  bool delete = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,33 +49,46 @@ class _CameraRollState extends State<CameraRoll> {
         child: Container(
         child: Column(
           children: <Widget>[
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(kBackgroundColor),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.black, width: 2.0),
-                    ),
-                  ),
+            ListTile(
+              leading: Text( (selected == false) ? '' : '0 Selected',
+          style: TextStyle(
+            //fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: 'Frutiger',
+            fontSize: 20.0,
+          ),
+        ),
+                trailing: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(kBackgroundColor),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black, width: 2.0),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          if (selected == false) {
+                            row = true;
+                            selected = true;
+                          }
+                          else {
+                            row = false;
+                            selected=false;
+                          }
+                        });
+                      },
+                      child: Text( (selected == false) ? 'Select' : 'Done',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontFamily: 'Frutiger',
+                          fontSize: 16.0,
+                        ),
+                      ),
                 ),
-                onPressed: () {
-                  setState(() {
-                    row = true;
-                  });
-                },
-                child: Text(
-                  'Select',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontFamily: 'Frutiger',
-                    fontSize: 16.0,
-                  ),
-                ),
-              ),
-            ),
+             ),
             UserView(
             userBody: photoPost,
           ),
@@ -88,7 +106,12 @@ class _CameraRollState extends State<CameraRoll> {
                                  color: kBackgroundColor
                           ),
                         onPressed: () {
-                          setState(() { });
+                          setState(() {
+                            privacy = true;
+                            share = false;
+                            album = false;
+                            delete = false;
+                          });
                         },
                         ),
                       IconButton( icon: Icon(
@@ -97,7 +120,12 @@ class _CameraRollState extends State<CameraRoll> {
                             color: kBackgroundColor
                         ),
                         onPressed: () {
-                       setState(() { });
+                       setState(() {
+                         privacy = false;
+                         share = false;
+                         album = true;
+                         delete = false;
+                       });
                         },
                       ),
                       IconButton( icon: Icon(
@@ -106,7 +134,12 @@ class _CameraRollState extends State<CameraRoll> {
                             color: kBackgroundColor
                         ),
                         onPressed: () {
-                          setState(() { });
+                          setState(() {
+                            privacy = false;
+                            share = true;
+                            album = false;
+                            delete = false;
+                          });
                         },
                       ),
                       IconButton( icon: Icon(
@@ -115,48 +148,14 @@ class _CameraRollState extends State<CameraRoll> {
                     color: kBackgroundColor
                     ),
                         onPressed: () {
-                          setState(() { });
+                          setState(() {
+                            privacy = false;
+                            share = false;
+                            album = false;
+                            delete = true;
+                          });
                         },
                       ),
-                      // Icon(
-                      //     Icons.share,
-                      //     size: 25,
-                      //     color: kBackgroundColor
-                      // ),
-
-                      // ElevatedButton.icon(
-                      //     onPressed: () {
-                      //       setState(() {
-                      //         row = true;
-                      //       });
-                      //     },
-                      //     icon: kSearchIcon,
-                      //   label: labe,
-                      //     )
-                      // TextButton(
-                      //   style: ButtonStyle(
-                      //     backgroundColor: MaterialStateProperty.all(kBackgroundColor),
-                      //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      //       RoundedRectangleBorder(
-                      //         side: BorderSide(color: Colors.black, width: 2.0),
-                      //       ),
-                      //     ),
-                      //   ),
-                      //   onPressed: () {
-                      //     setState(() {
-                      //
-                      //     });
-                      //   },
-                      //   child: Text(
-                      //     'Select',
-                      //     style: TextStyle(
-                      //       fontWeight: FontWeight.bold,
-                      //       color: Colors.black,
-                      //       fontFamily: 'Frutiger',
-                      //       fontSize: 16.0,
-                      //     ),
-                      //   ),
-                      // ),
                       ],
                 ),
               ),
