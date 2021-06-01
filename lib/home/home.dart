@@ -62,7 +62,6 @@ class _HomeState extends State<Home> {
     {
       String data = res.body;
       List<dynamic> response = jsonDecode(data);
-
       view = Explore(exploreImages: response);
       print(response);
     }

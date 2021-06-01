@@ -196,7 +196,7 @@ class _ImageCardState extends State<ImageCard> {
               ),
               subtitle: GestureDetector(
                 child: Text(
-                  widget.comments.last["comment"],
+                  widget.comments.last["comment"]["comment"],
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Frutiger',
@@ -494,7 +494,7 @@ class _CommentViewState extends State<CommentView> {
         commentBody.add(CommentCard(
             authorId: element["ownerusername"],
             authorImage: element["avatar"],
-            comment: element["comment"]));
+            comment: element["comment"]["comment"]));
       }
     });
   }
@@ -1235,3 +1235,37 @@ class _LoadingScreenState extends State<LoadingScreen> {
     );
   }
 }
+class PhotoCard extends StatefulWidget {
+
+  PhotoCard({
+    @required this.imageUrl,
+  });
+
+  final String imageUrl;
+
+  @override
+  _PhotoCardState createState() => _PhotoCardState();
+}
+
+class _PhotoCardState extends State<PhotoCard> {
+  @override
+
+
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4.0,4.0,4.0,0.0),
+      child: Container(
+        height: 150,
+        color: kBackgroundColor,
+        child: Image(
+          fit: BoxFit.fill,
+          image:NetworkImage(
+            widget.imageUrl,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
