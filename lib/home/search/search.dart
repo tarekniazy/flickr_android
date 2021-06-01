@@ -26,7 +26,7 @@ class _SearchState extends State<Search> {
 
     NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
     var res2 = await req2.getData(true);
-    print(res2.statusCode);
+    // print(res2.statusCode);
     if (res2.statusCode == 200)
     {
       String data2 = res2.body;
@@ -43,10 +43,11 @@ class _SearchState extends State<Search> {
     });
 
 
-    } else
-    {
-      print(res2.statusCode);
-    }
+     }
+    // else
+    // {
+    //   print(res2.statusCode);
+    // }
 
   }
 
@@ -55,6 +56,7 @@ class _SearchState extends State<Search> {
 
   void loadGroupCard(List<dynamic> groups)
   {
+    groupList.clear();
 
     groups.forEach((element)  {
 
@@ -117,7 +119,7 @@ class _SearchState extends State<Search> {
             "isFollowed": true
       }
     ];
-    loadUserCard(users);
+    // loadUserCard(users);
 
     // List<dynamic> groups=[
     //   {
@@ -218,7 +220,7 @@ class _SearchState extends State<Search> {
   bool iconCancelVisibility = false;
   bool rowVisibility = false;
   bool randomPhotos = true;
-  bool photos = false;
+  bool photos = true;
   bool people = false;
   bool groups = false;
   bool noResults = false;
@@ -258,7 +260,9 @@ class _SearchState extends State<Search> {
                       iconCancelVisibility = true;
                       rowVisibility = true;
                       randomPhotos = false;
-                      photos = true;
+                      // photos = true;
+                      // groups=false;
+                      // people=false;
                     });
                   },
                   onChanged: (String str) async {
@@ -282,13 +286,34 @@ class _SearchState extends State<Search> {
                         onPressed: () async {
 
 
+                          NetworkHelper groupreq;
+                          var groupresp;
+
+                          NetworkHelper peoplereq;
+                          var peopleresp;
+
+                          if (groups == true) {
+
+                           groupreq = new NetworkHelper(
+                              "$KBaseUrl/group/" + searchController.text +
+                                  "/search");
+                          groupresp = await groupreq.getData(true);
+                        }
+
+                          if (people == true) {
+
+                            NetworkHelper peoplereq = new NetworkHelper("$KBaseUrl/people/search/"+searchController.text);
+                            peopleresp = await peoplereq.getData(true);
+                          }
 
 
-                          NetworkHelper groupreq = new NetworkHelper("$KBaseUrl/group/"+searchController.text+"/search");
-                          var groupresp = await groupreq.getData(true);
 
-                        setState(() {
-                          print(searchController.text);
+
+
+
+
+                          setState(() {
+                          // print(searchController.text);
                           if (photos == true) {
 
 
@@ -313,6 +338,23 @@ class _SearchState extends State<Search> {
 
                           }
                           if (people == true) {
+
+                            if (peopleresp.statusCode == 201)
+                            {
+                              String data2 = peopleresp.body;
+                              List<dynamic> response2 = jsonDecode(data2);
+                              // loadGroupCard(response2);
+                              print(response2);
+                              loadUserCard(response2);
+
+
+
+
+                            } else
+                            {
+                              print(peopleresp.statusCode);
+                            }
+
 
                           }
                         });
