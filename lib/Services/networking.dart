@@ -22,6 +22,7 @@ class NetworkHelper {
         headers:headers);
 
           return response;
+
       }
     else{
       var uri= Uri.parse(url);
