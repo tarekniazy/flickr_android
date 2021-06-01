@@ -681,12 +681,16 @@ class UserCard extends StatefulWidget {
       @required this.authorImage,
       @required this.numberOfPhotos,
       @required this.numberOfFollowers,
+        @required this.isFollowed,
+        @required this.peopleID,
       @required this.favs});
 
   final String authorName; // author name
   final String authorImage; // author home.profile pic
   final numberOfPhotos;
   final numberOfFollowers;
+  final isFollowed;
+  final peopleID;
   final List<dynamic> favs;
 
   @override
@@ -694,8 +698,8 @@ class UserCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<UserCard> {
-  bool followed = false;
-  String text = '+ Follow';
+ // bool followed = false;
+  //String text = '+ Follow';
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
@@ -723,7 +727,7 @@ class _UserCardState extends State<UserCard> {
             widget.numberOfFollowers +
             ' followers'),
         trailing: Container(
-          width: (followed == true) ? 35.0 : 80.0,
+          width: (widget.isFollowed == true) ? 35.0 : 80.0,
           child: TextButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
@@ -735,7 +739,7 @@ class _UserCardState extends State<UserCard> {
             ),
             onPressed: () {
               setState(() {
-                if (followed == false) {
+                if (widget.isFollowed == false) {
                   if (widget.favs != null) {
                     widget.favs.forEach((element) {
                       if (element["owner_name"] == "Garyyy") {
@@ -745,16 +749,17 @@ class _UserCardState extends State<UserCard> {
                       }
                     });
                   }
-                  text = '✔';
-                  followed = true;
+                  //text = '✔';
+                  //followed = true;
+                  //post follow
                 } else {
-                  text = '+ Follow';
-                  followed = false;
+                 // text = '+ Follow';
+                 // followed = false;
+                  //delete follow
                 }
               });
             },
-            child: Text(
-              text,
+            child: Text((widget.isFollowed == false) ? '+ Follow' : '✔',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
