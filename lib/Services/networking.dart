@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/globals.dart' as globals;
+import 'package:dio/dio.dart';
 
 class NetworkHelper {
   NetworkHelper(this.url);
@@ -35,7 +36,19 @@ class NetworkHelper {
     }
 
 
+  Future putDataDio(Map<String, dynamic> Body) async {
+    var uri = Uri.parse(url);
+    var dio = Dio();
 
+    Response response = await dio.put(uri.toString(),
+        data: jsonEncode(Body),
+        options: Options(headers: {
+          'Token': KUserToken,
+        }));
+    print(response.data);
+    print(response.statusMessage);
+    return response;
+  }
 
   Future postData( Map<String, dynamic> Body,bool ifToken) async
   {

@@ -966,6 +966,7 @@ class _CommentSectionState extends State<CommentSection> {
                             authorImage: avatarUrl,
                             comment: _controller.text));
                         widget.comments.add({
+                          "id": 0,
                           "comment": _controller.text,
                           "user": {
                             "_id": 0,
@@ -1257,7 +1258,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       occupation,
       currentCity,
       homeTown;
-  int photosCount = 0, followingCount = 0, followersCount = 0;
+  int photosCount, followingCount = 0, followersCount = 0;
 
   void getUserDetails() async {
     NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
@@ -1273,33 +1274,37 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
 
 
-       firstName = json['Fname'];
-       lastName = json['Lname'];
-       avatarUrl = json['Avatar'];
-       coverUrl = json['BackGround'];
-       description = json['Description'];
-       occupation = json['Occupation'];
-       currentCity = json['CurrentCity'];
-       homeTown = json['Hometown'];
-       // print(coverUrl);
-       //photosCount = json['Photo'];
-       //followingCount = json['Following'];
-       //followersCount = json['Followers'];
+      firstName = json['Fname'];
+      lastName = json['Lname'];
+      avatarUrl = json['Avatar'];
+      coverUrl = json['BackGround'];
+      email = json['Email'];
+      description = json['About']['Description'];
+      occupation = json['About']['Occupation'];
+      currentCity = json['About']['CurrentCity'];
+      homeTown = json['About']['Hometown'];
+      photosCount = json['Photo'];
+      // followingCount = json['Following'];
+      // followersCount = json['Followers'];
+      print(photosCount);
+      // print(followingCount);
+      // print(followersCount);
 
-       Navigator.push(context, MaterialPageRoute(builder: (context) {
-         return Profile(
-           firstName: firstName,
-           lastName: lastName,
-           avatarUrl: avatarUrl,
-           coverUrl: coverUrl,
-           description: description,
-           occupation: occupation,
-           currentCity: currentCity,
-           homeTown: homeTown,
-
-         );
-       }));
-     // }
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return Profile(
+          firstName: firstName,
+          lastName: lastName,
+          avatarUrl: avatarUrl,
+          coverUrl: coverUrl,
+          email: email,
+          description: description,
+          occupation: occupation,
+          currentCity: currentCity,
+          homeTown: homeTown,
+          photosCount: photosCount,
+        );
+      }));
+      // }
       // });
     //
 
@@ -1343,7 +1348,6 @@ class PhotoCard extends StatefulWidget {
 }
 
 class _PhotoCardState extends State<PhotoCard> {
-
   @override
 
 

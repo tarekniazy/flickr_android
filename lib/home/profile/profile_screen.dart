@@ -21,12 +21,11 @@ class Profile extends StatefulWidget {
     @required this.occupation,
     @required this.currentCity,
     @required this.homeTown,
+    @required this.photosCount,
     // @required this.description,
     // @required this.occupation,
     // @required this.currentCity,
-
   });
-
 
   String firstName,
       lastName,
@@ -37,59 +36,13 @@ class Profile extends StatefulWidget {
       occupation,
       currentCity,
       homeTown;
-  int photosCount = 0, followingCount = 0, followersCount = 0;
-
+  int photosCount, followingCount = 0, followersCount = 0;
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  // String firstName,
-  //     lastName,
-  //     avatarUrl,
-  //     coverUrl,
-  //     email,
-  //     description,
-  //     occupation,
-  //     currentCity,
-  //     homeTown;
-  // int photosCount = 0, followingCount = 0, followersCount = 0;
-
-  void getUserDetails() async {
-    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
-    var res = await req.getData(true);
-    if (res.statusCode == 200) {
-      print('get Success');
-      print(res.body);
-
-    } else {
-      print(res.statusCode);
-    }
-
-    // setState(() {
-    //   var json = jsonDecode(res.body);
-    //   firstName = json['Fname'];
-    //   lastName = json['Lname'];
-    //   avatarUrl = json['Avatar'];
-    //   coverUrl = json['BackGround'];
-    //   description = json['Description'];
-    //   occupation = json['Occupation'];
-    //   currentCity = json['CurrentCity'];
-    //   homeTown = json['Hometown'];
-    //   //photosCount = json['Photo'];
-    //   //followingCount = json['Following'];
-    //   //followersCount = json['Followers'];
-    // });
-
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // getUserDetails();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,11 +63,23 @@ class _ProfileState extends State<Profile> {
                     pinned: true,
                     backgroundColor: Colors.white,
                     actions: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          FontAwesomeIcons.ellipsisV,
-                          color: Colors.grey[800],
-                        ),
+                      PopupMenuButton(
+                        color: Colors.grey[700],
+                        icon: Icon(Icons.more_vert),
+                        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                          PopupMenuItem(
+                            child: ListTile(
+                              onTap: () async {
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                              },
+                              title: Text(
+                                'Signout',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                     leading: IconButton(
@@ -182,8 +147,11 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                     const PopupMenuDivider(),
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       child: ListTile(
+                                        onTap: () {
+                                          print(widget.email);
+                                        },
                                         title: Text('Edit Cover Photo',
                                             textAlign: TextAlign.center),
                                       ),
@@ -201,7 +169,8 @@ class _ProfileState extends State<Profile> {
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    'followers ' + widget.followersCount.toString(),
+                                    'followers ' +
+                                        widget.followersCount.toString(),
                                     style: TextStyle(
                                         fontSize: 10.0,
                                         color: Colors.grey[800]),
@@ -210,7 +179,8 @@ class _ProfileState extends State<Profile> {
                                     width: 10.0,
                                   ),
                                   Text(
-                                    'following ' + widget.followingCount.toString(),
+                                    'following ' +
+                                        widget.followingCount.toString(),
                                     style: TextStyle(
                                         fontSize: 10.0,
                                         color: Colors.grey[800]),
@@ -259,7 +229,14 @@ class _ProfileState extends State<Profile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                BuildAbout(context),
+                BuildAbout(
+                    context,
+                    widget.description,
+                    widget.occupation,
+                    widget.currentCity,
+                    widget.homeTown,
+                    widget.email,
+                    widget.photosCount),
                 CameraRoll(), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
                 Text(''), //TODO Arwa- this text is For public
                 Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
