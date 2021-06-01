@@ -35,6 +35,10 @@ class ImageCard extends StatefulWidget {
 }
 
 class _ImageCardState extends State<ImageCard> {
+
+  String LastComment;
+  String LastUser;
+
   Text checkIfAvailble(int number) {
     if (number > 0) {
       return Text(
@@ -63,6 +67,34 @@ class _ImageCardState extends State<ImageCard> {
     } else {
       return Icon(Icons.star_border);
     }
+  }
+
+
+  String ifLastComment()
+  {
+    if(widget.comments.length!=0) {
+      LastUser=widget.comments.last["user"]["Fname"];
+      return widget.comments.last["comment"];
+    }
+    else
+      {
+        LastUser=" ";
+        return " ";
+      }
+
+  }
+
+
+  String ifLastUserComment()
+  {
+    if(widget.comments.length!=0) {
+      return widget.comments.last["user"]["Fname"];
+    }
+    else
+    {
+      return " ";
+    }
+
   }
 
   @override
@@ -186,7 +218,7 @@ class _ImageCardState extends State<ImageCard> {
                 size: 20,
               ),
               title: Text(
-               widget.comments.last["user"]["Fname"],
+               ifLastUserComment(),
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'Frutiger',
@@ -196,7 +228,7 @@ class _ImageCardState extends State<ImageCard> {
               ),
               subtitle: GestureDetector(
                 child: Text(
-                  widget.comments.last["comment"],
+                  ifLastComment(),
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Frutiger',
