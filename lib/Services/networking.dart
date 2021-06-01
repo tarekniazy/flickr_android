@@ -27,19 +27,15 @@ class NetworkHelper {
     else{
       var uri= Uri.parse(url);
       http.Response response= await http.get(uri);
-      if (response.statusCode==200)
-      {
+
         return response;
 
       }
-      else
-      {
-        //    print(response.statusCode);
-      }
+
     }
 
 
-  }
+
 
   Future postData( Map<String, dynamic> Body,bool ifToken) async
   {

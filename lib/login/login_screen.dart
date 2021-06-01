@@ -248,10 +248,12 @@ class _LoginState extends State<Login> {
                       if (res2.statusCode == 200)
                       {
                         String data2 = res2.body;
+                        print(data2);
+
                         List<dynamic> response2 = jsonDecode(data2);
                          // print(response2);
                         Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Home(exploreImages: response2,);
+                          return Home(exploreImages: response2);
                         }));
 
                       } else

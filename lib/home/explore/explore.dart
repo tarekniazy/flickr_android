@@ -71,8 +71,11 @@ class _ExploreState extends State<Explore> {
 
     if (res.statusCode == 200)
       {
-        String data2 = res.body;
-        favedPhotos = jsonDecode(data2);
+        setState(() {
+          String data2 = res.body;
+          favedPhotos = jsonDecode(data2);
+        });
+
 
       }
 
