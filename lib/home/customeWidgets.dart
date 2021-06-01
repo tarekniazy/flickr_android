@@ -1152,7 +1152,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       occupation,
       currentCity,
       homeTown;
-  int photosCount = 0, followingCount = 0, followersCount = 0;
+  int photosCount, followingCount = 0, followersCount = 0;
 
   void getUserDetails() async {
     NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
@@ -1171,10 +1171,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
       occupation = json['About']['Occupation'];
       currentCity = json['About']['CurrentCity'];
       homeTown = json['About']['Hometown'];
-      print(description);
-      //photosCount = json['Photo'];
-      //followingCount = json['Following'];
-      //followersCount = json['Followers'];
+      photosCount = json['Photo'];
+      // followingCount = json['Following'];
+      // followersCount = json['Followers'];
+      print(photosCount);
+      // print(followingCount);
+      // print(followersCount);
 
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return Profile(
@@ -1187,6 +1189,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           occupation: occupation,
           currentCity: currentCity,
           homeTown: homeTown,
+          photosCount: photosCount,
         );
       }));
       // }

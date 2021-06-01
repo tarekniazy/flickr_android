@@ -6,22 +6,24 @@ import 'package:flickr_android/home/customeWidgets.dart';
 
 class AboutSubscreen extends StatefulWidget {
   AboutSubscreen(this.subScreenMainText, this.subScreenSubText,
-      this.isSubScreenSubTextEmpty);
+      this.isSubScreenSubTextEmpty, this.visibility);
   final subScreenMainText;
   final subScreenSubText;
   final isSubScreenSubTextEmpty;
+  final visibility;
   @override
   _AboutSubscreenState createState() => _AboutSubscreenState(
-      subScreenMainText, subScreenSubText, isSubScreenSubTextEmpty);
+      subScreenMainText, subScreenSubText, isSubScreenSubTextEmpty, visibility);
 }
 
 class _AboutSubscreenState extends State<AboutSubscreen> {
   _AboutSubscreenState(this.subScreenMainText, this.subScreenSubText,
-      this.isSubScreenSubTextEmpty);
+      this.isSubScreenSubTextEmpty, this.visibility);
   final subScreenMainText;
   final subScreenSubText;
   final isSubScreenSubTextEmpty;
   bool buttonBoolean = false;
+  bool visibility;
   String buttonText = 'Edit';
   String givenUserData;
   String userToken;
@@ -89,34 +91,67 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                 ),
               ), // Edit and Done Button
             ]),
-        body: TextFormField(
-          maxLines: null,
-          onTap: () {
-            setState(() {
-              buttonText = 'Done';
-            });
-          },
-          initialValue: (isSubScreenSubTextEmpty == true)
-              ? null
-              : widget.subScreenSubText,
-          // controller: TextEditingController()
-          //   ..text = (isSubScreenSubTextEmpty == true)
-          //       ? null
-          //       : widget.subScreenSubText,
-          onChanged: (value) {
-            givenUserData = value;
-          },
-          decoration: InputDecoration(
-            isDense: true,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            labelText: (isSubScreenSubTextEmpty == true)
-                ? "   " + widget.subScreenSubText + "..."
-                : null,
-            hintText: (isSubScreenSubTextEmpty == true)
-                ? null
-                : widget.subScreenSubText,
+        body: Column(children: <Widget>[
+          Visibility(
+            visible: !visibility,
+            child: TextFormField(
+              maxLines: null,
+              onTap: () {
+                setState(() {
+                  buttonText = 'Done';
+                });
+              },
+              initialValue: (isSubScreenSubTextEmpty == true)
+                  ? null
+                  : widget.subScreenSubText,
+              // controller: TextEditingController()
+              //   ..text = (isSubScreenSubTextEmpty == true)
+              //       ? null
+              //       : widget.subScreenSubText,
+              onChanged: (value) {
+                givenUserData = value;
+              },
+              decoration: InputDecoration(
+                isDense: true,
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                labelText: (isSubScreenSubTextEmpty == true)
+                    ? "   " + widget.subScreenSubText + "..."
+                    : null,
+                hintText: (isSubScreenSubTextEmpty == true)
+                    ? null
+                    : widget.subScreenSubText,
+              ),
+            ),
           ),
-        ),
+          Visibility(
+              visible: visibility,
+              child: Container(
+                width: double.infinity,
+                color: Colors.grey[300],
+                height: 60.0,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Text(
+                    "  " + subScreenSubText,
+                    style: TextStyle(fontSize: 17.0),
+                  ),
+                ),
+              )),
+          Visibility(
+            visible: visibility,
+            child: ListTile(
+              shape: Border.all(),
+              trailing: Text('People you may know'),
+              title: Text(
+                'Visible to:',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+          Divider(
+            color: Colors.grey[500],
+          ),
+        ]),
       ),
     );
   }

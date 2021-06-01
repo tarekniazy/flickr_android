@@ -14,6 +14,7 @@ Widget createAboutTextTile({
   int typeSelected,
   String thirdText = '',
   bool thirdLine = false,
+  bool visibility = false,
   BuildContext context,
 }) {
   return ListTile(
@@ -49,7 +50,8 @@ Widget createAboutTextTile({
         context,
         MaterialPageRoute(
           builder: (context) {
-            return AboutSubscreen(mainText, subText, isSubEmptyText);
+            return AboutSubscreen(
+                mainText, subText, isSubEmptyText, visibility);
           },
         ),
       );

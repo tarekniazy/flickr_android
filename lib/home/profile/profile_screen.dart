@@ -9,7 +9,6 @@ import 'profilePages/about_Screen.dart';
 import 'package:flickr_android/Services/networking.dart';
 import 'package:flickr_android/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flickr_android/getStarted/getStarted_Page.dart';
 
 class Profile extends StatefulWidget {
   Profile({
@@ -22,6 +21,7 @@ class Profile extends StatefulWidget {
     @required this.occupation,
     @required this.currentCity,
     @required this.homeTown,
+    @required this.photosCount,
     // @required this.description,
     // @required this.occupation,
     // @required this.currentCity,
@@ -36,30 +36,13 @@ class Profile extends StatefulWidget {
       occupation,
       currentCity,
       homeTown;
-  int photosCount = 0, followingCount = 0, followersCount = 0;
+  int photosCount, followingCount = 0, followersCount = 0;
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  void getUserDetails() async {
-    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
-    var res = await req.getData(true);
-    if (res.statusCode == 200) {
-      print('get Success');
-      print(res.body);
-    } else {
-      print(res.statusCode);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // getUserDetails();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
