@@ -491,7 +491,6 @@ class _CommentViewState extends State<CommentView> {
   void loadComments() {
     widget.comments.forEach((element) {
       {
-        print(element);
         commentBody.add(CommentCard(
             authorId: element["user"]["Fname"],
             authorImage: element["user"]["Avatar"],
@@ -1319,11 +1318,35 @@ class _PhotoCardState extends State<PhotoCard> {
       child: Container(
         height: 150,
         color: kBackgroundColor,
-        child: Image(
-          fit: BoxFit.fill,
-          image:NetworkImage(
-            widget.imageUrl,
-          ),
+        child: GestureDetector(
+           onTap: () {
+       setState(() {
+         print ("hii");
+      // Navigator.push(
+      // context,
+      // MaterialPageRoute(
+      // builder: (context) {
+      //     return ImageView(
+      //     imageUrl: widget.imageUrl,
+      //     authorId: widget.author["ownerName"],
+      //     authorImage: widget.author["Avatar"],
+      //     faves: widget.faves,
+      //     comments: widget.comments,
+       //     );
+       //     },
+        //    ),
+         //   );
+         //   }
+      //       );
+       //     },
+       });
+           },
+              child: Image(
+                fit: BoxFit.fill,
+                image:NetworkImage(
+                  widget.imageUrl,
+                ),
+              ),
         ),
       ),
     );
