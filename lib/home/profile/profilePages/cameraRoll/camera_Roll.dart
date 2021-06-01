@@ -3,6 +3,8 @@ import '../../../customeWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import '../../../../Services/networking.dart';
+//import 'dart:convert';
 
 class CameraRoll extends StatefulWidget {
   @override
@@ -35,6 +37,37 @@ class _CameraRollState extends State<CameraRoll> {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU")
 
   ];
+
+  //List <dynamic> images=[
+  //     {
+  //   "_id": 0,
+  // "photoUrl": "http://localhost:3000/api/v1/image/0",
+  // "ownerId": 0,
+  // "Fav": [
+  // 0
+  // ],
+  // "comments": [
+  // 0
+  // ],
+  // "title": 0,
+  // "privacy": "string",
+  // "description": "string",
+  // "tags": [
+  // "string"
+  // ],
+  // "peopleTags": [
+  // {
+  // "tagging": "string",
+  // "tagged": [
+  // "string"
+  // ]
+  // }
+  // ],
+  // "createdAt": "2021-06-01",
+  // "UpdatedAt": "2021-06-01"
+  // }
+  //];
+
 
   bool row = false;
   bool selected = false;
