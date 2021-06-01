@@ -43,17 +43,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  // String firstName,
-  //     lastName,
-  //     avatarUrl,
-  //     coverUrl,
-  //     email,
-  //     description,
-  //     occupation,
-  //     currentCity,
-  //     homeTown;
-  // int photosCount = 0, followingCount = 0, followersCount = 0;
-
   void getUserDetails() async {
     NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
     var res = await req.getData(true);
@@ -63,21 +52,6 @@ class _ProfileState extends State<Profile> {
     } else {
       print(res.statusCode);
     }
-
-    // setState(() {
-    //   var json = jsonDecode(res.body);
-    //   firstName = json['Fname'];
-    //   lastName = json['Lname'];
-    //   avatarUrl = json['Avatar'];
-    //   coverUrl = json['BackGround'];
-    //   description = json['Description'];
-    //   occupation = json['Occupation'];
-    //   currentCity = json['CurrentCity'];
-    //   homeTown = json['Hometown'];
-    //   //photosCount = json['Photo'];
-    //   //followingCount = json['Following'];
-    //   //followersCount = json['Followers'];
-    // });
   }
 
   @override
@@ -189,8 +163,11 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                     const PopupMenuDivider(),
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       child: ListTile(
+                                        onTap: () {
+                                          print(widget.description);
+                                        },
                                         title: Text('Edit Cover Photo',
                                             textAlign: TextAlign.center),
                                       ),
@@ -268,7 +245,8 @@ class _ProfileState extends State<Profile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                BuildAbout(context),
+                BuildAbout(context, widget.description, widget.occupation,
+                    widget.currentCity, widget.homeTown),
                 CameraRoll(), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
                 Text(''), //TODO Arwa- this text is For public
                 Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)

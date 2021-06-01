@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import '../profilePages/../profileStyling/profile_Widgets.dart';
 
-Widget BuildAbout(BuildContext context) => SingleChildScrollView(
+Widget BuildAbout(BuildContext context, String description, String occupation,
+        String currentCity, String homeTown) =>
+    SingleChildScrollView(
       child: Container(
         color: KAboutBackgroundColor,
         child: Padding(
@@ -14,7 +16,8 @@ Widget BuildAbout(BuildContext context) => SingleChildScrollView(
               children: <Widget>[
                 createAboutTextTile(
                     mainText: 'Description',
-                    subText: 'Add Description',
+                    subText:
+                        (description == null) ? 'Add Description' : description,
                     context: context),
                 Divider(
                   color: Colors.grey[500],

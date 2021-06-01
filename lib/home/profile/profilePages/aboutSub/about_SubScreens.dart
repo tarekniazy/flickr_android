@@ -25,7 +25,7 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
   @override
   void initState() {
     super.initState();
-   // getOriginalAbout();
+    // getOriginalAbout();
   }
 
   // void getOriginalAbout() async {
@@ -58,28 +58,17 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                   child: TextButton(
                       onPressed: () async {
                         if (buttonText == 'Done') {
-                          // Map<String, String> body;
-                          // body = {subScreenMainText: givenUserData};
-                          // Map<String, Map<String, dynamic>> theSnapShot;
-                          // theSnapShot = {'About': body};
-                          //
-                          // Map<String, String> stringQueryParameters =
-                          //     theSnapShot.map((key, value) =>
-                          //         MapEntry(key, value?.toString()));
-                          //
-                          // print(stringQueryParameters);
-                          // print(body.runtimeType);
-                          var stringQueryParameters =
-                              " {About: {Description: Yarbffg}}";
+                          Map<String, dynamic> body = {
+                            "Description": givenUserData,
+                          };
                           NetworkHelper req =
-                              new NetworkHelper("$KBaseUrl/user");
-                          var res =
-                              await req.putDataString(stringQueryParameters);
+                              new NetworkHelper("$KBaseUrl/user/about");
+                          var res = await req.putData(body);
                           if (res.statusCode == 200) {
                             print('Success');
                           } else {
                             print(res.statusCode);
-                            print(res.body);
+                            print(givenUserData);
                           }
                         }
                         ;

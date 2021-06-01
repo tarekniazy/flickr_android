@@ -11,62 +11,49 @@ class NetworkHelper {
 
   String url;
 
-  Future getData(bool ifToken) async
-  {
-    if (ifToken)
-      {
-        var uri= Uri.parse(url);
-        Map<String, String> headers = {'Token': KUserToken};
-        print(headers);
-        http.Response response= await http.get(uri,
-        headers:headers);
-        if (response.statusCode==200)
-        {
-          return response;
-
-        }
-        else
-        {
-             print(response.statusCode);
-        }
-      }
-    else{
-      var uri= Uri.parse(url);
-      http.Response response= await http.get(uri);
-      if (response.statusCode==200)
-      {
+  Future getData(bool ifToken) async {
+    if (ifToken) {
+      var uri = Uri.parse(url);
+      Map<String, String> headers = {'Token': KUserToken};
+      print(headers);
+      http.Response response = await http.get(uri, headers: headers);
+      if (response.statusCode == 200) {
         return response;
-
+      } else {
+        print(response.statusCode);
       }
-      else
-      {
+    } else {
+      var uri = Uri.parse(url);
+      http.Response response = await http.get(uri);
+      if (response.statusCode == 200) {
+        return response;
+      } else {
         //    print(response.statusCode);
       }
     }
-
-
   }
 
-  Future postData( Map<String, dynamic> Body,bool ifToken) async
-  {
-    if (ifToken)
-      {
-        var uri= Uri.parse(url);
-        var response = await http.post(uri,body:Body,
-        );
+  Future postData(Map<String, dynamic> Body, bool ifToken) async {
+    if (ifToken) {
+      var uri = Uri.parse(url);
+      var response = await http.post(
+        uri,
+        body: Body,
+      );
 
-        return response;
-      }
-    else
-      {
-        var uri= Uri.parse(url);
-        var response = await http.post(uri,body:Body, headers: {
+      return response;
+    } else {
+      var uri = Uri.parse(url);
+      var response = await http.post(
+        uri,
+        body: Body,
+        headers: {
           'Token': KUserToken,
-        },);
+        },
+      );
 
-        return response;
-      }
-
+      return response;
+    }
 
     // if (response.statusCode==200)
     // {
@@ -78,23 +65,36 @@ class NetworkHelper {
     // {
     //   print(response.statusCode);
     // }
-
   }
 
-  Future putData(Map<String, dynamic> body) async {
+  Future putData(Map<String, dynamic> Body) async {
     var uri = Uri.parse(url);
-
-    var encoded = utf8.encode('Lorem ipsum dolor sit amet, consetetur...');
-    String json = jsonEncode(body);
-    // print(json);
-    Map<String, String> headers = {'Token': globals.userToken};
-    var response = await http.put(uri,
-        body: json,
-        headers: headers //  HttpHeaders.authorizationHeader: KUserToken,
+    var response = await http.put(
+      uri,
+      body: json.encode(Body),
+      headers: {
+        'Token': KUserToken,
+      },
     );
-
+    print(json.encode(Body));
+    print(response.body);
     return response;
   }
+
+  // Future putData(Map<String, dynamic> body) async {
+  //   var uri = Uri.parse(url);
+  //
+  //   var encoded = utf8.encode('Lorem ipsum dolor sit amet, consetetur...');
+  //   String json = jsonEncode(body);
+  //   // print(json);
+  //   Map<String, String> headers = {'Token': globals.userToken};
+  //   var response = await http.put(uri,
+  //       body: json,
+  //       headers: headers //  HttpHeaders.authorizationHeader: KUserToken,
+  //   );
+  //
+  //   return response;
+  // }
 
   Future putDataString(String body) async {
     var uri = Uri.parse(url);
@@ -102,8 +102,7 @@ class NetworkHelper {
     var response = await http.put(uri,
         body: json.decode(body),
         headers: headers //  HttpHeaders.authorizationHeader: KUserToken,
-    );
+        );
     return response;
   }
-
 }
