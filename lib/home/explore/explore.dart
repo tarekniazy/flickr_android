@@ -26,57 +26,106 @@ class _ExploreState extends State<Explore> {
 
  List<ImageCard> post=[];
 
+ List<dynamic> favedPhotos=[];
+ List<String> favedIds=[];
+
+ int isFaved=0;
+
  void loadUsers(userId) async{
 
-   NetworkHelper req = new NetworkHelper(
-       "$KMockSeverBaseUrl/people/id");
-
-   var res = await req.getData(true);
-
-   if (res.statusCode == 200)
-     {
-       String data = res.body;
-         print(jsonDecode(data));
-     }
+   // NetworkHelper req = new NetworkHelper(
+   //     "$KMockSeverBaseUrl/people/id");
+   //
+   // var res = await req.getData(true);
+   //
+   // if (res.statusCode == 200)
+   //   {
+   //     String data = res.body;
+   //       print(jsonDecode(data));
+   //   }
 
  }
 
-  void loadImageCard()
+ void getUserfavs() async{
+
+   // NetworkHelper req = new NetworkHelper(
+   //     "$KMockSeverBaseUrl/people/id");
+   //
+   // var res = await req.getData(true);
+   //
+   // if (res.statusCode == 200)
+   //   {
+   //     String data = res.body;
+   //       print(jsonDecode(data));
+   //   }
+
+ }
+
+
+  void loadImageCard() async
   {
 
-    Map<String,dynamic> about={
-      "About": {
 
-        "City":"blll",
-        "Description":"ggggggg"
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user/fav");
 
-        }
-      };
+    var res = await req.getData(true);
 
+    if (res.statusCode == 200)
+      {
+        setState(() {
+          String data2 = res.body;
+          favedPhotos = jsonDecode(data2);
+        });
 
-
-
-        widget.exploreImages.forEach((element)  {
-
-
+        favedPhotos.forEach((element) {
 
 
+         setState(() {
+           favedIds.add(element["_id"]);
+         });
 
 
-      if (element["ownerId"]!=null)
+        });
+      }
+
+
+
+    print(widget.exploreImages.length);
+    // print(widget.exploreImages);
+
+    widget.exploreImages.forEach((element)  {
+      isFaved=0;
+      // print(element["comments"].length);
+
+      // // print(element["photos"]);
+      // print(element["photos"].first["photoUrl"]);
+      // print(element["photos"].first["ownerId"]);
+
+      // Map<String,dynamic> owner={
+      //   "ownerName":element["ownerName"],
+      //   "ownerUsername":element["ownerUsername"],
+      //   "Avatar":element["Avatar"]
+      // };
+      print(element["_id"].runtimeType);
+
+      for (int i=0;i<favedIds.length;i++)
         {
-          print(element["ownerId"]);
+          print(element["_id"]);
+          if (element["_id"] == favedIds[i])
+            {
+              setState(() {
+                isFaved=1;
+                print("already faved  "+element["_id"]+" "+isFaved.toString());
+              });
 
-
+            }
         }
 
-        // ImageCard imageCard= new ImageCard(imageUrl: element["photo_url"],
-        //   authorId: element["photo_owner_name"],
-        //   authorImage: element["avatar_owner_url"],
-        //   faves:element["favs"],
-        //   comments:element["comment"],
-        // );
-          print(post.length);
+
+
+
+      post.add(
+          ImageCard(imageUrl:element["photoUrl"],imageId:element["_id"] ,isfaved: isFaved ,author: element["ownerId"],comments: element["comments"],faves: element["Fav"])) ;
     });
 
 
@@ -98,15 +147,15 @@ class _ExploreState extends State<Explore> {
         color: Colors.black87,
         child: Column(
           children:<Widget> [
-            // Expanded(child: new ListView.builder(
-            //   itemCount: post.length,
-            //   itemBuilder:(BuildContext context, int index)
-            //   {
-            //     return post[index];
-            //   },
-            // )
-            //  )
-            Text("data")
+            Expanded(child: new ListView.builder(
+              itemCount: post.length,
+              itemBuilder:(BuildContext context, int index)
+              {
+                return post[index];
+              },
+            )
+             )
+            // Text("data")
           ],
         ),
         // child: post[0],

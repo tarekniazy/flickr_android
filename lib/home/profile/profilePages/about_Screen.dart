@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import '../profilePages/../profileStyling/profile_Widgets.dart';
 
-Widget BuildAbout(BuildContext context) => SingleChildScrollView(
+Widget BuildAbout(BuildContext context, String description, String occupation,
+        String currentCity, String homeTown, String email, int photosCount) =>
+    SingleChildScrollView(
       child: Container(
         color: KAboutBackgroundColor,
         child: Padding(
@@ -12,23 +14,38 @@ Widget BuildAbout(BuildContext context) => SingleChildScrollView(
             color: Colors.white,
             child: Column(
               children: <Widget>[
+                ListTile(
+                  title: Text(
+                    photosCount.toString() + ' Photos',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Divider(
+                  color: Colors.grey[500],
+                ),
                 createAboutTextTile(
                     mainText: 'Description',
-                    subText: 'Add Description',
+                    subText:
+                        (description == null) ? 'Add Description' : description,
+                    isSubEmptyText: (description == null) ? true : false,
                     context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
                     mainText: 'Occupation',
-                    subText: 'Add Occupation',
+                    subText:
+                        (occupation == null) ? 'Add Occupation' : occupation,
+                    isSubEmptyText: (occupation == null) ? true : false,
                     context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
                     mainText: 'CurrentCity',
-                    subText: 'Add Current City',
+                    subText:
+                        (currentCity == null) ? 'Add CurrentCity' : currentCity,
+                    isSubEmptyText: (currentCity == null) ? true : false,
                     thirdText: 'Visible to: Anyone',
                     thirdLine: true,
                     context: context),
@@ -36,59 +53,19 @@ Widget BuildAbout(BuildContext context) => SingleChildScrollView(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
-                    mainText: 'Homtown',
-                    subText: 'Add Homtown',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Website',
-                    subText: 'Add Website',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Tumblr',
-                    subText: 'Add Tumblr',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Facebook',
-                    subText: 'Add Facebook',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Twitter',
-                    subText: 'Add Twitter',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Instagram',
-                    subText: 'Add Instagram',
-                    context: context),
-                Divider(
-                  color: Colors.grey[500],
-                ),
-                createAboutTextTile(
-                    mainText: 'Pinterest',
-                    subText: 'Add Pinterest',
+                    mainText: 'Hometown',
+                    subText: (homeTown == null) ? 'Add Hometown' : homeTown,
+                    isSubEmptyText: (homeTown == null) ? true : false,
                     context: context),
                 Divider(
                   color: Colors.grey[500],
                 ),
                 createAboutTextTile(
                     mainText: 'Email',
-                    subText: 'Arwa@gmail.com',
+                    subText: email,
                     thirdText: 'Visible to: People You Follow',
                     thirdLine: true,
+                    visibility: true,
                     context: context),
               ],
             ),

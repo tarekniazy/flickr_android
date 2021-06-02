@@ -364,7 +364,7 @@ class _SignUpState extends State<SignUp> {
 
                     var res = await req.postData(Body,false);
 
-                    if (res.statusCode == 200) {
+                    if (res.statusCode == 201) {
                       print('Success');
                       Navigator.push(
                         context,

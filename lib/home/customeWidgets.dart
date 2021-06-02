@@ -1,9 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flickr_android/home/profile/profile_screen.dart';
+
 import '../constants.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Services/networking.dart';
+
+import 'profile/profilePages/Albums/albums.dart';
 
 class ImageCard extends StatefulWidget {
   ImageCard({
@@ -11,12 +16,16 @@ class ImageCard extends StatefulWidget {
     @required this.author,
     @required this.comments,
     @required this.faves,
+    @required this.imageId,
+    @required this.isfaved,
   });
 
   final String imageUrl; // image path
-  final List<dynamic> author; // author name
+  final Map<String,dynamic> author; // author name
   final List<dynamic> comments;
   final List<dynamic> faves;
+  final imageId;
+  final isfaved;
 
   // final numberOfFaves; // number of likes
   // final numberOfComments; // number of comments
@@ -28,6 +37,52 @@ class ImageCard extends StatefulWidget {
 }
 
 class _ImageCardState extends State<ImageCard> {
+
+  String LastComment;
+  String LastUser;
+  Icon fav=Icon(Icons.star_border);
+
+  List<dynamic> favedList=[];
+
+  int viewfaved=0;
+
+  void getUsersId ()async
+  {
+
+    String _id;
+
+    widget.faves.forEach((element) async{
+      {
+        print("iddddddddddddddddd");
+
+        // print(element["UserName"]);
+        _id=element["UserName"];
+
+        NetworkHelper req2 = new NetworkHelper("$KBaseUrl/people/"+_id);
+        var res2 = await req2.getData(true);
+
+
+        if (res2.statusCode==200)
+          {
+            print(res2.statusCode);
+            print(jsonDecode(res2.body)["_id"]);
+            print("isfollowed");
+            print(jsonDecode(res2.body)["Follow"]);
+
+            element["_id"]=jsonDecode(res2.body)["_id"];
+            element["isfollowed"]=jsonDecode(res2.body)["Follow"];
+          }
+
+        print(element);
+
+      }
+    });
+
+
+
+
+  }
+
   Text checkIfAvailble(int number) {
     if (number > 0) {
       return Text(
@@ -47,15 +102,60 @@ class _ImageCardState extends State<ImageCard> {
 
   var like = 0;
 
-  Icon likePressed() {
-    if (like == 1) {
-      return Icon(
-        Icons.star,
-        color: Colors.blue,
-      );
-    } else {
-      return Icon(Icons.star_border);
+  Icon likePressed()  {
+
+
+    if (widget.isfaved==1)
+      {
+
+        return Icon(
+          Icons.star,
+          color: Colors.blue,
+        );
+
+      }
+    else
+      {
+        return Icon(
+          Icons.star_border,
+        );
+      }
+
+  }
+
+
+  String ifLastComment()
+  {
+    if(widget.comments.length!=0) {
+      LastUser=widget.comments.last["user"]["Fname"];
+      return widget.comments.last["comment"];
     }
+    else
+      {
+        LastUser=" ";
+        return " ";
+      }
+
+  }
+
+
+  String ifLastUserComment()
+  {
+    if(widget.comments.length!=0) {
+      return widget.comments.last["user"]["Fname"];
+    }
+    else
+    {
+      return " ";
+    }
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUsersId();
   }
 
   @override
@@ -73,10 +173,12 @@ class _ImageCardState extends State<ImageCard> {
                     builder: (context) {
                       return ImageView(
                         imageUrl: widget.imageUrl,
-                        authorId: "widget.authorId",
-                        authorImage: "widget.authorImage",
+                        authorId: widget.author["Fname"],
+                        authorImage: widget.author["Avatar"],
                         faves: widget.faves,
                         comments: widget.comments,
+                        isfaved: widget.isfaved,
+                        imageId: widget.imageId,
                       );
                     },
                   ),
@@ -93,7 +195,7 @@ class _ImageCardState extends State<ImageCard> {
           Card(
             child: ListTile(
                 title: Text(
-                  "widget.authorId",
+                  widget.author["Fname"],
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Frutiger',
@@ -106,7 +208,7 @@ class _ImageCardState extends State<ImageCard> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: NetworkImage("widget.authorImage"),
+                        image: NetworkImage(widget.author["Avatar"]),
                       )),
                 )),
           ),
@@ -115,34 +217,69 @@ class _ImageCardState extends State<ImageCard> {
             children: <Widget>[
               GestureDetector(
                 onTap: () async {
-                  Map<String, dynamic> Body = {"photo_id": "1"};
 
-                  if (like == 0) {
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/v3/fave?id =23");
+                  print(widget.isfaved);
+                  if(widget.isfaved==1)
+                    {
+                      print("faaaaaaaaaaaaaaaved");
 
-                    var res = await req.postData(Body,true);
+                      print(widget.imageId.runtimeType);
 
-                    if (res.statusCode == 200) {
-                      String data = res.body;
-                      var response = jsonDecode(data);
-                      print(response["message"]);
-                    } else {
+
+                      NetworkHelper req = new NetworkHelper("$KBaseUrl/favs/"+widget.imageId);
+
+                      var res = await req.deleteData();
+
                       print(res.statusCode);
+
+
+                      if (res.statusCode == 200) {
+                        String data = res.body;
+                        var response = jsonDecode(data);
+                        print(response["message"]);
+
+                      }
+                      setState(() {
+                        like=0;
+                      });
+
                     }
-                    ;
+                  else {
+                    Map<String, dynamic> Body = {"photo_id": widget.imageId};
+
+                      NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
+
+                      setState(() {
+                        like=1;
+                      });
+
+                      var res = await req.postData(Body,true);
+
+                      if (res.statusCode == 200) {
+                        String data = res.body;
+                        var response = jsonDecode(data);
+                        print(response["message"]);
+
+                      }
+                      else
+                        {
+                        print(res.statusCode);
+                      }
                   }
 
-                  setState(() {
-                    if (like == 1) {
-                      like = 0;
-                    } else {
-                      like = 1;
-                    }
-                  });
+
+                  // setState(() {
+                  //   if (like == 1) {
+                  //     like = 0;
+                  //   } else {
+                  //     like = 1;
+                  //   }
+                  // });
                 },
                 child: IconButton(
-                  icon: likePressed(),
+
+                  icon: likePressed() ,
+
                 ),
               ),
               checkIfAvailble(widget.faves.length),
@@ -156,9 +293,10 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId: "widget.authorId",
+                          authorId:widget.author["Fname"],
                           faves: widget.faves,
-                          comments: widget.comments);
+                          comments: widget.comments,
+                      imageId: widget.imageId,);
                     }));
                   });
                 },
@@ -179,7 +317,7 @@ class _ImageCardState extends State<ImageCard> {
                 size: 20,
               ),
               title: Text(
-                widget.comments.last["owner_name"],
+               ifLastUserComment(),
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'Frutiger',
@@ -189,7 +327,7 @@ class _ImageCardState extends State<ImageCard> {
               ),
               subtitle: GestureDetector(
                 child: Text(
-                  widget.comments.last["comment"],
+                  ifLastComment(),
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Frutiger',
@@ -202,9 +340,10 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId:" widget.authorId",
+                          authorId:widget.author["Fname"],
                           faves: widget.faves,
-                          comments: widget.comments);
+                          comments: widget.comments,
+                      imageId: widget.imageId,);
                     }));
                   });
                 },
@@ -230,6 +369,8 @@ class ImageView extends StatefulWidget {
     @required this.authorImage,
     @required this.comments,
     @required this.faves,
+    @required this.imageId,
+    @required this.isfaved,
   });
 
   final String imageUrl; // image path
@@ -237,18 +378,47 @@ class ImageView extends StatefulWidget {
   final String authorImage; // author home.profile pic
   final List<dynamic> comments;
   final List<dynamic> faves;
+  final imageId;
+  final isfaved;
 
   @override
   _ImageViewState createState() => _ImageViewState();
 }
 
 class _ImageViewState extends State<ImageView> {
-  Icon like = Icon(
-    Icons.star_border,
-    size: 25,
-    color: Color(0xFFFFFFFF),
-  );
-  bool likePressed = false;
+  // Icon like = Icon(
+  //   Icons.star_border,
+  //   size: 25,
+  //   color: Color(0xFFFFFFFF),
+  // );
+  // bool likePressed = false;
+
+  Icon likePressed()  {
+
+
+    if (widget.isfaved==1)
+    {
+
+      return Icon(
+        Icons.star,
+        color: Colors.blue,
+      );
+
+    }
+    else
+    {
+      return Icon(
+        Icons.star_border,
+        color: Colors.white,
+      );
+    }
+
+  }
+
+  // void Fav_unFave ()
+  // {
+  //   if (widget.)
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -316,44 +486,29 @@ class _ImageViewState extends State<ImageView> {
                       Row(children: <Widget>[
                         IconButton(
                           onPressed: () async {
-                            Map<String, dynamic> Body = {"photo_id": "1"};
-
-                            if (likePressed == false) {
-                              NetworkHelper req = new NetworkHelper(
-                                  "$KBaseUrl/v3/fave?id =23");
-
-                              var res = await req.postData(Body,true);
-
-                              if (res.statusCode == 200) {
-                                String data = res.body;
-                                var response = jsonDecode(data);
-                                print(response["message"]);
-                              } else {
-                                print(res.statusCode);
-                              }
-                              ;
+                            print(widget.isfaved);
+                            if(widget.isfaved==1)
+                            {
+                              print("faaaaaaaaaaaaaaaved");
                             }
+                            else {
+                              Map<String, dynamic> Body = {"photo_id": widget.imageId};
 
-                            setState(() {
-                              if (likePressed) {
-                                like = Icon(
-                                  Icons.star_border,
-                                  size: 25,
-                                  color: Colors.white,
-                                );
-                                likePressed = false;
-                              } else {
-                                like = Icon(
-                                  Icons.star,
-                                  color: Colors.blue,
-                                  size: 25,
-                                );
 
-                                likePressed = true;
+                                NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
+
+                                var res = await req.postData(Body,true);
+
+                                if (res.statusCode == 200) {
+                                  String data = res.body;
+                                  var response = jsonDecode(data);
+                                  print(response["message"]);
+                                } else {
+                                  print(res.statusCode);
+                                }
                               }
-                            });
                           },
-                          icon: like,
+                          icon: likePressed(),
                         ),
                         IconButton(
                           icon: Icon(
@@ -368,7 +523,8 @@ class _ImageViewState extends State<ImageView> {
                                 return CommentView(
                                     authorId: widget.authorId,
                                     faves: widget.faves,
-                                    comments: widget.comments);
+                                    comments: widget.comments,
+                                  imageId: widget.imageId,);
                               }));
                             });
                           },
@@ -444,12 +600,14 @@ class CommentView extends StatefulWidget {
     @required this.authorId,
     @required this.comments,
     @required this.faves,
+    @required this.imageId
     // @required this.commentClicked
   });
 
   final String authorId; // author name
   final List<dynamic> comments;
   final List<dynamic> faves;
+  final imageId;
   // var commentClicked;
 
   @override
@@ -473,6 +631,7 @@ class _CommentViewState extends State<CommentView> {
         commentBody: commentBody,
         authorName: widget.authorId,
         favs: widget.faves,
+        imageId: widget.imageId,
       );
     } else if (commentViewed == 0) {
       return UserView(
@@ -485,24 +644,37 @@ class _CommentViewState extends State<CommentView> {
     widget.comments.forEach((element) {
       {
         commentBody.add(CommentCard(
-            authorId: element["owner_name"],
-            authorImage: element["avater_owner_url"],
+            authorId: element["user"]["Fname"],
+            authorImage: element["user"]["Avatar"],
             comment: element["comment"]));
       }
     });
   }
 
-  void loadFavs() {
-    widget.faves.forEach((element) {
-      {
-        userBody.add(UserCard(
-            authorName: element["owner_name"],
-            authorImage: element["avater_owner_url"],
-            numberOfPhotos: element["number_of_photos"],
-            numberOfFollowers: element["number_of_followers"],
-            favs: widget.faves));
-      }
+  void loadFavs()  {
+
+
+    setState(() {
+      widget.faves.forEach((element) async{
+        {
+
+
+
+            userBody.add(UserCard(
+                authorName: element["Fname"],
+                authorImage: element["Avatar"],
+                numberOfPhotos: element["numPhotos"],
+                numberOfFollowers: element["numFollowing"],
+                favs: widget.faves,
+            peopleID: element["_id"],
+            isFollowed: element["isfollowed"],));
+
+
+
+        }
+      });
     });
+
   }
 
   TextStyle viewed(var check) {
@@ -679,12 +851,16 @@ class UserCard extends StatefulWidget {
       @required this.authorImage,
       @required this.numberOfPhotos,
       @required this.numberOfFollowers,
+        @required this.isFollowed,
+        @required this.peopleID,
       @required this.favs});
 
   final String authorName; // author name
   final String authorImage; // author home.profile pic
   final numberOfPhotos;
   final numberOfFollowers;
+  final isFollowed;
+  final peopleID;
   final List<dynamic> favs;
 
   @override
@@ -692,8 +868,10 @@ class UserCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<UserCard> {
-  bool followed = false;
+  bool textToggle = false;
+  bool followed;
   String text = '+ Follow';
+
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
@@ -716,12 +894,13 @@ class _UserCardState extends State<UserCard> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text(widget.numberOfPhotos +
+        subtitle: Text(
+            '${widget.numberOfPhotos ?? 0 }' +
             ' photos — ' +
-            widget.numberOfFollowers +
+            '${widget.numberOfFollowers ?? 0}' +
             ' followers'),
         trailing: Container(
-          width: (followed == true) ? 35.0 : 80.0,
+          width: (textToggle == false) ? ((widget.isFollowed == true) ? 35.0 : 80.0) : ((followed == true) ? 35.0 : 80.0),
           child: TextButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
@@ -731,28 +910,58 @@ class _UserCardState extends State<UserCard> {
                 ),
               ),
             ),
-            onPressed: () {
+            onPressed: () async {
+              if (widget.isFollowed == false || followed == false) {
+                Map<String, dynamic> Body = {
+                  "peopleid": widget.peopleID,
+                };
+                print(widget.peopleID);
+                NetworkHelper req = new NetworkHelper("$KBaseUrl/user/follow");
+                var peopleresp = await req.postData(Body, true);
+                print(peopleresp.statusCode);
+                if (peopleresp.statusCode == 200)
+                  {
+                  setState(() {
+                    text = '✔';
+                    followed =  true;
+                    textToggle = true;
+                  });
+                  }
+                  }
+
+              else
+                {
+                  NetworkHelper req = new NetworkHelper("$KBaseUrl/user/unfollow/"+widget.peopleID);
+                  var peopleresp = await req.deleteData();
+                  print(peopleresp.statusCode);
+                  if(peopleresp.statusCode == 200)
+                    {
+                      setState(() {
+                        text = '+ Follow';
+                        followed = false;
+                        textToggle = true;
+                      });
+                    }
+
+                }
+
               setState(() {
-                if (followed == false) {
+                if (widget.isFollowed == false) {
                   if (widget.favs != null) {
                     widget.favs.forEach((element) {
-                      if (element["owner_name"] == "Garyyy") {
-                        var count = int.parse(element["number_of_followers"]);
-                        count++;
-                        element["number_of_followers"] = '$count';
-                      }
+                      var count = element["num_following"];
+                      print(count.runtimeType);
+                      // count++;
+                      // element["num_following"] = '$count';
                     });
                   }
-                  text = '✔';
-                  followed = true;
-                } else {
-                  text = '+ Follow';
-                  followed = false;
+
                 }
               });
             },
             child: Text(
-              text,
+              //text,
+              (textToggle==false) ? ((widget.isFollowed == false) ? '+ Follow' : '✔') : text,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
@@ -803,12 +1012,15 @@ class CommentSection extends StatefulWidget {
     @required this.commentBody,
     @required this.authorName,
     @required this.favs,
+    @required this.imageId,
+
   });
 
   final List<dynamic> comments;
   final List<CommentCard> commentBody;
   final List<dynamic> favs;
   final String authorName;
+  final imageId;
 
   @override
   _CommentSectionState createState() => _CommentSectionState();
@@ -816,6 +1028,61 @@ class CommentSection extends StatefulWidget {
 
 class _CommentSectionState extends State<CommentSection> {
   TextEditingController _controller = new TextEditingController();
+
+  String firstName,
+      lastName,
+      avatarUrl,
+      coverUrl,
+      email,
+      description,
+      occupation,
+      currentCity,
+      homeTown;
+  int photosCount = 0, followingCount = 0, followersCount = 0;
+
+  void getUserDetails() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
+    var res = await req.getData(true);
+    if (res.statusCode == 200) {
+      print('get Success');
+      print(res.body);
+      var json = jsonDecode(res.body);
+      // sleep(const Duration(seconds: 5));
+
+      // setState(() {
+      // if (json!=null) {
+
+
+
+      firstName = json['Fname'];
+      lastName = json['Lname'];
+      avatarUrl = json['Avatar'];
+      coverUrl = json['BackGround'];
+      description = json['Description'];
+      occupation = json['Occupation'];
+      currentCity = json['CurrentCity'];
+      homeTown = json['Hometown'];
+      // print(avatarUrl);
+      photosCount = json['Photo'];
+      followingCount = json['Following'].length;
+      followersCount = json['Followers'].length;
+      // }
+      // });
+      //
+    } else {
+      print(res.statusCode);
+    }
+
+
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserDetails();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -854,24 +1121,43 @@ class _CommentSectionState extends State<CommentSection> {
                     ),
                   ),
                   trailing: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        print(_controller.text);
+                    onPressed: () async {
 
-                        widget.commentBody.add(CommentCard(
-                            authorId: "Tarek",
-                            authorImage:
-                                "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg",
-                            comment: _controller.text));
-                        widget.comments.add({
-                          "id": 0,
-                          "comment": _controller.text,
-                          "photo_id": 0,
-                          "comment_owner_id": 0,
-                          "owner_name": "Tarek",
-                          "avater_owner_url":
-                              "https://digestfromexperts.com/wp-content/uploads/2020/01/How-old-is-Squidward-in-Spongebob-Squarepants.jpg"
-                        });
+                      print(widget.imageId);
+                      NetworkHelper req = new NetworkHelper("$KBaseUrl"+"/photo/"+widget.imageId+"/comments");
+
+                      Map<String,dynamic> comment={
+                        "comment": _controller.text
+                      };
+
+                      var res = await req.postData(comment,true);
+
+                      print(res.statusCode);
+
+                      print(res.body);
+
+                      if (res.statusCode == 201)
+                      {
+
+                          setState(() {
+                            print(_controller.text);
+
+                            widget.commentBody.add(CommentCard(
+                                authorId: firstName,
+                                authorImage: avatarUrl,
+                                comment: _controller.text));
+                            widget.comments.add({
+                              "id": 0,
+                              "comment": _controller.text,
+                              "user": {
+                                "_id": 0,
+                                "Fname": firstName,
+                                "Lname": lastName,
+                                "UserName": "Mostafa123",
+                                "Email": "test@test.com",
+                                "Avatar": avatarUrl
+                              },
+                            });
 
                         print(widget.comments);
 
@@ -882,6 +1168,7 @@ class _CommentSectionState extends State<CommentSection> {
                                       authorId: widget.authorName,
                                       comments: widget.comments,
                                       faves: widget.favs,
+                                  imageId: widget.imageId,
                                     )));
 
                         _controller.clear();
@@ -891,7 +1178,7 @@ class _CommentSectionState extends State<CommentSection> {
                           currentFocus.unfocus();
                         }
                       });
-                    },
+                    }},
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                           (states) => Colors.transparent),
@@ -1025,14 +1312,14 @@ class AlbumCard extends StatefulWidget {
   AlbumCard({
     @required this.AlbumName,
     @required this.dateCreated,
-    @required this.numberOfPhotos,
+    @required this.photos,
     @required this.imageUrl,
   });
 
 
   final String AlbumName;
   final String dateCreated;
-  final String numberOfPhotos;
+  final List<dynamic> photos;
   final String imageUrl;
 
   @override
@@ -1046,76 +1333,247 @@ class _AlbumCardState extends State<AlbumCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 100,
-        color: Colors.white,
-       child: Row(
-         children:<Widget> [
-           Image(
-             width: 100,
-             height: 100,
-             fit: BoxFit.fill,
-               image:NetworkImage(
-                 widget.imageUrl,
-               ),
-           ),
-
-           Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-               children:<Widget> [
-                 Padding(
-                   padding: const EdgeInsets.only(left: 10,top: 10),
-                   child: Text(
-               widget.AlbumName,
-                     style: TextStyle(
-                         fontWeight: FontWeight.bold,
-                       fontFamily: 'Frutiger',
-                       color: Colors.black,
-                       fontSize: 17,
-                     ),
-             ),
+      child: GestureDetector(
+        onTap: (){
+          setState(() {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return AlbumView(
+                    AlbumName: widget.AlbumName,
+                    photos: widget.photos,
+                  );
+                },
+              ),
+            );
+          });
+        },
+        child: Container(
+          height: 100,
+          color: Colors.white,
+         child: Row(
+           children:<Widget> [
+             Image(
+               width: 100,
+               height: 100,
+               fit: BoxFit.fill,
+                 image:NetworkImage(
+                   widget.imageUrl,
                  ),
+             ),
 
-             Expanded(
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.end,
-                 crossAxisAlignment: CrossAxisAlignment.start,
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
                  children:<Widget> [
                    Padding(
-                     padding: const EdgeInsets.only(left: 8),
+                     padding: const EdgeInsets.only(left: 10,top: 10),
                      child: Text(
-                     widget.dateCreated,
-                     style: TextStyle(
-                       fontFamily: 'Frutiger',
-                       color: Color(0xFF8F8F8F),
-                       fontSize: 17,
-                       fontWeight: FontWeight.bold,
-
-                     ),
-                 ),
-                   ),
-                   Padding(
-                     padding: const EdgeInsets.only(left: 8),
-                     child: Text(
-                     widget.numberOfPhotos+' photos',
-                     style: TextStyle(
-                       fontFamily: 'Frutiger',
-                       color: Color(0xFF8F8F8F),
-                       fontSize: 17,
-                       fontWeight: FontWeight.bold,
-
-                     ),
-                 ),
-                   ),
-                ]
+                 widget.AlbumName,
+                       style: TextStyle(
+                           fontWeight: FontWeight.bold,
+                         fontFamily: 'Frutiger',
+                         color: Colors.black,
+                         fontSize: 17,
+                       ),
                ),
-             ),
-           ]
-           )
+                   ),
 
-         ],
-       ),
+               Expanded(
+                 child: Column(
+                   mainAxisAlignment: MainAxisAlignment.end,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children:<Widget> [
+                     Padding(
+                       padding: const EdgeInsets.only(left: 8),
+                       child: Text(
+                       widget.dateCreated,
+                       style: TextStyle(
+                         fontFamily: 'Frutiger',
+                         color: Color(0xFF8F8F8F),
+                         fontSize: 17,
+                         fontWeight: FontWeight.bold,
+
+                       ),
+                   ),
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.only(left: 8),
+                       child: Text(
+                       '${widget.photos.length}'+' photos',
+                       style: TextStyle(
+                         fontFamily: 'Frutiger',
+                         color: Color(0xFF8F8F8F),
+                         fontSize: 17,
+                         fontWeight: FontWeight.bold,
+
+                       ),
+                   ),
+                     ),
+                  ]
+                 ),
+               ),
+             ]
+             )
+
+           ],
+         ),
+        ),
       ),
     );
   }
 }
+
+class LoadingScreen extends StatefulWidget {
+  @override
+  _LoadingScreenState createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
+
+  String firstName,
+      lastName,
+      avatarUrl,
+      coverUrl,
+      email,
+      description,
+      occupation,
+      currentCity,
+      homeTown;
+  int photosCount, followingCount = 0, followersCount = 0;
+
+  void getUserDetails() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
+    var res = await req.getData(true);
+    if (res.statusCode == 200) {
+      print('get Success');
+      print(res.body);
+      var json = jsonDecode(res.body);
+      // sleep(const Duration(seconds: 5));
+
+      // setState(() {
+     // if (json!=null) {
+
+
+
+      firstName = json['Fname'];
+      lastName = json['Lname'];
+      avatarUrl = json['Avatar'];
+      coverUrl = json['BackGround'];
+      email = json['Email'];
+      description = json['About']['Description'];
+      occupation = json['About']['Occupation'];
+      currentCity = json['About']['CurrentCity'];
+      homeTown = json['About']['Hometown'];
+      photosCount = json['Photo'];
+      followingCount = json['Following'].length;
+      followersCount = json['Followers'].length;
+      // print(photosCount);
+      // print( json['Following'].length);
+      // print(json['Followers'].length);
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return Profile(
+          firstName: firstName,
+          lastName: lastName,
+          avatarUrl: avatarUrl,
+          coverUrl: coverUrl,
+          email: email,
+          description: description,
+          occupation: occupation,
+          currentCity: currentCity,
+          homeTown: homeTown,
+          photosCount: photosCount,
+          followersCount: followersCount,
+          followingCount: followingCount,
+        );
+      }));
+      // }
+      // });
+    //
+
+
+    } else {
+      print(res.statusCode);
+    }
+
+
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserDetails();
+
+
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+    );
+  }
+}
+class PhotoCard extends StatefulWidget {
+
+  PhotoCard({
+    @required this.imageUrl,
+  });
+
+  final String imageUrl;
+
+  @override
+  _PhotoCardState createState() => _PhotoCardState();
+}
+
+class _PhotoCardState extends State<PhotoCard> {
+  @override
+
+
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4.0,4.0,4.0,0.0),
+      child: Container(
+        height: 150,
+        color: kBackgroundColor,
+        child: GestureDetector(
+           onTap: () {
+       setState(() {
+         print ("hii");
+      // Navigator.push(
+      // context,
+      // MaterialPageRoute(
+      // builder: (context) {
+      //     return ImageView(
+      //     imageUrl: widget.imageUrl,
+      //     authorId: widget.author["ownerName"],
+      //     authorImage: widget.author["Avatar"],
+      //     faves: widget.faves,
+      //     comments: widget.comments,
+       //     );
+       //     },
+        //    ),
+         //   );
+         //   }
+      //       );
+       //     },
+       });
+           },
+              child: Image(
+                fit: BoxFit.fill,
+                image:NetworkImage(
+                  widget.imageUrl,
+                ),
+              ),
+        ),
+      ),
+    );
+  }
+}
+
+

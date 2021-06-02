@@ -1,11 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flickr_android/constants.dart';
-import 'dart:async';
-import 'dart:io';
-import 'package:flickr_android/constants.dart';
-import 'package:flickr_android/globals.dart' as globals;
-import 'package:dio/dio.dart';
+import '../Services/../constants.dart';
 
 class NetworkHelper {
   NetworkHelper(this.url);
@@ -23,17 +18,25 @@ class NetworkHelper {
 
           return response;
 
+        }
+        else
+        {
+          //    print(response.statusCode);
+        }
       }
     else{
       var uri= Uri.parse(url);
       http.Response response= await http.get(uri);
-
+      if (response.statusCode==200)
+      {
         return response;
 
       }
-
+      else
+      {
+        //    print(response.statusCode);
+      }
     }
-
 
   Future putDataDio(Map<String, dynamic> Body) async {
     var uri = Uri.parse(url);
@@ -71,7 +74,6 @@ class NetworkHelper {
         );
 
         return response;
-
       }
 
 
