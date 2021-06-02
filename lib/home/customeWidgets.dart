@@ -229,8 +229,6 @@ class _ImageCardState extends State<ImageCard> {
 
                 ),
               ),
-
-
               checkIfAvailble(widget.faves.length),
               IconButton(
                 icon: Icon(
@@ -837,17 +835,25 @@ class _UserCardState extends State<UserCard> {
                 ),
               ),
             ),
-            onPressed: () {
+            onPressed: () async {
+              if (widget.isFollowed == false) {
+                Map<String, dynamic> Body = {
+                  "peopleid": widget.peopleID,
+                };
+                print(widget.peopleID);
+                NetworkHelper req = new NetworkHelper("$KBaseUrl/user/follow");
+                var peopleresp = await req.postData(Body, true);
+                print(peopleresp.statusCode);
+              }
+
               setState(() {
                 if (widget.isFollowed == false) {
                   if (widget.favs != null) {
                     widget.favs.forEach((element) {
-
-                        var count = element["num_following"];
-                        print(count.runtimeType);
-                        // count++;
-                        // element["num_following"] = '$count';
-
+                      var count = element["num_following"];
+                      print(count.runtimeType);
+                      // count++;
+                      // element["num_following"] = '$count';
                     });
                   }
                   //text = '✔';
@@ -860,7 +866,8 @@ class _UserCardState extends State<UserCard> {
                 }
               });
             },
-            child: Text((widget.isFollowed == false) ? '+ Follow' : '✔',
+            child: Text(
+              (widget.isFollowed == false) ? '+ Follow' : '✔',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
