@@ -12,29 +12,21 @@ class NetworkHelper {
 
   String url;
 
-  Future getData(bool ifToken) async
-  {
-    if (ifToken)
-      {
-        var uri= Uri.parse(url);
-        Map<String, String> headers = {'Token': KUserToken};
-        print(headers);
-        http.Response response= await http.get(uri,
-        headers:headers);
+  Future getData(bool ifToken) async {
+    if (ifToken) {
+      var uri = Uri.parse(url);
+      Map<String, String> headers = {'Token': KUserToken};
+      print(headers);
+      http.Response response = await http.get(uri, headers: headers);
 
-          return response;
+      return response;
+    } else {
+      var uri = Uri.parse(url);
+      http.Response response = await http.get(uri);
 
-      }
-    else{
-      var uri= Uri.parse(url);
-      http.Response response= await http.get(uri);
-
-        return response;
-
-      }
-
+      return response;
     }
-
+  }
 
   Future putDataDio(Map<String, dynamic> Body) async {
     var uri = Uri.parse(url);
@@ -50,26 +42,27 @@ class NetworkHelper {
     return response;
   }
 
-  Future postData( Map<String, dynamic> Body,bool ifToken) async
-  {
-    if (ifToken)
-      {
-        var uri= Uri.parse(url);
-        var response = await http.post(uri,body:Body,
-        );
-
-        return response;
-      }
-    else
-      {
-        var uri= Uri.parse(url);
-        var response = await http.post(uri,body:Body, headers: {
+  Future postData(Map<String, dynamic> Body, bool ifToken) async {
+    if (ifToken) {
+      var uri = Uri.parse(url);
+      var response = await http.post(
+        uri,
+        body: Body,
+        headers: {
           'Token': KUserToken,
-        },);
+        },
+      );
 
-        return response;
-      }
+      return response;
+    } else {
+      var uri = Uri.parse(url);
+      var response = await http.post(
+        uri,
+        body: Body,
+      );
 
+      return response;
+    }
 
     // if (response.statusCode==200)
     // {
@@ -81,7 +74,6 @@ class NetworkHelper {
     // {
     //   print(response.statusCode);
     // }
-
   }
 
   Future putData(Map<String, dynamic> body) async {
@@ -94,7 +86,7 @@ class NetworkHelper {
     var response = await http.put(uri,
         body: json,
         headers: headers //  HttpHeaders.authorizationHeader: KUserToken,
-    );
+        );
 
     return response;
   }
@@ -105,8 +97,7 @@ class NetworkHelper {
     var response = await http.put(uri,
         body: json.decode(body),
         headers: headers //  HttpHeaders.authorizationHeader: KUserToken,
-    );
+        );
     return response;
   }
-
 }

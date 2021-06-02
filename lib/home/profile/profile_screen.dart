@@ -9,6 +9,7 @@ import 'profilePages/about_Screen.dart';
 import 'package:flickr_android/Services/networking.dart';
 import 'package:flickr_android/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'followers_following_screen.dart';
 
 class Profile extends StatefulWidget {
   Profile({
@@ -43,6 +44,47 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  List<UserCard> usersList = [];
+
+  void loadUserCard(List<dynamic> users) {
+    usersList.clear();
+    users.forEach((element) {
+      usersList.add(
+        UserCard(
+          userName: element["UserName"],
+          avatar: element["avatar"],
+          photo: element["Photo"].toString(),
+        ),
+      );
+    });
+  }
+
+  void getUserFollowing() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user/following");
+    var peopleresp = await req.getData(true);
+    if (peopleresp.statusCode == 200) {
+      String data2 = peopleresp.body;
+      Map<String, dynamic> response2 = jsonDecode(data2);
+      print(peopleresp.body);
+      loadUserCard(response2['FollowingList']);
+    } else {
+      print(peopleresp.statusCode);
+    }
+  }
+
+  void getUserFollowers() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user/followers");
+    var peopleresp = await req.getData(true);
+    if (peopleresp.statusCode == 200) {
+      String data2 = peopleresp.body;
+      Map<String, dynamic> response2 = jsonDecode(data2);
+      print(peopleresp.body);
+      //loadUserCard(response2);
+    } else {
+      print(peopleresp.statusCode);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,22 +210,32 @@ class _ProfileState extends State<Profile> {
                               ),
                               Row(
                                 children: <Widget>[
-                                  Text(
-                                    'followers ' +
-                                        widget.followersCount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.grey[800]),
+                                  GestureDetector(
+                                    onTap: () {
+                                      getUserFollowers();
+                                    },
+                                    child: Text(
+                                      'followers ' +
+                                          widget.followersCount.toString(),
+                                      style: TextStyle(
+                                          fontSize: 10.0,
+                                          color: Colors.grey[800]),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 10.0,
                                   ),
-                                  Text(
-                                    'following ' +
-                                        widget.followingCount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: Colors.grey[800]),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      getUserFollowing();
+                                    },
+                                    child: Text(
+                                      'following ' +
+                                          widget.followingCount.toString(),
+                                      style: TextStyle(
+                                          fontSize: 10.0,
+                                          color: Colors.grey[800]),
+                                    ),
                                   )
                                 ],
                               )

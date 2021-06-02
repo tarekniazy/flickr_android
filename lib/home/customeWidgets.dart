@@ -21,7 +21,7 @@ class ImageCard extends StatefulWidget {
   });
 
   final String imageUrl; // image path
-  final Map<String,dynamic> author; // author name
+  final Map<String, dynamic> author; // author name
   final List<dynamic> comments;
   final List<dynamic> faves;
   final imageId;
@@ -37,7 +37,6 @@ class ImageCard extends StatefulWidget {
 }
 
 class _ImageCardState extends State<ImageCard> {
-
   String LastComment;
   String LastUser;
 
@@ -71,32 +70,22 @@ class _ImageCardState extends State<ImageCard> {
     }
   }
 
-
-  String ifLastComment()
-  {
-    if(widget.comments.length!=0) {
-      LastUser=widget.comments.last["user"]["Fname"];
+  String ifLastComment() {
+    if (widget.comments.length != 0) {
+      LastUser = widget.comments.last["user"]["Fname"];
       return widget.comments.last["comment"];
-    }
-    else
-      {
-        LastUser=" ";
-        return " ";
-      }
-
-  }
-
-
-  String ifLastUserComment()
-  {
-    if(widget.comments.length!=0) {
-      return widget.comments.last["user"]["Fname"];
-    }
-    else
-    {
+    } else {
+      LastUser = " ";
       return " ";
     }
+  }
 
+  String ifLastUserComment() {
+    if (widget.comments.length != 0) {
+      return widget.comments.last["user"]["Fname"];
+    } else {
+      return " ";
+    }
   }
 
   @override
@@ -159,10 +148,10 @@ class _ImageCardState extends State<ImageCard> {
                   Map<String, dynamic> Body = {"photo_id": "1"};
 
                   if (like == 0) {
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/v3/fave?id =23");
+                    NetworkHelper req =
+                        new NetworkHelper("$KBaseUrl/v3/fave?id =23");
 
-                    var res = await req.postData(Body,true);
+                    var res = await req.postData(Body, true);
 
                     if (res.statusCode == 200) {
                       String data = res.body;
@@ -197,7 +186,7 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId:widget.author["Fname"],
+                          authorId: widget.author["Fname"],
                           faves: widget.faves,
                           comments: widget.comments);
                     }));
@@ -220,7 +209,7 @@ class _ImageCardState extends State<ImageCard> {
                 size: 20,
               ),
               title: Text(
-               ifLastUserComment(),
+                ifLastUserComment(),
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'Frutiger',
@@ -243,7 +232,7 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId:" widget.authorId",
+                          authorId: " widget.authorId",
                           faves: widget.faves,
                           comments: widget.comments);
                     }));
@@ -720,8 +709,8 @@ class UserCard extends StatefulWidget {
       @required this.authorImage,
       @required this.numberOfPhotos,
       @required this.numberOfFollowers,
-        @required this.isFollowed,
-        @required this.peopleID,
+      @required this.isFollowed,
+      @required this.peopleID,
       @required this.favs});
 
   final String authorName; // author name
@@ -737,7 +726,7 @@ class UserCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<UserCard> {
- // bool followed = false;
+  // bool followed = false;
   //String text = '+ Follow';
   @override
   Widget build(BuildContext context) {
@@ -761,8 +750,7 @@ class _UserCardState extends State<UserCard> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text(
-            '${widget.numberOfPhotos ?? 0 }' +
+        subtitle: Text('${widget.numberOfPhotos ?? 0}' +
             ' photos — ' +
             '${widget.numberOfFollowers ?? 0}' +
             ' followers'),
@@ -777,30 +765,39 @@ class _UserCardState extends State<UserCard> {
                 ),
               ),
             ),
-            onPressed: () {
+            onPressed: () async {
+              if (widget.isFollowed == false) {
+                Map<String, dynamic> Body = {
+                  "peopleid": widget.peopleID,
+                };
+                print(widget.peopleID);
+                NetworkHelper req = new NetworkHelper("$KBaseUrl/user/follow");
+                var peopleresp = await req.postData(Body, true);
+                print(peopleresp.statusCode);
+              }
+
               setState(() {
                 if (widget.isFollowed == false) {
                   if (widget.favs != null) {
                     widget.favs.forEach((element) {
-
-                        var count = element["num_following"];
-                        print(count.runtimeType);
-                        // count++;
-                        // element["num_following"] = '$count';
-
+                      var count = element["num_following"];
+                      print(count.runtimeType);
+                      // count++;
+                      // element["num_following"] = '$count';
                     });
                   }
                   //text = '✔';
                   //followed = true;
                   //post follow
                 } else {
-                 // text = '+ Follow';
-                 // followed = false;
+                  // text = '+ Follow';
+                  // followed = false;
                   //delete follow
                 }
               });
             },
-            child: Text((widget.isFollowed == false) ? '+ Follow' : '✔',
+            child: Text(
+              (widget.isFollowed == false) ? '+ Follow' : '✔',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
@@ -888,8 +885,6 @@ class _CommentSectionState extends State<CommentSection> {
       // setState(() {
       // if (json!=null) {
 
-
-
       firstName = json['Fname'];
       lastName = json['Lname'];
       avatarUrl = json['Avatar'];
@@ -908,9 +903,6 @@ class _CommentSectionState extends State<CommentSection> {
     } else {
       print(res.statusCode);
     }
-
-
-
   }
 
   @override
@@ -1126,14 +1118,12 @@ class _GroupCardState extends State<GroupCard> {
 }
 
 class AlbumCard extends StatefulWidget {
-
   AlbumCard({
     @required this.AlbumName,
     @required this.dateCreated,
     @required this.photos,
     @required this.imageUrl,
   });
-
 
   final String AlbumName;
   final String dateCreated;
@@ -1146,13 +1136,11 @@ class AlbumCard extends StatefulWidget {
 
 class _AlbumCardState extends State<AlbumCard> {
   @override
-
-
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           setState(() {
             Navigator.push(
               context,
@@ -1170,72 +1158,65 @@ class _AlbumCardState extends State<AlbumCard> {
         child: Container(
           height: 100,
           color: Colors.white,
-         child: Row(
-           children:<Widget> [
-             Image(
-               width: 100,
-               height: 100,
-               fit: BoxFit.fill,
-                 image:NetworkImage(
-                   widget.imageUrl,
-                 ),
-             ),
-
-             Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-                 children:<Widget> [
-                   Padding(
-                     padding: const EdgeInsets.only(left: 10,top: 10),
-                     child: Text(
-                 widget.AlbumName,
-                       style: TextStyle(
-                           fontWeight: FontWeight.bold,
-                         fontFamily: 'Frutiger',
-                         color: Colors.black,
-                         fontSize: 17,
-                       ),
-               ),
-                   ),
-
-               Expanded(
-                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children:<Widget> [
-                     Padding(
-                       padding: const EdgeInsets.only(left: 8),
-                       child: Text(
-                       widget.dateCreated,
-                       style: TextStyle(
-                         fontFamily: 'Frutiger',
-                         color: Color(0xFF8F8F8F),
-                         fontSize: 17,
-                         fontWeight: FontWeight.bold,
-
-                       ),
-                   ),
-                     ),
-                     Padding(
-                       padding: const EdgeInsets.only(left: 8),
-                       child: Text(
-                       '${widget.photos.length}'+' photos',
-                       style: TextStyle(
-                         fontFamily: 'Frutiger',
-                         color: Color(0xFF8F8F8F),
-                         fontSize: 17,
-                         fontWeight: FontWeight.bold,
-
-                       ),
-                   ),
-                     ),
-                  ]
-                 ),
-               ),
-             ]
-             )
-
-           ],
-         ),
+          child: Row(
+            children: <Widget>[
+              Image(
+                width: 100,
+                height: 100,
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                  widget.imageUrl,
+                ),
+              ),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      child: Text(
+                        widget.AlbumName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Frutiger',
+                          color: Colors.black,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                widget.dateCreated,
+                                style: TextStyle(
+                                  fontFamily: 'Frutiger',
+                                  color: Color(0xFF8F8F8F),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                '${widget.photos.length}' + ' photos',
+                                style: TextStyle(
+                                  fontFamily: 'Frutiger',
+                                  color: Color(0xFF8F8F8F),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ]),
+                    ),
+                  ])
+            ],
+          ),
         ),
       ),
     );
@@ -1248,7 +1229,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-
   String firstName,
       lastName,
       avatarUrl,
@@ -1270,9 +1250,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       // sleep(const Duration(seconds: 5));
 
       // setState(() {
-     // if (json!=null) {
-
-
+      // if (json!=null) {
 
       firstName = json['Fname'];
       lastName = json['Lname'];
@@ -1306,15 +1284,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
       }));
       // }
       // });
-    //
-
+      //
 
     } else {
       print(res.statusCode);
     }
-
-
-
   }
 
   @override
@@ -1322,21 +1296,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // TODO: implement initState
     super.initState();
     getUserDetails();
-
-
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-    );
+    return Scaffold();
   }
 }
-class PhotoCard extends StatefulWidget {
 
+class PhotoCard extends StatefulWidget {
   PhotoCard({
     @required this.imageUrl,
   });
@@ -1349,47 +1317,43 @@ class PhotoCard extends StatefulWidget {
 
 class _PhotoCardState extends State<PhotoCard> {
   @override
-
-
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(4.0,4.0,4.0,0.0),
+      padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 0.0),
       child: Container(
         height: 150,
         color: kBackgroundColor,
         child: GestureDetector(
-           onTap: () {
-       setState(() {
-         print ("hii");
-      // Navigator.push(
-      // context,
-      // MaterialPageRoute(
-      // builder: (context) {
-      //     return ImageView(
-      //     imageUrl: widget.imageUrl,
-      //     authorId: widget.author["ownerName"],
-      //     authorImage: widget.author["Avatar"],
-      //     faves: widget.faves,
-      //     comments: widget.comments,
-       //     );
-       //     },
-        //    ),
-         //   );
-         //   }
-      //       );
-       //     },
-       });
-           },
-              child: Image(
-                fit: BoxFit.fill,
-                image:NetworkImage(
-                  widget.imageUrl,
-                ),
-              ),
+          onTap: () {
+            setState(() {
+              print("hii");
+              // Navigator.push(
+              // context,
+              // MaterialPageRoute(
+              // builder: (context) {
+              //     return ImageView(
+              //     imageUrl: widget.imageUrl,
+              //     authorId: widget.author["ownerName"],
+              //     authorImage: widget.author["Avatar"],
+              //     faves: widget.faves,
+              //     comments: widget.comments,
+              //     );
+              //     },
+              //    ),
+              //   );
+              //   }
+              //       );
+              //     },
+            });
+          },
+          child: Image(
+            fit: BoxFit.fill,
+            image: NetworkImage(
+              widget.imageUrl,
+            ),
+          ),
         ),
       ),
     );
   }
 }
-
-

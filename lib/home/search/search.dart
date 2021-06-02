@@ -8,117 +8,102 @@ import '../../constants.dart';
 import '../../Services/networking.dart';
 import 'dart:convert';
 
-
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
+  List<PhotoCard> photoSearchList = [];
+  List<PhotoCard> photoList = [];
+  List<GroupCard> groupList = [];
+  List<UserCard> usersList = [];
 
-
-  List<PhotoCard> photoSearchList=[];
-  List<PhotoCard> photoList=[];
-  List<GroupCard> groupList=[];
-  List<UserCard> usersList=[];
-
-
-  void LoadPhoto( ) async {
+  void LoadPhoto() async {
     photoList.clear();
     NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
     var res2 = await req2.getData(true);
     // print(res2.statusCode);
-    if (res2.statusCode == 200)
-    {
+    if (res2.statusCode == 200) {
       String data2 = res2.body;
       List<dynamic> response2 = jsonDecode(data2);
       // print(response2);
-    setState(() {
-      response2.forEach((element)  {
-
-        print(element["photoUrl"]);
-        photoList.add(
-            PhotoCard(imageUrl: element["photoUrl"])
-        ) ;
+      setState(() {
+        response2.forEach((element) {
+          print(element["photoUrl"]);
+          photoList.add(PhotoCard(imageUrl: element["photoUrl"]));
+        });
       });
-    });
-
-
-     }
+    }
     // else
     // {
     //   print(res2.statusCode);
     // }
-
   }
 
-
-
-
-  void loadGroupCard(List<dynamic> groups)
-  {
+  void loadGroupCard(List<dynamic> groups) {
     groupList.clear();
 
-    groups.forEach((element)  {
-
-      groupList.add(
-          GroupCard(authorName: element["name"], authorImage: "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg", numberOfPhotos: element["num_photos"].toString(), numberOfMembers: element["num_members"].toString())
-      ) ;
+    groups.forEach((element) {
+      groupList.add(GroupCard(
+          authorName: element["name"],
+          authorImage:
+              "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+          numberOfPhotos: element["num_photos"].toString(),
+          numberOfMembers: element["num_members"].toString()));
     });
-
   }
 
-
-
-  void loadPhotoCard(List<dynamic> photos)
-  {      photoSearchList.clear();
-  photos.forEach((element)  {
-      photoSearchList.add(
-          PhotoCard(imageUrl : element["photoUrl"])
-      ) ;
+  void loadPhotoCard(List<dynamic> photos) {
+    photoSearchList.clear();
+    photos.forEach((element) {
+      photoSearchList.add(PhotoCard(imageUrl: element["photoUrl"]));
     });
-
   }
 
-  void loadUserCard(List<dynamic> users)
-  {
+  void loadUserCard(List<dynamic> users) {
     usersList.clear();
-    users.forEach((element)  {
-      usersList.add(
-          UserCard(authorName: element["UserName"], authorImage: element["avatarUrl"], numberOfPhotos: element["numberOfPublicPhotos"].toString(), numberOfFollowers: element["numberOfFollowers"].toString(), isFollowed: element["isFollowed"])
-      ) ;
+    users.forEach((element) {
+      usersList.add(UserCard(
+        authorName: element["UserName"],
+        authorImage: element["avatarUrl"],
+        numberOfPhotos: element["numberOfPublicPhotos"].toString(),
+        numberOfFollowers: element["numberOfFollowers"].toString(),
+        isFollowed: element["isFollowed"],
+        peopleID: element['_id'],
+      ));
     });
   }
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    List<dynamic> users=[
+    List<dynamic> users = [
       {
-         "Fname": "Mariam",
-         "Lname": "Ameen",
-         "UserName": "MariamAmeen",
-          "_id": 0,
-          "Date_joined": "2021-05-31",
-          "numberOfPublicPhotos": 2,
-          "numberOfFollowers": 5,
-          "avatarUrl": "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-          "isFollowed": false
-      }
-      ,
+        "Fname": "Mariam",
+        "Lname": "Ameen",
+        "UserName": "MariamAmeen",
+        "_id": 0,
+        "Date_joined": "2021-05-31",
+        "numberOfPublicPhotos": 2,
+        "numberOfFollowers": 5,
+        "avatarUrl":
+            "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+        "isFollowed": false
+      },
       {
-           "Fname": "Mariam",
-           "Lname": "Ameen",
-           "UserName": "MariamAmeen",
-            "_id": 0,
-            "Date_joined": "2021-05-31",
-            "numberOfPublicPhotos": 0,
-            "numberOfFollowers": 0,
-            "avatarUrl": "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            "isFollowed": true
+        "Fname": "Mariam",
+        "Lname": "Ameen",
+        "UserName": "MariamAmeen",
+        "_id": 0,
+        "Date_joined": "2021-05-31",
+        "numberOfPublicPhotos": 0,
+        "numberOfFollowers": 0,
+        "avatarUrl":
+            "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "isFollowed": true
       }
     ];
     // loadUserCard(users);
@@ -175,11 +160,7 @@ class _SearchState extends State<Search> {
     // "UpdatedAt": "2021-06-01"
     // }
 
-
-
-
-
-    List<dynamic> photos=[
+    List<dynamic> photos = [
       {
         "title": "profile",
         "description": "",
@@ -197,8 +178,7 @@ class _SearchState extends State<Search> {
         "no_comments": 0,
         "no_fav": 0,
         "UserName": "ashrafosama536"
-      }
-      ,
+      },
       {
         "title": "profile",
         "description": "",
@@ -220,7 +200,6 @@ class _SearchState extends State<Search> {
     ];
     // loadPhotoCard(photos);
     LoadPhoto();
-
   }
 
   // List<PhotoCard> photoPost = [
@@ -246,7 +225,6 @@ class _SearchState extends State<Search> {
   //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU")
   //
   // ];
-
 
   TextEditingController searchController = new TextEditingController();
   bool iconCrossVisibility = false;
@@ -296,10 +274,7 @@ class _SearchState extends State<Search> {
                       randomPhotos = false;
 
                       x++;
-                      if (x==1)
-                       photos = true;
-
-
+                      if (x == 1) photos = true;
                     });
                   },
                   onChanged: (String str) async {
@@ -316,113 +291,89 @@ class _SearchState extends State<Search> {
                   children: <Widget>[
                     Visibility(
                       visible: (iconCrossVisibility == true) ? true : false,
-                      child: IconButton( icon: Icon(
-                          Icons.check,
-                          color: Colors.grey[600]
-                      ),
-                        onPressed: () async {
+                      child: IconButton(
+                          icon: Icon(Icons.check, color: Colors.grey[600]),
+                          onPressed: () async {
+                            NetworkHelper groupreq;
+                            var groupresp;
 
+                            NetworkHelper peoplereq;
+                            var peopleresp;
 
-                          NetworkHelper groupreq;
-                          var groupresp;
+                            NetworkHelper photoreq;
+                            var photoresp;
 
-                          NetworkHelper peoplereq;
-                          var peopleresp;
+                            if (groups == true) {
+                              groupreq = new NetworkHelper("$KBaseUrl/group/" +
+                                  searchController.text +
+                                  "/search");
 
-                          NetworkHelper photoreq;
-                          var photoresp;
+                              groupresp = await groupreq.getData(true);
+                            }
 
-                          if (groups == true) {
+                            if (people == true) {
+                              NetworkHelper peoplereq = new NetworkHelper(
+                                  "$KBaseUrl/people/search/" +
+                                      searchController.text);
+                              peopleresp = await peoplereq.getData(true);
+                            }
 
-                           groupreq = new NetworkHelper("$KBaseUrl/group/"+searchController.text+"/search");
-
-                          groupresp = await groupreq.getData(true);
-                        }
-
-                          if (people == true) {
-
-                            NetworkHelper peoplereq = new NetworkHelper("$KBaseUrl/people/search/"+searchController.text);
-                            peopleresp = await peoplereq.getData(true);
-                          }
-
-
-                          if (photos == true)
-                            {
-                              NetworkHelper photoreq = new NetworkHelper("$KBaseUrl/photo/getbytitle/"+searchController.text);
+                            if (photos == true) {
+                              NetworkHelper photoreq = new NetworkHelper(
+                                  "$KBaseUrl/photo/getbytitle/" +
+                                      searchController.text);
                               photoresp = await photoreq.getData(true);
                             }
 
-                          setState(() {
-                            FocusScopeNode currentFocus = FocusScope.of(context);
+                            setState(() {
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
 
-                            if (!currentFocus.hasPrimaryFocus) {
-                              currentFocus.unfocus();
-                            }
-                           // noResults = false;
+                              if (!currentFocus.hasPrimaryFocus) {
+                                currentFocus.unfocus();
+                              }
+                              // noResults = false;
 
-                          // print(searchController.text);
-                          if (photos == true) {
+                              // print(searchController.text);
+                              if (photos == true) {
+                                if (photoresp.statusCode == 200) {
+                                  String data2 = photoresp.body;
+                                  List<dynamic> response2 = jsonDecode(data2);
+                                  loadPhotoCard(response2);
+                                } else {
+                                  print(photoresp.statusCode);
+                                  // noResults = true;
+                                }
+                              }
+                              if (groups == true) {
+                                if (groupresp.statusCode == 200) {
+                                  String data2 = groupresp.body;
+                                  List<dynamic> response2 = jsonDecode(data2);
+                                  loadGroupCard(response2);
+                                } else {
+                                  print(groupresp.statusCode);
+                                  // noResults = true;
 
-                            if (photoresp.statusCode == 200)
-                            {
-                              String data2 = photoresp.body;
-                              List<dynamic> response2 = jsonDecode(data2);
-                              loadPhotoCard(response2);
-
-                            } else
-                            {
-                              print(photoresp.statusCode);
-                             // noResults = true;
-                            }
-
+                                }
+                              }
+                              if (people == true) {
+                                if (peopleresp.statusCode == 201) {
+                                  String data2 = peopleresp.body;
+                                  List<dynamic> response2 = jsonDecode(data2);
+                                  // loadGroupCard(response2);
+                                  print(response2);
+                                  loadUserCard(response2);
+                                } else {
+                                  print(peopleresp.statusCode);
+                                }
+                              }
+                            });
                           }
-                          if (groups == true)  {
 
-
-                            if (groupresp.statusCode == 200)
-                            {
-                              String data2 = groupresp.body;
-                              List<dynamic> response2 = jsonDecode(data2);
-                              loadGroupCard(response2);
-
-                            } else
-                            {
-                              print(groupresp.statusCode);
-                             // noResults = true;
-
-                            }
-
-
-                          }
-                          if (people == true) {
-
-                            if (peopleresp.statusCode == 201)
-                            {
-                              String data2 = peopleresp.body;
-                              List<dynamic> response2 = jsonDecode(data2);
-                              // loadGroupCard(response2);
-                              print(response2);
-                              loadUserCard(response2);
-
-
-
-
-                            } else
-                            {
-                              print(peopleresp.statusCode);
-
-                            }
-
-
-                          }
-                        });
-
-                        }
-
-                        //     setState(() {
-                        //   });
-                       // },
-                      ),
+                          //     setState(() {
+                          //   });
+                          // },
+                          ),
                     ),
                     Visibility(
                       visible: (iconCrossVisibility == true) ? true : false,
@@ -442,9 +393,9 @@ class _SearchState extends State<Search> {
                       child: TextButton(
                         style: ButtonStyle(
                           backgroundColor:
-                          MaterialStateProperty.all(kSearchTextFieldColor),
+                              MaterialStateProperty.all(kSearchTextFieldColor),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               side: BorderSide(color: Colors.white, width: 2.0),
                             ),
@@ -461,7 +412,8 @@ class _SearchState extends State<Search> {
                             groups = false;
                             randomPhotos = true;
                             noResults = false;
-                            FocusScopeNode currentFocus = FocusScope.of(context);
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
 
                             if (!currentFocus.hasPrimaryFocus) {
                               currentFocus.unfocus();
@@ -512,9 +464,9 @@ class _SearchState extends State<Search> {
                         style: (photos == true)
                             ? selectedText
                             : TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 20.0,
-                        ),
+                                color: Colors.grey[600],
+                                fontSize: 20.0,
+                              ),
                       ),
                     ),
                   ),
@@ -540,9 +492,9 @@ class _SearchState extends State<Search> {
                         style: (people == true)
                             ? selectedText
                             : TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 20.0,
-                        ),
+                                color: Colors.grey[600],
+                                fontSize: 20.0,
+                              ),
                       ),
                     ),
                   ),
@@ -568,9 +520,9 @@ class _SearchState extends State<Search> {
                         style: (groups == true)
                             ? selectedText
                             : TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 20.0,
-                        ),
+                                color: Colors.grey[600],
+                                fontSize: 20.0,
+                              ),
                       ),
                     ),
                   ),
@@ -581,38 +533,38 @@ class _SearchState extends State<Search> {
 
           Visibility(
             visible: (photos == true) ? true : false,
-            child: Expanded(child: new ListView.builder(
-              itemCount: photoSearchList.length,
-              itemBuilder:(BuildContext context, int index)
-              {
-                return photoSearchList[index];
-              },
-            ),
+            child: Expanded(
+              child: new ListView.builder(
+                itemCount: photoSearchList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return photoSearchList[index];
+                },
+              ),
             ),
           ),
 
           Visibility(
             visible: (randomPhotos == true) ? true : false,
-            child: Expanded(child: new ListView.builder(
-              itemCount: photoList.length,
-              itemBuilder:(BuildContext context, int index)
-              {
-                return photoList[index];
-              },
-            ),
+            child: Expanded(
+              child: new ListView.builder(
+                itemCount: photoList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return photoList[index];
+                },
+              ),
             ),
           ),
 
           Visibility(
             visible: (people == true) ? true : false,
 
-            child: Expanded(child: new ListView.builder(
-              itemCount: usersList.length,
-              itemBuilder:(BuildContext context, int index)
-              {
-                return usersList[index];
-              },
-            ),
+            child: Expanded(
+              child: new ListView.builder(
+                itemCount: usersList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return usersList[index];
+                },
+              ),
             ),
             // child: UserView(
             //   userBody: usersList,
@@ -621,13 +573,13 @@ class _SearchState extends State<Search> {
 
           Visibility(
             visible: (groups == true) ? true : false,
-            child: Expanded(child: new ListView.builder(
-              itemCount: groupList.length,
-              itemBuilder:(BuildContext context, int index)
-              {
-                return groupList[index];
-              },
-            ),
+            child: Expanded(
+              child: new ListView.builder(
+                itemCount: groupList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return groupList[index];
+                },
+              ),
             ),
           ),
 
