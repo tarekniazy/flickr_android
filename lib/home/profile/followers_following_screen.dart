@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-
 class UserCard extends StatefulWidget {
   UserCard({
     @required this.userName,
     @required this.photo,
     @required this.avatar,
+    @required this.followers,
   });
 
   final String userName;
   final String photo;
   final avatar;
+  final followers;
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -38,7 +39,10 @@ class _UserCardState extends State<UserCard> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text('${widget.photo ?? 0}' + ' photos — '),
+        subtitle: Text('${widget.photo ?? 0}' +
+            ' photos — ' +
+            widget.followers.toString() +
+            ' Followers'),
         trailing: Container(
           width: 80.0,
           child: TextButton(
@@ -64,12 +68,11 @@ class _UserCardState extends State<UserCard> {
   }
 }
 
-
 class Folllwers_Following extends StatefulWidget {
   Folllwers_Following({
     @required this.people,
     @required this.peopleType,
-});
+  });
   final List<UserCard> people;
   final String peopleType;
 
@@ -81,25 +84,23 @@ class _Folllwers_FollowingState extends State<Folllwers_Following> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+        child: Scaffold(
       appBar: AppBar(
-      backgroundColor: Colors.grey[800],
-      title: Text(widget.peopleType),
-    ),
-        body: Column(
-      children:<Widget> [
-      Expanded(child: new ListView.builder(
-      itemCount: widget.people.length,
-        itemBuilder:(BuildContext context, int index)
-        {
-          return widget.people[index];
-        },
-      )
-    )
-    // Text("data")
-    ],
-    ),
-      )
-    );
+        backgroundColor: Colors.grey[800],
+        title: Text(widget.peopleType),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+              child: new ListView.builder(
+            itemCount: widget.people.length,
+            itemBuilder: (BuildContext context, int index) {
+              return widget.people[index];
+            },
+          ))
+          // Text("data")
+        ],
+      ),
+    ));
   }
 }

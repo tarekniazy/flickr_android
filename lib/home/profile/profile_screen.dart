@@ -64,6 +64,7 @@ class _ProfileState extends State<Profile> {
             userName: element["UserName"],
             avatar: element["Avatar"],
             photo: element["Photo"].toString(),
+            followers: element["Followers"].toString(),
           ),
         );
       });
@@ -79,6 +80,7 @@ class _ProfileState extends State<Profile> {
             userName: element["UserName"],
             avatar: element["Avatar"],
             photo: element["Photo"].toString(),
+            followers: element["Followers"].toString(),
           ),
         );
       });
