@@ -94,7 +94,6 @@ class _ProfileState extends State<Profile> {
       String data2 = peopleresp.body;
       Map<String, dynamic> response2 = jsonDecode(data2);
       print(peopleresp.body);
-      print('peeep');
       loadUserCardFollowing(response2['FollowingList']);
     } else {
       print(peopleresp.statusCode);
@@ -108,7 +107,6 @@ class _ProfileState extends State<Profile> {
       String data2 = peopleresp.body;
       Map<String, dynamic> response2 = jsonDecode(data2);
       print(peopleresp.body);
-      print('sdasad');
       loadUserCardFollowers(response2['FollowersList']);
     } else {
       print(peopleresp.statusCode);
@@ -259,7 +257,9 @@ class _ProfileState extends State<Profile> {
                                       );
                                     },
                                     child: Text(
-                                      'followers ' + '${widget.followersCount}',
+                                      'followers ' +
+                                          '${widget.followersCount}' +
+                                          '   -',
                                       style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.grey[800]),
