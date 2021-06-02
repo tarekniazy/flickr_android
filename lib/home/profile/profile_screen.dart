@@ -46,6 +46,13 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   List<UserCard> usersList = [];
 
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getUserFollowers();
+  //   getUserFollowing();
+  // }
 
   void loadUserCard(List<dynamic> users) {
     usersList.clear();
@@ -61,28 +68,31 @@ class _ProfileState extends State<Profile> {
   }
 
   void getUserFollowing() async {
-    // usersList.clear();
     NetworkHelper req = new NetworkHelper("$KBaseUrl/user/following");
     var peopleresp = await req.getData(true);
     if (peopleresp.statusCode == 200) {
       String data2 = peopleresp.body;
       Map<String, dynamic> response2 = jsonDecode(data2);
       print(peopleresp.body);
-      loadUserCard(response2['FollowingList']);
+      setState(() {
+        loadUserCard(response2['FollowingList']);
+
+      });
     } else {
       print(peopleresp.statusCode);
     }
   }
 
   void getUserFollowers() async {
-    // usersList.clear();
     NetworkHelper req = new NetworkHelper("$KBaseUrl/user/followers");
     var peopleresp = await req.getData(true);
     if (peopleresp.statusCode == 200) {
       String data2 = peopleresp.body;
       Map<String, dynamic> response2 = jsonDecode(data2);
       print(peopleresp.body);
-      loadUserCard(response2['FollowersList']);
+      setState(() {
+        loadUserCard(response2['FollowersList']);
+      });
     } else {
       print(peopleresp.statusCode);
     }
@@ -216,23 +226,25 @@ class _ProfileState extends State<Profile> {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
-
-                                      getUserFollowers();
+                                      setState(() {
+                                        getUserFollowers();
+                                      });
+                                      print("ahhhhhhhhhhhhhhhh");
                                       print(usersList.length);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) {
-                                            return Folllwers_Following(peopleType: "Followers",
-                                            people: usersList,
+                                            return Folllwers_Following(
+                                              peopleType: "Followers",
+                                              people: usersList,
                                             );
                                           },
                                         ),
                                       );
                                     },
                                     child: Text(
-                                      'followers ' +
-                                          '${widget.followersCount}',
+                                      'followers ' + '${widget.followersCount}',
                                       style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.grey[800]),
@@ -242,19 +254,26 @@ class _ProfileState extends State<Profile> {
                                     width: 10.0,
                                   ),
                                   GestureDetector(
-                                    onTap: () async {
-                                      getUserFollowing();
+                                    onTap: ()  {
+                                      setState(() {
+                                         getUserFollowing();
+                                      });
+                                      print("Laaaaaaaaaaaaa");
+
+                                      print(usersList.length);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) {
-                                            return Folllwers_Following(peopleType: "Following",
+                                            return Folllwers_Following(
+                                              peopleType: "Following",
                                               people: usersList,
                                             );
                                           },
                                         ),
                                       );
                                     },
+
                                     child: Text(
                                       'following ' +
                                           widget.followingCount.toString(),

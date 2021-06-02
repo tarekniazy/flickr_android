@@ -52,6 +52,8 @@ class NetworkHelper {
 
   Future postData( Map<String, dynamic> Body,bool ifToken) async
   {
+    print(url);
+
     if (ifToken)
       {
         var uri= Uri.parse(url);

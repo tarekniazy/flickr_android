@@ -249,7 +249,8 @@ class _ImageCardState extends State<ImageCard> {
                       return CommentView(
                           authorId:widget.author["Fname"],
                           faves: widget.faves,
-                          comments: widget.comments);
+                          comments: widget.comments,
+                      imageId: widget.imageId,);
                     }));
                   });
                 },
@@ -293,9 +294,10 @@ class _ImageCardState extends State<ImageCard> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return CommentView(
-                          authorId:" widget.authorId",
+                          authorId:widget.author["Fname"],
                           faves: widget.faves,
-                          comments: widget.comments);
+                          comments: widget.comments,
+                      imageId: widget.imageId,);
                     }));
                   });
                 },
@@ -475,7 +477,8 @@ class _ImageViewState extends State<ImageView> {
                                 return CommentView(
                                     authorId: widget.authorId,
                                     faves: widget.faves,
-                                    comments: widget.comments);
+                                    comments: widget.comments,
+                                  imageId: widget.imageId,);
                               }));
                             });
                           },
@@ -551,12 +554,14 @@ class CommentView extends StatefulWidget {
     @required this.authorId,
     @required this.comments,
     @required this.faves,
+    @required this.imageId
     // @required this.commentClicked
   });
 
   final String authorId; // author name
   final List<dynamic> comments;
   final List<dynamic> faves;
+  final imageId;
   // var commentClicked;
 
   @override
@@ -580,6 +585,7 @@ class _CommentViewState extends State<CommentView> {
         commentBody: commentBody,
         authorName: widget.authorId,
         favs: widget.faves,
+        imageId: widget.imageId,
       );
     } else if (commentViewed == 0) {
       return UserView(
@@ -947,12 +953,15 @@ class CommentSection extends StatefulWidget {
     @required this.commentBody,
     @required this.authorName,
     @required this.favs,
+    @required this.imageId,
+
   });
 
   final List<dynamic> comments;
   final List<CommentCard> commentBody;
   final List<dynamic> favs;
   final String authorName;
+  final imageId;
 
   @override
   _CommentSectionState createState() => _CommentSectionState();
@@ -996,8 +1005,8 @@ class _CommentSectionState extends State<CommentSection> {
       homeTown = json['Hometown'];
       // print(avatarUrl);
       photosCount = json['Photo'];
-      followingCount = json['Following'];
-      followersCount = json['Followers'];
+      followingCount = json['Following'].length;
+      followersCount = json['Followers'].length;
       // }
       // });
       //
@@ -1053,26 +1062,43 @@ class _CommentSectionState extends State<CommentSection> {
                     ),
                   ),
                   trailing: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        print(_controller.text);
+                    onPressed: () async {
 
-                        widget.commentBody.add(CommentCard(
-                            authorId: firstName,
-                            authorImage: avatarUrl,
-                            comment: _controller.text));
-                        widget.comments.add({
-                          "id": 0,
-                          "comment": _controller.text,
-                          "user": {
-                            "_id": 0,
-                            "Fname": firstName,
-                            "Lname": lastName,
-                            "UserName": "Mostafa123",
-                            "Email": "test@test.com",
-                            "Avatar": avatarUrl
-                          },
-                        });
+                      print(widget.imageId);
+                      NetworkHelper req = new NetworkHelper("$KBaseUrl"+"/photo/"+widget.imageId+"/comments");
+
+                      Map<String,dynamic> comment={
+                        "comment": _controller.text
+                      };
+
+                      var res = await req.postData(comment,true);
+
+                      print(res.statusCode);
+
+                      print(res.body);
+
+                      if (res.statusCode == 201)
+                      {
+
+                          setState(() {
+                            print(_controller.text);
+
+                            widget.commentBody.add(CommentCard(
+                                authorId: firstName,
+                                authorImage: avatarUrl,
+                                comment: _controller.text));
+                            widget.comments.add({
+                              "id": 0,
+                              "comment": _controller.text,
+                              "user": {
+                                "_id": 0,
+                                "Fname": firstName,
+                                "Lname": lastName,
+                                "UserName": "Mostafa123",
+                                "Email": "test@test.com",
+                                "Avatar": avatarUrl
+                              },
+                            });
 
                         print(widget.comments);
 
@@ -1083,6 +1109,7 @@ class _CommentSectionState extends State<CommentSection> {
                                       authorId: widget.authorName,
                                       comments: widget.comments,
                                       faves: widget.favs,
+                                  imageId: widget.imageId,
                                     )));
 
                         _controller.clear();
@@ -1092,7 +1119,7 @@ class _CommentSectionState extends State<CommentSection> {
                           currentFocus.unfocus();
                         }
                       });
-                    },
+                    }},
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                           (states) => Colors.transparent),
