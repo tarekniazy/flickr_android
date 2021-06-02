@@ -362,9 +362,10 @@ class _SignUpState extends State<SignUp> {
                     NetworkHelper req = new NetworkHelper(
                         "$KBaseUrl/user");
 
-                    var res = await req.postData(Body);
+                    var res = await req.postData(Body,false);
 
-                    if (res.statusCode == 200) {
+                    if (res.statusCode == 201) {
+                      print('Success');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -382,6 +383,10 @@ class _SignUpState extends State<SignUp> {
                     else if (res.statusCode == 500) {
                       emailErrorText = 'Failed to create user';
                     }
+                    else
+                      {
+                        print(res.statusCode);
+                      }
                   }
                 },
                 style: ButtonStyle(

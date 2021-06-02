@@ -40,4 +40,4 @@ const String KMockSeverBaseUrl =
 const String KBaseUrl=
     "http://dropoids.me/api/v1";
 
-final String KUserToken=userToken;
+String KUserToken="";
