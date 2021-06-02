@@ -42,7 +42,46 @@ class _ImageCardState extends State<ImageCard> {
   String LastUser;
   Icon fav=Icon(Icons.star_border);
 
+  List<dynamic> favedList=[];
+
   int viewfaved=0;
+
+  void getUsersId ()async
+  {
+
+    String _id;
+
+    widget.faves.forEach((element) async{
+      {
+        print("iddddddddddddddddd");
+
+        // print(element["UserName"]);
+        _id=element["UserName"];
+
+        NetworkHelper req2 = new NetworkHelper("$KBaseUrl/people/"+_id);
+        var res2 = await req2.getData(true);
+
+
+        if (res2.statusCode==200)
+          {
+            print(res2.statusCode);
+            print(jsonDecode(res2.body)["_id"]);
+            print("isfollowed");
+            print(jsonDecode(res2.body)["Follow"]);
+
+            element["_id"]=jsonDecode(res2.body)["_id"];
+            element["isfollowed"]=jsonDecode(res2.body)["Follow"];
+          }
+
+        print(element);
+
+      }
+    });
+
+
+
+
+  }
 
   Text checkIfAvailble(int number) {
     if (number > 0) {
@@ -110,6 +149,13 @@ class _ImageCardState extends State<ImageCard> {
       return " ";
     }
 
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUsersId();
   }
 
   @override
@@ -605,17 +651,30 @@ class _CommentViewState extends State<CommentView> {
     });
   }
 
-  void loadFavs() {
-    widget.faves.forEach((element) {
-      {
-        userBody.add(UserCard(
-            authorName: element["Fname"],
-            authorImage: element["Avatar"],
-            numberOfPhotos: element["numPhotos"],
-            numberOfFollowers: element["numFollowing"],
-            favs: widget.faves));
-      }
+  void loadFavs()  {
+
+
+    setState(() {
+      widget.faves.forEach((element) async{
+        {
+
+
+
+            userBody.add(UserCard(
+                authorName: element["Fname"],
+                authorImage: element["Avatar"],
+                numberOfPhotos: element["numPhotos"],
+                numberOfFollowers: element["numFollowing"],
+                favs: widget.faves,
+            peopleID: element["_id"],
+            isFollowed: element["isfollowed"],));
+
+
+
+        }
+      });
     });
+
   }
 
   TextStyle viewed(var check) {

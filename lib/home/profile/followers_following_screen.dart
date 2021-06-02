@@ -23,7 +23,7 @@ class _UserCardState extends State<UserCard> {
     return ListTileTheme(
       child: ListTile(
         leading: Container(
-          width: 50,
+          width:35,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
@@ -55,7 +55,7 @@ class _UserCardState extends State<UserCard> {
               ),
             ),
             child: Text(
-              '+ Follow',
+              '✔',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
