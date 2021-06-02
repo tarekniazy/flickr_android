@@ -114,7 +114,7 @@ class NetworkHelper {
 
   Future deleteData() async {
     var uri = Uri.parse(url);
-    var response = await http.put(uri,
+    var response = await http.delete(uri,
         headers:{
       'Token': KUserToken,
       }, //  HttpHeaders.authorizationHeader: KUserToken,

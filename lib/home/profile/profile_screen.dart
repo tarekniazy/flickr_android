@@ -46,8 +46,9 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   List<UserCard> usersList = [];
 
+
   void loadUserCard(List<dynamic> users) {
-    usersList.clear();
+    // usersList.clear();
     users.forEach((element) {
       usersList.add(
         UserCard(
@@ -60,6 +61,7 @@ class _ProfileState extends State<Profile> {
   }
 
   void getUserFollowing() async {
+    // usersList.clear();
     NetworkHelper req = new NetworkHelper("$KBaseUrl/user/following");
     var peopleresp = await req.getData(true);
     if (peopleresp.statusCode == 200) {
@@ -73,6 +75,7 @@ class _ProfileState extends State<Profile> {
   }
 
   void getUserFollowers() async {
+    // usersList.clear();
     NetworkHelper req = new NetworkHelper("$KBaseUrl/user/followers");
     var peopleresp = await req.getData(true);
     if (peopleresp.statusCode == 200) {

@@ -193,12 +193,19 @@ class _ImageCardState extends State<ImageCard> {
                         print(response["message"]);
 
                       }
+                      setState(() {
+                        like=0;
+                      });
 
                     }
                   else {
                     Map<String, dynamic> Body = {"photo_id": widget.imageId};
 
                       NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
+
+                      setState(() {
+                        like=1;
+                      });
 
                       var res = await req.postData(Body,true);
 
