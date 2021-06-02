@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../home/profile/profilePages/Albums/albums.dart';
+import '../home/profile/profile_screen.dart';
+
+import '../home/home.dart';
 
 class Page extends StatelessWidget {
   Page(
@@ -164,7 +168,7 @@ class _GetStartedState extends State<GetStarted> {
                     //   context,
                     //   MaterialPageRoute(
                     //     builder: (context) {
-                    //       return LoggingInScreen();
+                    //       return Profile();
                     //     },
                     //   ),
                     // );

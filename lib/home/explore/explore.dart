@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../customeWidgets.dart';
-
-
-
+import '../../Services/networking.dart';
+import '../../constants.dart';
+import 'dart:convert';
 
 
 class Explore extends StatefulWidget {
@@ -26,33 +26,106 @@ class _ExploreState extends State<Explore> {
 
  List<ImageCard> post=[];
 
-  void loadImageCard()
+ List<dynamic> favedPhotos=[];
+ List<String> favedIds=[];
+
+ int isFaved=0;
+
+ void loadUsers(userId) async{
+
+   // NetworkHelper req = new NetworkHelper(
+   //     "$KMockSeverBaseUrl/people/id");
+   //
+   // var res = await req.getData(true);
+   //
+   // if (res.statusCode == 200)
+   //   {
+   //     String data = res.body;
+   //       print(jsonDecode(data));
+   //   }
+
+ }
+
+ void getUserfavs() async{
+
+   // NetworkHelper req = new NetworkHelper(
+   //     "$KMockSeverBaseUrl/people/id");
+   //
+   // var res = await req.getData(true);
+   //
+   // if (res.statusCode == 200)
+   //   {
+   //     String data = res.body;
+   //       print(jsonDecode(data));
+   //   }
+
+ }
+
+
+  void loadImageCard() async
   {
 
 
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user/fav");
 
+    var res = await req.getData(true);
+
+    if (res.statusCode == 200)
+      {
+        setState(() {
+          String data2 = res.body;
+          favedPhotos = jsonDecode(data2);
+        });
+
+        favedPhotos.forEach((element) {
+
+
+         setState(() {
+           favedIds.add(element["_id"]);
+         });
+
+
+        });
+      }
+
+
+
+    print(widget.exploreImages.length);
+    // print(widget.exploreImages);
 
     widget.exploreImages.forEach((element)  {
+      isFaved=0;
+      // print(element["comments"].length);
+
+      // // print(element["photos"]);
+      // print(element["photos"].first["photoUrl"]);
+      // print(element["photos"].first["ownerId"]);
+
+      // Map<String,dynamic> owner={
+      //   "ownerName":element["ownerName"],
+      //   "ownerUsername":element["ownerUsername"],
+      //   "Avatar":element["Avatar"]
+      // };
+      print(element["_id"].runtimeType);
+
+      for (int i=0;i<favedIds.length;i++)
+        {
+          print(element["_id"]);
+          if (element["_id"] == favedIds[i])
+            {
+              setState(() {
+                isFaved=1;
+                print("already faved  "+element["_id"]+" "+isFaved.toString());
+              });
+
+            }
+        }
 
 
-        post.add(ImageCard(imageUrl: element["photo_url"],
-          authorId: element["photo_owner_name"],
-          authorImage: element["avatar_owner_url"],
-          faves:element["favs"],
-          comments:element["comment"],
 
 
-        )) ;
-
-        print(element["photo_url"]);
-
-        // ImageCard imageCard= new ImageCard(imageUrl: element["photo_url"],
-        //   authorId: element["photo_owner_name"],
-        //   authorImage: element["avatar_owner_url"],
-        //   faves:element["favs"],
-        //   comments:element["comment"],
-        // );
-          print(post.length);
+      post.add(
+          ImageCard(imageUrl:element["photoUrl"],imageId:element["_id"] ,isfaved: isFaved ,author: element["ownerId"],comments: element["comments"],faves: element["Fav"])) ;
     });
 
 
@@ -82,6 +155,7 @@ class _ExploreState extends State<Explore> {
               },
             )
              )
+            // Text("data")
           ],
         ),
         // child: post[0],

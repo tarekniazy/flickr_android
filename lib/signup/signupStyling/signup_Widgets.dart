@@ -108,13 +108,7 @@ Icon(
   size: KSizeOfIconSearch,
 );
 
-// Icon kSearchIconLarge =
-// Icon(
-// //FontAwesomeIcons.flickr,
-//   FontAwesomeIcons.search,
-//   color: kSearchIconColor,
-//   size: KSizeOfIconSearchLarge,
-// );
+
 
 
 Icon kSearchIconLarge = Icon(
