@@ -312,14 +312,14 @@ class _SearchState extends State<Search> {
                             }
 
                             if (people == true) {
-                              NetworkHelper peoplereq = new NetworkHelper(
+                               peoplereq = new NetworkHelper(
                                   "$KBaseUrl/people/search/" +
                                       searchController.text);
                               peopleresp = await peoplereq.getData(true);
                             }
 
                             if (photos == true) {
-                              NetworkHelper photoreq = new NetworkHelper(
+                               photoreq = new NetworkHelper(
                                   "$KBaseUrl/photo/getbytitle/" +
                                       searchController.text);
                               photoresp = await photoreq.getData(true);

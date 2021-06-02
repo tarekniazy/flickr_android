@@ -795,8 +795,10 @@ class UserCard extends StatefulWidget {
 }
 
 class _UserCardState extends State<UserCard> {
- // bool followed = false;
-  //String text = '+ Follow';
+  bool textToggle = false;
+  bool followed;
+  String text = '+ Follow';
+
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
@@ -825,7 +827,7 @@ class _UserCardState extends State<UserCard> {
             '${widget.numberOfFollowers ?? 0}' +
             ' followers'),
         trailing: Container(
-          width: (widget.isFollowed == true) ? 35.0 : 80.0,
+          width: (textToggle == false) ? ((widget.isFollowed == true) ? 35.0 : 80.0) : ((followed == true) ? 35.0 : 80.0),
           child: TextButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
@@ -836,7 +838,7 @@ class _UserCardState extends State<UserCard> {
               ),
             ),
             onPressed: () async {
-              if (widget.isFollowed == false) {
+              if (widget.isFollowed == false || followed == false) {
                 Map<String, dynamic> Body = {
                   "peopleid": widget.peopleID,
                 };
@@ -844,7 +846,31 @@ class _UserCardState extends State<UserCard> {
                 NetworkHelper req = new NetworkHelper("$KBaseUrl/user/follow");
                 var peopleresp = await req.postData(Body, true);
                 print(peopleresp.statusCode);
-              }
+                if (peopleresp.statusCode == 200)
+                  {
+                  setState(() {
+                    text = '✔';
+                    followed =  true;
+                    textToggle = true;
+                  });
+                  }
+                  }
+
+              else
+                {
+                  NetworkHelper req = new NetworkHelper("$KBaseUrl/user/unfollow/"+widget.peopleID);
+                  var peopleresp = await req.deleteData();
+                  print(peopleresp.statusCode);
+                  if(peopleresp.statusCode == 200)
+                    {
+                      setState(() {
+                        text = '+ Follow';
+                        followed = false;
+                        textToggle = true;
+                      });
+                    }
+
+                }
 
               setState(() {
                 if (widget.isFollowed == false) {
@@ -856,18 +882,13 @@ class _UserCardState extends State<UserCard> {
                       // element["num_following"] = '$count';
                     });
                   }
-                  //text = '✔';
-                  //followed = true;
-                  //post follow
-                } else {
-                 // text = '+ Follow';
-                 // followed = false;
-                  //delete follow
+
                 }
               });
             },
             child: Text(
-              (widget.isFollowed == false) ? '+ Follow' : '✔',
+              //text,
+              (textToggle==false) ? ((widget.isFollowed == false) ? '+ Follow' : '✔') : text,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
