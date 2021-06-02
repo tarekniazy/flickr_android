@@ -23,8 +23,8 @@ class Profile extends StatefulWidget {
     @required this.currentCity,
     @required this.homeTown,
     @required this.photosCount,
-    // @required this.description,
-    // @required this.occupation,
+    @required this.followingCount,
+    @required this.followersCount,
     // @required this.currentCity,
   });
 
@@ -52,7 +52,7 @@ class _ProfileState extends State<Profile> {
       usersList.add(
         UserCard(
           userName: element["UserName"],
-          avatar: element["avatar"],
+          avatar: element["Avatar"],
           photo: element["Photo"].toString(),
         ),
       );
@@ -79,11 +79,12 @@ class _ProfileState extends State<Profile> {
       String data2 = peopleresp.body;
       Map<String, dynamic> response2 = jsonDecode(data2);
       print(peopleresp.body);
-      //loadUserCard(response2);
+      loadUserCard(response2['FollowersList']);
     } else {
       print(peopleresp.statusCode);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -212,11 +213,23 @@ class _ProfileState extends State<Profile> {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
+
                                       getUserFollowers();
+                                      print(usersList.length);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Folllwers_Following(peopleType: "Followers",
+                                            people: usersList,
+                                            );
+                                          },
+                                        ),
+                                      );
                                     },
                                     child: Text(
                                       'followers ' +
-                                          widget.followersCount.toString(),
+                                          '${widget.followersCount}',
                                       style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.grey[800]),
@@ -228,6 +241,16 @@ class _ProfileState extends State<Profile> {
                                   GestureDetector(
                                     onTap: () async {
                                       getUserFollowing();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Folllwers_Following(peopleType: "Following",
+                                              people: usersList,
+                                            );
+                                          },
+                                        ),
+                                      );
                                     },
                                     child: Text(
                                       'following ' +

@@ -1351,11 +1351,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
       currentCity = json['About']['CurrentCity'];
       homeTown = json['About']['Hometown'];
       photosCount = json['Photo'];
-      // followingCount = json['Following'];
-      // followersCount = json['Followers'];
-      print(photosCount);
-      // print(followingCount);
-      // print(followersCount);
+      followingCount = json['Following'].length;
+      followersCount = json['Followers'].length;
+      // print(photosCount);
+      // print( json['Following'].length);
+      // print(json['Followers'].length);
 
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return Profile(
@@ -1369,6 +1369,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
           currentCity: currentCity,
           homeTown: homeTown,
           photosCount: photosCount,
+          followersCount: followersCount,
+          followingCount: followingCount,
         );
       }));
       // }

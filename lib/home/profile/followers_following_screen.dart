@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class UserCard extends StatefulWidget {
   UserCard({
     @required this.userName,
@@ -59,6 +60,46 @@ class _UserCardState extends State<UserCard> {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+class Folllwers_Following extends StatefulWidget {
+  Folllwers_Following({
+    @required this.people,
+    @required this.peopleType,
+});
+  final List<UserCard> people;
+  final String peopleType;
+
+  @override
+  _Folllwers_FollowingState createState() => _Folllwers_FollowingState();
+}
+
+class _Folllwers_FollowingState extends State<Folllwers_Following> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+      appBar: AppBar(
+      backgroundColor: Colors.grey[800],
+      title: Text(widget.peopleType),
+    ),
+        body: Column(
+      children:<Widget> [
+      Expanded(child: new ListView.builder(
+      itemCount: widget.people.length,
+        itemBuilder:(BuildContext context, int index)
+        {
+          return widget.people[index];
+        },
+      )
+    )
+    // Text("data")
+    ],
+    ),
+      )
     );
   }
 }
