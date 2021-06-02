@@ -122,6 +122,19 @@ class NetworkHelper {
     return response;
   }
 
+  // Future deleteData() async {
+  //   var uri = Uri.parse(url);
+  //   var dio = Dio();
+  //
+  //   Response response = await dio.delete(uri.toString(),
+  //       data: jsonEncode(Body),
+  //       options: Options(headers: {
+  //         'Token': KUserToken,
+  //       }));
+  //   print(response.data);
+  //   print(response.statusMessage);
+  //   return response;
+  // }
 
 
 }
