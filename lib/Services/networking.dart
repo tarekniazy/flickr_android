@@ -55,19 +55,22 @@ class NetworkHelper {
     if (ifToken)
       {
         var uri= Uri.parse(url);
-        var response = await http.post(uri,body:Body,
-        );
-
-        return response;
-      }
-    else
-      {
-        var uri= Uri.parse(url);
         var response = await http.post(uri,body:Body, headers: {
           'Token': KUserToken,
         },);
 
         return response;
+
+
+      }
+    else
+      {
+        var uri= Uri.parse(url);
+        var response = await http.post(uri,body:Body,
+        );
+
+        return response;
+
       }
 
 
@@ -108,5 +111,17 @@ class NetworkHelper {
     );
     return response;
   }
+
+  Future deleteData() async {
+    var uri = Uri.parse(url);
+    var response = await http.put(uri,
+        headers:{
+      'Token': KUserToken,
+      }, //  HttpHeaders.authorizationHeader: KUserToken,
+    );
+    return response;
+  }
+
+
 
 }

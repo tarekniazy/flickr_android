@@ -23,10 +23,9 @@ class _AlbumsState extends State<Albums> {
   {
 
 
-    NetworkHelper req = new NetworkHelper(
-        "$KBaseUrl/album");
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/album");
 
-    var res = await req.getData(false);
+    var res = await req.getData(true);
     print(res.statusCode);
     if (res.statusCode == 200) {
       albums = jsonDecode(res.body);

@@ -40,6 +40,9 @@ class _ImageCardState extends State<ImageCard> {
 
   String LastComment;
   String LastUser;
+  Icon fav=Icon(Icons.star_border);
+
+  int viewfaved=0;
 
   Text checkIfAvailble(int number) {
     if (number > 0) {
@@ -60,15 +63,25 @@ class _ImageCardState extends State<ImageCard> {
 
   var like = 0;
 
-  Icon likePressed() {
-    if (like == 1) {
-      return Icon(
-        Icons.star,
-        color: Colors.blue,
-      );
-    } else {
-      return Icon(Icons.star_border);
-    }
+  Icon likePressed()  {
+
+
+    if (widget.isfaved==1)
+      {
+
+        return Icon(
+          Icons.star,
+          color: Colors.blue,
+        );
+
+      }
+    else
+      {
+        return Icon(
+          Icons.star_border,
+        );
+      }
+
   }
 
 
@@ -118,6 +131,8 @@ class _ImageCardState extends State<ImageCard> {
                         authorImage: widget.author["Avatar"],
                         faves: widget.faves,
                         comments: widget.comments,
+                        isfaved: widget.isfaved,
+                        imageId: widget.imageId,
                       );
                     },
                   ),
@@ -156,36 +171,66 @@ class _ImageCardState extends State<ImageCard> {
             children: <Widget>[
               GestureDetector(
                 onTap: () async {
-                  Map<String, dynamic> Body = {"photo_id": "1"};
 
-                  if (like == 0) {
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/v3/fave?id =23");
+                  print(widget.isfaved);
+                  if(widget.isfaved==1)
+                    {
+                      print("faaaaaaaaaaaaaaaved");
 
-                    var res = await req.postData(Body,true);
+                      print(widget.imageId.runtimeType);
 
-                    if (res.statusCode == 200) {
-                      String data = res.body;
-                      var response = jsonDecode(data);
-                      print(response["message"]);
-                    } else {
+
+                      NetworkHelper req = new NetworkHelper("$KBaseUrl/favs/"+widget.imageId);
+
+                      var res = await req.deleteData();
+
                       print(res.statusCode);
+
+
+                      if (res.statusCode == 200) {
+                        String data = res.body;
+                        var response = jsonDecode(data);
+                        print(response["message"]);
+
+                      }
+
                     }
-                    ;
+                  else {
+                    Map<String, dynamic> Body = {"photo_id": widget.imageId};
+
+                      NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
+
+                      var res = await req.postData(Body,true);
+
+                      if (res.statusCode == 200) {
+                        String data = res.body;
+                        var response = jsonDecode(data);
+                        print(response["message"]);
+
+                      }
+                      else
+                        {
+                        print(res.statusCode);
+                      }
                   }
 
-                  setState(() {
-                    if (like == 1) {
-                      like = 0;
-                    } else {
-                      like = 1;
-                    }
-                  });
+
+                  // setState(() {
+                  //   if (like == 1) {
+                  //     like = 0;
+                  //   } else {
+                  //     like = 1;
+                  //   }
+                  // });
                 },
                 child: IconButton(
-                  icon: likePressed(),
+
+                  icon: likePressed() ,
+
                 ),
               ),
+
+
               checkIfAvailble(widget.faves.length),
               IconButton(
                 icon: Icon(
@@ -271,6 +316,8 @@ class ImageView extends StatefulWidget {
     @required this.authorImage,
     @required this.comments,
     @required this.faves,
+    @required this.imageId,
+    @required this.isfaved,
   });
 
   final String imageUrl; // image path
@@ -278,18 +325,46 @@ class ImageView extends StatefulWidget {
   final String authorImage; // author home.profile pic
   final List<dynamic> comments;
   final List<dynamic> faves;
+  final imageId;
+  final isfaved;
 
   @override
   _ImageViewState createState() => _ImageViewState();
 }
 
 class _ImageViewState extends State<ImageView> {
-  Icon like = Icon(
-    Icons.star_border,
-    size: 25,
-    color: Color(0xFFFFFFFF),
-  );
-  bool likePressed = false;
+  // Icon like = Icon(
+  //   Icons.star_border,
+  //   size: 25,
+  //   color: Color(0xFFFFFFFF),
+  // );
+  // bool likePressed = false;
+
+  Icon likePressed()  {
+
+
+    if (widget.isfaved==1)
+    {
+
+      return Icon(
+        Icons.star,
+        color: Colors.blue,
+      );
+
+    }
+    else
+    {
+      return Icon(
+        Icons.star_border,
+      );
+    }
+
+  }
+
+  // void Fav_unFave ()
+  // {
+  //   if (widget.)
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -357,44 +432,29 @@ class _ImageViewState extends State<ImageView> {
                       Row(children: <Widget>[
                         IconButton(
                           onPressed: () async {
-                            Map<String, dynamic> Body = {"photo_id": "1"};
+                            print(widget.isfaved);
+                            if(widget.isfaved==1)
+                            {
+                              print("faaaaaaaaaaaaaaaved");
+                            }
+                            else {
+                              Map<String, dynamic> Body = {"photo_id": widget.imageId};
 
-                            // if (likePressed == false) {
-                            //   NetworkHelper req = new NetworkHelper(
-                            //       "$KBaseUrl/v3/fave?id =23");
-                            //
-                            //   var res = await req.postData(Body,true);
-                            //
-                            //   if (res.statusCode == 200) {
-                            //     String data = res.body;
-                            //     var response = jsonDecode(data);
-                            //     print(response["message"]);
-                            //   } else {
-                            //     print(res.statusCode);
-                            //   }
-                            //   ;
-                            // }
 
-                            setState(() {
-                              if (likePressed) {
-                                like = Icon(
-                                  Icons.star_border,
-                                  size: 25,
-                                  color: Colors.white,
-                                );
-                                likePressed = false;
-                              } else {
-                                like = Icon(
-                                  Icons.star,
-                                  color: Colors.blue,
-                                  size: 25,
-                                );
+                                NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
 
-                                likePressed = true;
+                                var res = await req.postData(Body,true);
+
+                                if (res.statusCode == 200) {
+                                  String data = res.body;
+                                  var response = jsonDecode(data);
+                                  print(response["message"]);
+                                } else {
+                                  print(res.statusCode);
+                                }
                               }
-                            });
                           },
-                          icon: like,
+                          icon: likePressed(),
                         ),
                         IconButton(
                           icon: Icon(

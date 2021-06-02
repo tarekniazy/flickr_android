@@ -27,8 +27,9 @@ class _ExploreState extends State<Explore> {
  List<ImageCard> post=[];
 
  List<dynamic> favedPhotos=[];
+ List<String> favedIds=[];
 
- bool isFaved=false;
+ int isFaved=0;
 
  void loadUsers(userId) async{
 
@@ -76,7 +77,15 @@ class _ExploreState extends State<Explore> {
           favedPhotos = jsonDecode(data2);
         });
 
+        favedPhotos.forEach((element) {
 
+
+         setState(() {
+           favedIds.add(element["_id"]);
+         });
+
+
+        });
       }
 
 
@@ -85,8 +94,8 @@ class _ExploreState extends State<Explore> {
     // print(widget.exploreImages);
 
     widget.exploreImages.forEach((element)  {
-
-      print(element["comments"].length);
+      isFaved=0;
+      // print(element["comments"].length);
 
       // // print(element["photos"]);
       // print(element["photos"].first["photoUrl"]);
@@ -97,12 +106,26 @@ class _ExploreState extends State<Explore> {
       //   "ownerUsername":element["ownerUsername"],
       //   "Avatar":element["Avatar"]
       // };
+      print(element["_id"].runtimeType);
+
+      for (int i=0;i<favedIds.length;i++)
+        {
+          print(element["_id"]);
+          if (element["_id"] == favedIds[i])
+            {
+              setState(() {
+                isFaved=1;
+                print("already faved  "+element["_id"]+" "+isFaved.toString());
+              });
+
+            }
+        }
 
 
 
 
       post.add(
-          ImageCard(imageUrl:element["photoUrl"],imageId:element["_id"]  ,author: element["ownerId"],comments: element["comments"],faves: element["Fav"])) ;
+          ImageCard(imageUrl:element["photoUrl"],imageId:element["_id"] ,isfaved: isFaved ,author: element["ownerId"],comments: element["comments"],faves: element["Fav"])) ;
     });
 
 
