@@ -44,7 +44,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  List<UserCard> usersList = [];
+  List<UserCard> usersListFollowing = [];
+  List<UserCard> usersListFollowers = [];
 
   @override
   void initState() {
@@ -54,16 +55,33 @@ class _ProfileState extends State<Profile> {
     getUserFollowing();
   }
 
-  void loadUserCard(List<dynamic> users) {
-    usersList.clear();
-    users.forEach((element) {
-      usersList.add(
-        UserCard(
-          userName: element["UserName"],
-          avatar: element["Avatar"],
-          photo: element["Photo"].toString(),
-        ),
-      );
+  void loadUserCardFollowing(List<dynamic> users) {
+    setState(() {
+      usersListFollowing.clear();
+      users.forEach((element) {
+        usersListFollowing.add(
+          UserCard(
+            userName: element["UserName"],
+            avatar: element["Avatar"],
+            photo: element["Photo"].toString(),
+          ),
+        );
+      });
+    });
+  }
+
+  void loadUserCardFollowers(List<dynamic> users) {
+    setState(() {
+      usersListFollowers.clear();
+      users.forEach((element) {
+        usersListFollowers.add(
+          UserCard(
+            userName: element["UserName"],
+            avatar: element["Avatar"],
+            photo: element["Photo"].toString(),
+          ),
+        );
+      });
     });
   }
 
@@ -75,7 +93,7 @@ class _ProfileState extends State<Profile> {
       Map<String, dynamic> response2 = jsonDecode(data2);
       print(peopleresp.body);
       print('peeep');
-      loadUserCard(response2['FollowingList']);
+      loadUserCardFollowing(response2['FollowingList']);
     } else {
       print(peopleresp.statusCode);
     }
@@ -89,7 +107,7 @@ class _ProfileState extends State<Profile> {
       Map<String, dynamic> response2 = jsonDecode(data2);
       print(peopleresp.body);
       print('sdasad');
-      loadUserCard(response2['FollowersList']);
+      loadUserCardFollowers(response2['FollowersList']);
     } else {
       print(peopleresp.statusCode);
     }
@@ -225,14 +243,14 @@ class _ProfileState extends State<Profile> {
                                       setState(() {
                                         getUserFollowers();
                                       });
-                                      print(usersList.length);
+                                      print(usersListFollowers.length);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) {
                                             return Folllwers_Following(
                                               peopleType: "Followers",
-                                              people: usersList,
+                                              people: usersListFollowers,
                                             );
                                           },
                                         ),
@@ -250,14 +268,16 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   GestureDetector(
                                     onTap: () async {
-                                      await getUserFollowing();
+                                      setState(() {
+                                        getUserFollowing();
+                                      });
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) {
                                             return Folllwers_Following(
                                               peopleType: "Following",
-                                              people: usersList,
+                                              people: usersListFollowing,
                                             );
                                           },
                                         ),
