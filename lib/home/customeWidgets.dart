@@ -361,6 +361,7 @@ class _ImageViewState extends State<ImageView> {
     {
       return Icon(
         Icons.star_border,
+        color: Colors.white,
       );
     }
 

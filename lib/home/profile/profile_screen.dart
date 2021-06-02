@@ -48,7 +48,7 @@ class _ProfileState extends State<Profile> {
 
 
   void loadUserCard(List<dynamic> users) {
-    // usersList.clear();
+    usersList.clear();
     users.forEach((element) {
       usersList.add(
         UserCard(
