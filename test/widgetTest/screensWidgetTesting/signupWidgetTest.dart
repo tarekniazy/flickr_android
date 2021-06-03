@@ -17,6 +17,7 @@ void main() {
   testerOfWidgets.findTextOnce(textToFind: 'Sign Up for Flickr');
   testerOfWidgets.findTextOnce(textToFind: 'flickr');
   testerOfWidgets.findTextOnce(textToFind: 'Already a Flickr member?');
+  testerOfWidgets.findTextButton(numberOfTextButton: 2);
   testerOfWidgets.findTextField(
       textFieldToEnter: 'Entered Text', numberOfTextField: 5);
 }
