@@ -19,4 +19,7 @@ void main() {
   testerOfWidgets.findTextOnce(textToFind: 'flickr');
   testerOfWidgets.findTextOnce(textToFind: 'Not a Flickr member?');
   testerOfWidgets.findTextField(textFieldToEnter: 'Entered Text');
+  testerOfWidgets.findTextButton(numberOfTextButton: 2);
+  testerOfWidgets.emailCheckingTest(
+      email: 'arwa.ibrahim.2000@gmail.com', buttonText: 'Next');
 }
