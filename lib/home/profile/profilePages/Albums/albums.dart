@@ -6,6 +6,7 @@ import '../../../../constants.dart';
 import 'dart:convert';
 
 
+
 class Albums extends StatefulWidget {
 
 
@@ -168,40 +169,40 @@ class _AlbumViewState extends State<AlbumView> {
       backgroundColor: Color(0xFFF2F2F2),
       body: Column(
         children:<Widget> [
-          Row(
-
-            mainAxisAlignment: MainAxisAlignment.end,
-            children:<Widget> [
-              Padding(
-                padding: const EdgeInsets.only(right:8.0,top: 20),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                            (states) => Colors.transparent),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        side: BorderSide(color: Color(0xFF464646), width: 2),
-                      ),
-                    ), //MaterialProperty
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
-                    child: Text(
-                      "Select",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'Frutiger',
-                        color: Color(0xFF464646),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-            ],
-          ),
+          // Row(
+          //
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children:<Widget> [
+          //     Padding(
+          //       padding: const EdgeInsets.only(right:8.0,top: 20),
+          //       child: ElevatedButton(
+          //         style: ButtonStyle(
+          //           backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          //                   (states) => Colors.transparent),
+          //           shape: MaterialStateProperty.all(
+          //             RoundedRectangleBorder(
+          //               side: BorderSide(color: Color(0xFF464646), width: 2),
+          //             ),
+          //           ), //MaterialProperty
+          //         ),
+          //         child: Padding(
+          //           padding: const EdgeInsets.symmetric(
+          //               horizontal: 12, vertical: 8),
+          //           child: Text(
+          //             "Select",
+          //             style: TextStyle(
+          //               fontSize: 15,
+          //               fontFamily: 'Frutiger',
+          //               color: Color(0xFF464646),
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //
+          //   ],
+          // ),
 
           Expanded(
             child: Column(
@@ -239,6 +240,43 @@ class AlbumPhotos extends StatefulWidget {
 
 class _AlbumPhotosState extends State<AlbumPhotos> {
 
+  // void getUsersId ()async
+  // {
+  //
+  //   String _id;
+  //
+  //   widget.faves.forEach((element) async{
+  //     {
+  //       print("iddddddddddddddddd");
+  //
+  //       // print(element["UserName"]);
+  //       _id=element["UserName"];
+  //
+  //       NetworkHelper req2 = new NetworkHelper("$KBaseUrl/people/"+_id);
+  //       var res2 = await req2.getData(true);
+  //
+  //
+  //       if (res2.statusCode==200)
+  //       {
+  //         print(res2.statusCode);
+  //         print(jsonDecode(res2.body)["_id"]);
+  //         print("isfollowed");
+  //         print(jsonDecode(res2.body)["Follow"]);
+  //
+  //         element["_id"]=jsonDecode(res2.body)["_id"];
+  //         element["isfollowed"]=jsonDecode(res2.body)["Follow"];
+  //       }
+  //
+  //       print(element);
+  //
+  //     }
+  //   });
+  //
+  //
+  //
+  //
+  // }
+
   List<String> photosRow=[];
   int counter=0;
 
@@ -253,6 +291,8 @@ class _AlbumPhotosState extends State<AlbumPhotos> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: (){
+
+
 
                       },
                       child: Image(image:

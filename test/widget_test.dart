@@ -7,24 +7,44 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'file:///D:/Flutter/Projects/flickr_android/lib/getStarted/getStarted_Page.dart';
-import 'package:flickr_android/main.dart';
-
+import 'package:flickr_android/getStarted/getStarted_Page.dart' as getStarted;
+import 'package:flickr_android/signup/signup_screen.dart';
+import 'package:flickr_android/login/login_screen.dart';
+import 'package:matcher/matcher.dart';
+import 'package:flutter_test/src/matchers.dart';
+import 'package:flutter/src/widgets/navigator.dart' hide Page;
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+
+
+
+  testWidgets('checking On page', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(GetStarted());
+    await tester.pumpWidget(getStarted.page(
+      imagePath: "p1.jpg",
+      title: "Powerful",
+      firstLine: "Save all your photos and videos",
+      secondLine: "in one place with Auto-Uploadr.",
+    ),);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpAndSettle(const Duration(seconds: 2));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final titleFinder = find.text('Powerful');
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(titleFinder, findsOneWidget);
+
+
+
   });
+
+  // testWidgets('checking Text On GetStarted', (WidgetTester tester) async {
+  //   // Build our app and trigger a frame.
+  //   await tester.pumpWidget(GetStarted());
+  //
+  //   final titleFinder = find.text('Powerful');
+  //   final messageFinder = find.text('Get Started');
+  //
+  //   expect(titleFinder, findsOneWidget);
+  //   expect(messageFinder, findsOneWidget);
+  //
+  // });
 }

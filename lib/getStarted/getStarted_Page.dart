@@ -5,8 +5,14 @@ import '../home/profile/profile_screen.dart';
 
 import '../home/home.dart';
 
-class Page extends StatelessWidget {
-  Page(
+
+
+
+/// @imagePath : the path of the image relative to Assets file,
+/// @title : the title displayed in the page
+/// @firstLine , @secondLine : the two lines displayed at the bottom of the page
+class page extends StatelessWidget {
+  page(
       {@required this.imagePath,
       @required this.title,
       @required this.firstLine,
@@ -71,6 +77,9 @@ class Page extends StatelessWidget {
   }
 }
 
+
+/// this widget contains a 4 pages of [page] widget and swipe between them by [SmoothPageIndicator]
+
 class GetStarted extends StatefulWidget {
   @override
   _GetStartedState createState() => _GetStartedState();
@@ -91,25 +100,25 @@ class _GetStartedState extends State<GetStarted> {
             PageView(
               controller: _pageController,
               children: [
-                Page(
+                page(
                   imagePath: "p1.jpg",
                   title: "Powerful",
                   firstLine: "Save all your photos and videos",
                   secondLine: "in one place with Auto-Uploadr.",
                 ),
-                Page(
+                page(
                   imagePath: "p2.jpg",
                   title: "Organization simplified",
                   firstLine: "Search, edit, and organize",
                   secondLine: "in seconds.",
                 ),
-                Page(
+                page(
                   imagePath: "p3.jpg",
                   title: "Keep your memories safe",
                   firstLine: "Your uploaded photos stay private",
                   secondLine: "until you choose to share them.",
                 ),
-                Page(
+                page(
                   imagePath: "p4.jpg",
                   title: "Sharing made easy",
                   firstLine: "Share with friends, family, and",
@@ -139,22 +148,24 @@ class _GetStartedState extends State<GetStarted> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  alignment: Alignment(-1, -1),
-                  padding: const EdgeInsets.all(10),
-                  child: Center(
-                    child: SmoothPageIndicator(
-                      controller: _pageController,
-                      count: 4,
-                      effect: ScrollingDotsEffect(
-                          radius: 4,
-                          dotHeight: 8,
-                          dotWidth: 8,
-                          dotColor: Colors.grey,
-                          activeDotColor: Colors.white),
-                      onDotClicked: (index) => _pageController.animateToPage(
-                          index,
-                          duration: Duration(milliseconds: 100)),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment(-1, -1),
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: SmoothPageIndicator(
+                        controller: _pageController,
+                        count: 4,
+                        effect: ScrollingDotsEffect(
+                            radius: 4,
+                            dotHeight: 8,
+                            dotWidth: 8,
+                            dotColor: Colors.grey,
+                            activeDotColor: Colors.white),
+                        onDotClicked: (index) => _pageController.animateToPage(
+                            index,
+                            duration: Duration(milliseconds: 100)),
+                      ),
                     ),
                   ),
                 ),

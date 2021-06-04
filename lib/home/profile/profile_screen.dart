@@ -118,7 +118,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Color(0xFFF2F2F2),
       body: DefaultTabController(
-        length: 5, // This is the number of tabs.
+        length: 3, // This is the number of tabs.
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
@@ -152,12 +152,12 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ],
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.autorenew,
-                        color: Colors.grey[800],
-                      ),
-                    ),
+                    // leading: IconButton(
+                    //   icon: Icon(
+                    //     Icons.autorenew,
+                    //     color: Colors.grey[800],
+                    //   ),
+                    // ),
                     flexibleSpace: FlexibleSpaceBar(
                       background: Container(
                         padding: EdgeInsets.only(bottom: 42.0),
@@ -314,18 +314,18 @@ class _ProfileState extends State<Profile> {
                           'Camera Roll',
                           style: KTabBarTextsStyle,
                         ),
-                        Text(
-                          'Public',
-                          style: KTabBarTextsStyle,
-                        ),
+                        // Text(
+                        //   'Public',
+                        //   style: KTabBarTextsStyle,
+                        // ),
                         Text(
                           'Albums',
                           style: KTabBarTextsStyle,
                         ),
-                        Text(
-                          'Groups',
-                          style: KTabBarTextsStyle,
-                        ),
+                        // Text(
+                        //   'Groups',
+                        //   style: KTabBarTextsStyle,
+                        // ),
                       ],
                       isScrollable: true,
                     ),
@@ -346,9 +346,9 @@ class _ProfileState extends State<Profile> {
                     widget.email,
                     widget.photosCount),
                 CameraRoll(), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
-                Text(''), //TODO Arwa- this text is For public
+                // Text(''), //TODO Arwa- this text is For public
                 Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
-                Text(''), //TODO Tarek- this text is For Groups
+                // Text(''), //TODO Tarek- this text is For Groups
               ]),
         ),
       ),

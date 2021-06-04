@@ -43,26 +43,26 @@ class _UserCardState extends State<UserCard> {
             ' photos — ' +
             widget.followers.toString() +
             ' Followers'),
-        trailing: Container(
-          width: 80.0,
-          child: TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black, width: 2.0),
-                ),
-              ),
-            ),
-            child: Text(
-              '✔',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16.0,
-              ),
-            ),
-          ),
-        ),
+        // trailing: Container(
+        //   width: 80.0,
+        //   child: TextButton(
+        //     style: ButtonStyle(
+        //       backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
+        //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        //         RoundedRectangleBorder(
+        //           side: BorderSide(color: Colors.black, width: 2.0),
+        //         ),
+        //       ),
+        //     ),
+        //     child: Text(
+        //       '✔',
+        //       style: TextStyle(
+        //         color: Colors.black,
+        //         fontSize: 16.0,
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }

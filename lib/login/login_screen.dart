@@ -13,13 +13,16 @@ import '../home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../signup/signup_screen.dart';
 
+
+/// this function is responsible for loading the login screen into the loginBasicLayout
+
 Widget LoggingInScreen() {
   LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
   return loginBasicLayout;
 }
 
 String userToken;
-
+/// this widget is the ui design screen of login page
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();

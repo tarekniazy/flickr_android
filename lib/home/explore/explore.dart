@@ -6,6 +6,8 @@ import '../../constants.dart';
 import 'dart:convert';
 
 
+/// @exploreImages : this is the data that is parsed into posts [ImageCard] and displayed in a form of stream
+
 class Explore extends StatefulWidget {
   Explore({
 
@@ -61,6 +63,7 @@ class _ExploreState extends State<Explore> {
 
  }
 
+/// this function is responsible for getting the photos that is faved by the current logged in user in order to be compared with the streamed photos to verify wither the user faved this already faved this photo or not
 
   void loadImageCard() async
   {
