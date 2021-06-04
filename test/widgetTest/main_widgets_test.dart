@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flickr_android/getStarted/getStarted_Page.dart' as getStarted;
+import 'package:flickr_android/home/profile/followers_following_screen.dart';
+
 import 'package:http/testing.dart';
 import 'package:http/http.dart' as http;
 import 'package:flickr_android/constants.dart';
@@ -90,7 +92,6 @@ class TesterOfWidgets {
   void getStartedLogIn() {
     testWidgets('testing ', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
-
       navigatorObservers:
       [mockObserver];
       await tester.pumpWidget(widget);
@@ -98,6 +99,14 @@ class TesterOfWidgets {
       await tester.tap(button);
       await tester.pumpAndSettle();
       verifyNever(mockObserver.didPush(any, any));
+    });
+  }
+
+  void getUserCards({List<dynamic> userCards}) {
+    testWidgets('testing user Cards ', (WidgetTester tester) async {
+      await tester.pumpWidget(widget);
+      var expectedText = find.byType(Container);
+      expect(expectedText, findsNWidgets(2));
     });
   }
 
