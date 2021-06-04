@@ -358,35 +358,26 @@ class _SignUpState extends State<SignUp> {
                       errorAge == EnumError.hide &&
                       errorPassword == EnumError.hide &&
                       checkBoxValue == true) {
+                    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
 
-                    NetworkHelper req = new NetworkHelper(
-                        "$KBaseUrl/user");
-
-                    var res = await req.postData(Body,false);
+                    var res = await req.postData(Body, false);
 
                     if (res.statusCode == 201) {
                       print('Success');
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) {
-                              return CheckEmailScreen(email);
-                             // return emailVerifiedScreen();
-                            }
-                        ),
+                        MaterialPageRoute(builder: (context) {
+                          return CheckEmailScreen(email);
+                          // return emailVerifiedScreen();
+                        }),
                       );
-                    }
-                    else if (res.statusCode == 422) {
+                    } else if (res.statusCode == 422) {
                       emailErrorText = 'Email unavailable';
-
-                    }
-                    else if (res.statusCode == 500) {
+                    } else if (res.statusCode == 500) {
                       emailErrorText = 'Failed to create user';
+                    } else {
+                      print(res.statusCode);
                     }
-                    else
-                      {
-                        print(res.statusCode);
-                      }
                   }
                 },
                 style: ButtonStyle(

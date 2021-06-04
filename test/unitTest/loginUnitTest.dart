@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flickr_android/login/login_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flickr_android/enums.dart';
 
 void main() {
-  EnumError errorEmail = EnumError.hide;
-  EnumError errorPassword = EnumError.hide;
+  EnumError errorEmail;
   bool visibility;
   bool hiddenText;
-  bool popUpMsg;
   String buttonText = 'Next';
   String email;
 
@@ -39,8 +36,6 @@ void main() {
       }
     } else if (email?.isEmpty ?? true) {
       errorEmail = EnumError.show;
-    } else {
-      popUpMsg = true;
     }
   }
 
@@ -75,6 +70,12 @@ void main() {
       isMail(mail);
       expect(errorEmail, EnumError.show);
     });
+
+    test('empty', () {
+      EnumEmail mail;
+      isMail(mail);
+      expect(errorEmail, EnumError.show);
+    });
   });
 
   group('email format Checking', () {
@@ -84,12 +85,6 @@ void main() {
       expect(visibility, true);
     });
 
-    // test('Incorrect Format', () {
-    //   email = 'arwa.ibrahim.200';
-    //   emailChecking();
-    //   expect(popUpMsg, true);
-    // });
-
     test('empty email', () {
       email = null;
       emailChecking();
@@ -97,20 +92,3 @@ void main() {
     });
   });
 }
-
-// test('Counter increments smoke test', () async {
-// // Build our app and trigger a frame.
-// await tester.pumpWidget(GetStarted());
-//
-// // Verify that our counter starts at 0.
-// expect(find.text('0'), findsOneWidget);
-// expect(find.text('1'), findsNothing);
-//
-// // Tap the '+' icon and trigger a frame.
-// await tester.tap(find.byIcon(Icons.add));
-// await tester.pump();
-//
-// // Verify that our counter has incremented.
-// expect(find.text('0'), findsNothing);
-// expect(find.text('1'), findsOneWidget);
-// });
