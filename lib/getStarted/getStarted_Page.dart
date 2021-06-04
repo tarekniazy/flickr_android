@@ -5,14 +5,12 @@ import '../home/profile/profile_screen.dart';
 
 import '../home/home.dart';
 
-class Page extends StatelessWidget {
-  Page(
+class page extends StatelessWidget {
+  page(
       {@required this.imagePath,
       @required this.title,
       @required this.firstLine,
       @required this.secondLine});
-
-
 
   final String imagePath;
   final String title;
@@ -77,10 +75,7 @@ class GetStarted extends StatefulWidget {
 }
 
 class _GetStartedState extends State<GetStarted> {
-
-
   PageController _pageController = new PageController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,25 +86,25 @@ class _GetStartedState extends State<GetStarted> {
             PageView(
               controller: _pageController,
               children: [
-                Page(
+                page(
                   imagePath: "p1.jpg",
                   title: "Powerful",
                   firstLine: "Save all your photos and videos",
                   secondLine: "in one place with Auto-Uploadr.",
                 ),
-                Page(
+                page(
                   imagePath: "p2.jpg",
                   title: "Organization simplified",
                   firstLine: "Search, edit, and organize",
                   secondLine: "in seconds.",
                 ),
-                Page(
+                page(
                   imagePath: "p3.jpg",
                   title: "Keep your memories safe",
                   firstLine: "Your uploaded photos stay private",
                   secondLine: "until you choose to share them.",
                 ),
-                Page(
+                page(
                   imagePath: "p4.jpg",
                   title: "Sharing made easy",
                   firstLine: "Share with friends, family, and",
