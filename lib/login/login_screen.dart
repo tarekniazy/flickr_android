@@ -13,7 +13,6 @@ import '../home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../signup/signup_screen.dart';
 
-
 /// this function is responsible for loading the login screen into the loginBasicLayout
 
 Widget LoggingInScreen() {
@@ -22,6 +21,7 @@ Widget LoggingInScreen() {
 }
 
 String userToken;
+
 /// this widget is the ui design screen of login page
 class Login extends StatefulWidget {
   @override
@@ -38,8 +38,6 @@ class _LoginState extends State<Login> {
   String buttonText = 'Next';
   String email;
   String password;
-
-
 
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
@@ -236,8 +234,6 @@ class _LoginState extends State<Login> {
                       // }
                     });
 
-
-
                     // 200 for ID=134 , 500 for ID=135
                     NetworkHelper req =
                         new NetworkHelper("$KBaseUrl/user/login");
@@ -262,9 +258,10 @@ class _LoginState extends State<Login> {
                       //
                       //   List<dynamic> response2 = jsonDecode(data2);
                       //    // print(response2);
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Home();
-                        }));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Home();
+                      }));
                       //
                       // } else
                       // {

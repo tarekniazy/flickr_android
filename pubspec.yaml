@@ -41,13 +41,14 @@ dependencies:
   permission_handler: ^8.0.0+2
   dio: ^4.0.0
   url_launcher: ^6.0.4
+  mockito: ^5.0.9
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  build_test:
+
 
 
 # For information on the generic Dart part of this file, see the

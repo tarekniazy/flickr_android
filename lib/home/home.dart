@@ -9,27 +9,23 @@ import 'search/search.dart';
 import 'dart:convert';
 import 'customeWidgets.dart';
 
-
 /// @exploreImages : it is a dynamic List; List<dynamic> that contains all the data to pass to [Explore] widget to display this data in a post view called [ImageCard]
 
 /// it display three pages; [Explore] , [Search] , [Profile] and navigate through them
 
 class Home extends StatefulWidget {
-
 // Home({
 //   @required this.exploreImages,
 // });
 
-
 // final  List<dynamic> exploreImages;
-
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  Widget view ;
+  Widget view;
 
   var exploreClicked = 1;
   var searchClicked = 0;
@@ -45,79 +41,63 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void getExploreData() async
-  {
+  void getExploreData() async {
     NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
     var res = await req2.getData(true);
     print(res.statusCode);
-    if (res.statusCode == 200)
-    {
+    if (res.statusCode == 200) {
       String data = res.body;
       List<dynamic> response = jsonDecode(data);
       setState(() {
         view = Explore(exploreImages: response);
         print(response);
       });
-
-    }
-    else
-    {
+    } else {
       print(res.statusCode);
     }
   }
 
   @override
-  void initState()  {
+  void initState() {
     // TODO: implement initState
     super.initState();
     getExploreData();
 
     // view=Explore(exploreImages: widget.exploreImages,);
-
-
   }
 
-
   /// this function is used to connect to the Server to get the data that is displayed in the [Explore] page
-
-
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: view,
-          backgroundColor: Color(0xFFF2F2F2),
+        backgroundColor: Color(0xFFF2F2F2),
         appBar: AppBar(
           backgroundColor: Colors.black,
           leading: Container(),
           actions: <Widget>[
-
             Expanded(
               child: IconButton(
                   icon: Icon(
                     Icons.image,
                     size: 30,
                     color: bottonClicked(exploreClicked),
-
                   ),
                   onPressed: () async {
-
-                    NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
+                    NetworkHelper req2 =
+                        new NetworkHelper("$KBaseUrl/photo/explore");
                     var res = await req2.getData(true);
                     print(res.statusCode);
-                    if (res.statusCode == 200)
-                    {
+                    if (res.statusCode == 200) {
                       String data = res.body;
                       List<dynamic> response = jsonDecode(data);
 
                       view = Explore(exploreImages: response);
-                    }
-                    else
-                    {
+                    } else {
                       print(res.statusCode);
                     }
-
 
                     setState(() {
                       exploreClicked = 1;
@@ -127,7 +107,6 @@ class _HomeState extends State<Home> {
                       cameraClicked = 0;
 
                       // view = Explore();
-
                     });
                   }),
             ),
@@ -150,11 +129,8 @@ class _HomeState extends State<Home> {
                       cameraClicked = 0;
 
                       //TODO Mariam
-                       view = Search();
+                      view = Search();
                     });
-
-
-
                   }),
             ),
 
@@ -169,7 +145,6 @@ class _HomeState extends State<Home> {
                     color: bottonClicked(profileClicked),
                   ),
                   onPressed: () {
-
                     setState(() {
                       exploreClicked = 0;
                       searchClicked = 0;

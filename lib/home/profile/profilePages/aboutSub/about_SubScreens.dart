@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/Services/networking.dart';
 import 'package:flickr_android/home/customeWidgets.dart';
+import 'package:flickr_android/home/profile/profile_screen.dart';
+import 'package:flickr_android/home/home.dart';
 
 class AboutSubscreen extends StatefulWidget {
   AboutSubscreen(this.subScreenMainText, this.subScreenSubText,
@@ -31,21 +33,7 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
   @override
   void initState() {
     super.initState();
-    // getOriginalAbout();
   }
-
-  // void getOriginalAbout() async {
-  //   NetworkHelper req = new NetworkHelper("$KBaseUrl/user/about");
-  //   var res = await req.getData(true);
-  //   if (res.statusCode == 200) {
-  //     print('get Success');
-  //     print(res.body);
-  //   } else {
-  //     print('weeee');
-  //
-  //     print(res.statusCode);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +65,16 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                             print(res.statusCode);
                             print(givenUserData);
                           }
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return LoadingScreen();
-                          }));
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      Profile()));
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) {
+                          //   return LoadingScreen();
+                          // }));
                         }
                         ;
                       },

@@ -37,7 +37,6 @@ const String CAPTCHA_SITE_KEY = "6Le-hMAaAAAAAN_thMimm8huA_tmitcfEdofTCc4";
 const String KMockSeverBaseUrl =
     "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io";
 
-const String KBaseUrl=
-    "https://dropoids.me/api/v1";
+const String KBaseUrl = "https://dropoids.me/api/v1";
 
 String KUserToken="";

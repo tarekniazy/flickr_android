@@ -12,6 +12,7 @@ Widget createAboutTextTile({
   String subText,
   bool isSubEmptyText,
   int typeSelected,
+  bool isOther,
   String thirdText = '',
   bool thirdLine = false,
   bool visibility = false,
@@ -19,18 +20,20 @@ Widget createAboutTextTile({
 }) {
   return ListTile(
     shape: Border.all(),
-    trailing: Icon(
-      Icons.arrow_forward_ios_rounded,
-      color: Colors.grey[400],
-      size: 20.0,
-    ),
+    trailing: (isOther == false)
+        ? Icon(
+            Icons.arrow_forward_ios_rounded,
+            color: Colors.grey[400],
+            size: 20.0,
+          )
+        : null,
     title: Text(
       mainText,
       style: TextStyle(fontWeight: FontWeight.w600),
     ),
     subtitle: (thirdLine == false)
         ? Text(
-            subText + "...",
+            (subText == "") ? ("add " + mainText + "...") : subText,
             style: TextStyle(fontSize: 16.0),
           )
         : RichText(
@@ -46,15 +49,17 @@ Widget createAboutTextTile({
           ),
     isThreeLine: thirdLine,
     onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return AboutSubscreen(
-                mainText, subText, isSubEmptyText, visibility);
-          },
-        ),
-      );
+      if (isOther == false) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return AboutSubscreen(
+                  mainText, subText, isSubEmptyText, visibility);
+            },
+          ),
+        );
+      }
     },
   );
 }

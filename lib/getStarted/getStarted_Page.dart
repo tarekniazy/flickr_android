@@ -5,9 +5,6 @@ import '../home/profile/profile_screen.dart';
 
 import '../home/home.dart';
 
-
-
-
 /// @imagePath : the path of the image relative to Assets file,
 /// @title : the title displayed in the page
 /// @firstLine , @secondLine : the two lines displayed at the bottom of the page
@@ -17,8 +14,6 @@ class page extends StatelessWidget {
       @required this.title,
       @required this.firstLine,
       @required this.secondLine});
-
-
 
   final String imagePath;
   final String title;
@@ -77,7 +72,6 @@ class page extends StatelessWidget {
   }
 }
 
-
 /// this widget contains a 4 pages of [page] widget and swipe between them by [SmoothPageIndicator]
 
 class GetStarted extends StatefulWidget {
@@ -86,10 +80,7 @@ class GetStarted extends StatefulWidget {
 }
 
 class _GetStartedState extends State<GetStarted> {
-
-
   PageController _pageController = new PageController();
-
 
   @override
   Widget build(BuildContext context) {

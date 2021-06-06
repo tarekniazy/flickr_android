@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flickr_android/home/profile/otherProfiles_screen.dart';
 
 class UserCard extends StatefulWidget {
-  UserCard({
-    @required this.userName,
-    @required this.photo,
-    @required this.avatar,
-    @required this.followers,
-  });
+  UserCard(
+      {@required this.userName,
+      @required this.photo,
+      @required this.avatar,
+      @required this.followers,
+      @required this.email});
 
   final String userName;
   final String photo;
   final avatar;
   final followers;
+  String email;
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -22,8 +24,13 @@ class _UserCardState extends State<UserCard> {
   Widget build(BuildContext context) {
     return ListTileTheme(
       child: ListTile(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return OhterProfile(email: widget.email);
+          }));
+        },
         leading: Container(
-          width:35,
+          width: 35,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
