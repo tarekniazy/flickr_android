@@ -4,7 +4,7 @@ import 'login/login_screen.dart';
 const KAppBarBackgroundColor = Color(0xFF212121);
 const KFlickrNormalBlueColor = Color(0xFF0288D1);
 const KFlickrNormalGreyColor = Color(0xFFDADADA);
-const kEmailGreyColor = Color (0xFF8B8B8B);
+const kEmailGreyColor = Color(0xFF8B8B8B);
 const KWarningColor = Color(0xFFFFCDD2);
 const KHomeAppBarColor = Color(0xFF212121);
 const KPopupOverlayColor = Color(0x87ECEFF1);
@@ -37,7 +37,6 @@ const String CAPTCHA_SITE_KEY = "6Le-hMAaAAAAAN_thMimm8huA_tmitcfEdofTCc4";
 const String KMockSeverBaseUrl =
     "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io";
 
-const String KBaseUrl=
-    "http://dropoids.me/api/v1";
+const String KBaseUrl = "https://dropoids.me/api/v1";
 
-String KUserToken="";
+String KUserToken = "";

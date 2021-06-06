@@ -13,6 +13,8 @@ import '../home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../signup/signup_screen.dart';
 
+/// this function is responsible for loading the login screen into the loginBasicLayout
+
 Widget LoggingInScreen() {
   LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
   return loginBasicLayout;
@@ -20,6 +22,7 @@ Widget LoggingInScreen() {
 
 String userToken;
 
+/// this widget is the ui design screen of login page
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -35,8 +38,6 @@ class _LoginState extends State<Login> {
   String buttonText = 'Next';
   String email;
   String password;
-
-
 
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
@@ -233,8 +234,6 @@ class _LoginState extends State<Login> {
                       // }
                     });
 
-
-
                     // 200 for ID=134 , 500 for ID=135
                     NetworkHelper req =
                         new NetworkHelper("$KBaseUrl/user/login");
@@ -249,24 +248,25 @@ class _LoginState extends State<Login> {
                       userToken = jsonDecode(res.body)["token"];
                       KUserToken = userToken;
 
-                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
-                      var res2 = await req2.getData(true);
-                      print(res2.statusCode);
-                      if (res2.statusCode == 200)
-                      {
-                        String data2 = res2.body;
-                        print(data2);
-
-                        List<dynamic> response2 = jsonDecode(data2);
-                         // print(response2);
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Home(exploreImages: response2);
-                        }));
-
-                      } else
-                      {
-                        print(res2.statusCode);
-                      }
+                      // NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
+                      // var res2 = await req2.getData(true);
+                      // print(res2.statusCode);
+                      // if (res2.statusCode == 200)
+                      // {
+                      //   String data2 = res2.body;
+                      //   print(data2);
+                      //
+                      //   List<dynamic> response2 = jsonDecode(data2);
+                      //    // print(response2);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Home();
+                      }));
+                      //
+                      // } else
+                      // {
+                      //   print(res2.statusCode);
+                      // }
                     } else if (res.statusCode == 404) {
                       setState(() {
                         _emailPWInvalidText = true;

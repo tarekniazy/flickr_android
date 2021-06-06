@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import '../profilePages/../profileStyling/profile_Widgets.dart';
 
-Widget BuildAbout(BuildContext context, String description, String occupation,
-        String currentCity, String homeTown, String email, int photosCount) =>
+Widget BuildAbout(
+        {BuildContext context,
+        String description,
+        String occupation,
+        String currentCity,
+        String homeTown,
+        String email,
+        int photosCount,
+        bool isOther = false}) =>
     SingleChildScrollView(
       child: Container(
         color: KAboutBackgroundColor,
@@ -28,7 +35,8 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
                     subText:
                         (description == null) ? 'Add Description' : description,
                     isSubEmptyText: (description == null) ? true : false,
-                    context: context),
+                    context: context,
+                    isOther: isOther),
                 Divider(
                   color: Colors.grey[500],
                 ),
@@ -37,7 +45,8 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
                     subText:
                         (occupation == null) ? 'Add Occupation' : occupation,
                     isSubEmptyText: (occupation == null) ? true : false,
-                    context: context),
+                    context: context,
+                    isOther: isOther),
                 Divider(
                   color: Colors.grey[500],
                 ),
@@ -48,7 +57,8 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
                     isSubEmptyText: (currentCity == null) ? true : false,
                     thirdText: 'Visible to: Anyone',
                     thirdLine: true,
-                    context: context),
+                    context: context,
+                    isOther: isOther),
                 Divider(
                   color: Colors.grey[500],
                 ),
@@ -56,7 +66,8 @@ Widget BuildAbout(BuildContext context, String description, String occupation,
                     mainText: 'Hometown',
                     subText: (homeTown == null) ? 'Add Hometown' : homeTown,
                     isSubEmptyText: (homeTown == null) ? true : false,
-                    context: context),
+                    context: context,
+                    isOther: isOther),
                 Divider(
                   color: Colors.grey[500],
                 ),

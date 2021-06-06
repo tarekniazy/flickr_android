@@ -100,26 +100,28 @@ class _ImageCardState extends State<ImageCard> {
     }
   }
 
-  var like = 0;
+  var like = 1;
 
   Icon likePressed()  {
 
+// setState(() {
+  if (widget.isfaved==1 || like ==0)
+  {
+    like=1;
+    return Icon(
+      Icons.star,
+      color: Colors.blue,
+    );
 
-    if (widget.isfaved==1)
-      {
+  }
+  else
+  {
+    return Icon(
+      Icons.star_border,
+    );
+  }
+// });
 
-        return Icon(
-          Icons.star,
-          color: Colors.blue,
-        );
-
-      }
-    else
-      {
-        return Icon(
-          Icons.star_border,
-        );
-      }
 
   }
 
@@ -219,7 +221,7 @@ class _ImageCardState extends State<ImageCard> {
                 onTap: () async {
 
                   print(widget.isfaved);
-                  if(widget.isfaved==1)
+                  if(widget.isfaved==1 || like ==0)
                     {
                       print("faaaaaaaaaaaaaaaved");
 
@@ -240,7 +242,7 @@ class _ImageCardState extends State<ImageCard> {
 
                       }
                       setState(() {
-                        like=0;
+                        like=1;
                       });
 
                     }
@@ -250,7 +252,7 @@ class _ImageCardState extends State<ImageCard> {
                       NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
 
                       setState(() {
-                        like=1;
+                        like=0;
                       });
 
                       var res = await req.postData(Body,true);
@@ -302,11 +304,11 @@ class _ImageCardState extends State<ImageCard> {
                 },
               ),
               checkIfAvailble(widget.comments.length),
-              IconButton(
-                icon: Icon(
-                  Icons.share,
-                ),
-              ),
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.share,
+              //   ),
+              // ),
             ],
           ),
           Card(
@@ -529,22 +531,22 @@ class _ImageViewState extends State<ImageView> {
                             });
                           },
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.share,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.info_outline,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
+                        // IconButton(
+                        //   icon: Icon(
+                        //     Icons.share,
+                        //     size: 25,
+                        //     color: Colors.white,
+                        //   ),
+                        //   onPressed: () {},
+                        // ),
+                        // IconButton(
+                        //   icon: Icon(
+                        //     Icons.info_outline,
+                        //     size: 25,
+                        //     color: Colors.white,
+                        //   ),
+                        //   onPressed: () {},
+                        // ),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -825,18 +827,18 @@ class _CommentCardState extends State<CommentCard> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  "Reply",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'Frutiger',
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(bottom: 8.0),
+              //   child: Text(
+              //     "Reply",
+              //     style: TextStyle(
+              //       fontSize: 14,
+              //       fontFamily: 'Frutiger',
+              //       color: Colors.black54,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -1314,6 +1316,7 @@ class AlbumCard extends StatefulWidget {
     @required this.dateCreated,
     @required this.photos,
     @required this.imageUrl,
+    @required this.user,
   });
 
 
@@ -1321,6 +1324,7 @@ class AlbumCard extends StatefulWidget {
   final String dateCreated;
   final List<dynamic> photos;
   final String imageUrl;
+  final Map<String,dynamic> user;
 
   @override
   _AlbumCardState createState() => _AlbumCardState();
@@ -1474,18 +1478,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return Profile(
-          firstName: firstName,
-          lastName: lastName,
-          avatarUrl: avatarUrl,
-          coverUrl: coverUrl,
-          email: email,
-          description: description,
-          occupation: occupation,
-          currentCity: currentCity,
-          homeTown: homeTown,
-          photosCount: photosCount,
-          followersCount: followersCount,
-          followingCount: followingCount,
+          // firstName: firstName,
+          // lastName: lastName,
+          // avatarUrl: avatarUrl,
+          // coverUrl: coverUrl,
+          // email: email,
+          // description: description,
+          // occupation: occupation,
+          // currentCity: currentCity,
+          // homeTown: homeTown,
+          // photosCount: photosCount,
+          // followersCount: followersCount,
+          // followingCount: followingCount,
         );
       }));
       // }

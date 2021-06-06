@@ -5,6 +5,9 @@ import '../home/profile/profile_screen.dart';
 
 import '../home/home.dart';
 
+/// @imagePath : the path of the image relative to Assets file,
+/// @title : the title displayed in the page
+/// @firstLine , @secondLine : the two lines displayed at the bottom of the page
 class page extends StatelessWidget {
   page(
       {@required this.imagePath,
@@ -68,6 +71,8 @@ class page extends StatelessWidget {
     );
   }
 }
+
+/// this widget contains a 4 pages of [page] widget and swipe between them by [SmoothPageIndicator]
 
 class GetStarted extends StatefulWidget {
   @override
@@ -134,22 +139,24 @@ class _GetStartedState extends State<GetStarted> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  alignment: Alignment(-1, -1),
-                  padding: const EdgeInsets.all(10),
-                  child: Center(
-                    child: SmoothPageIndicator(
-                      controller: _pageController,
-                      count: 4,
-                      effect: ScrollingDotsEffect(
-                          radius: 4,
-                          dotHeight: 8,
-                          dotWidth: 8,
-                          dotColor: Colors.grey,
-                          activeDotColor: Colors.white),
-                      onDotClicked: (index) => _pageController.animateToPage(
-                          index,
-                          duration: Duration(milliseconds: 100)),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment(-1, -1),
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: SmoothPageIndicator(
+                        controller: _pageController,
+                        count: 4,
+                        effect: ScrollingDotsEffect(
+                            radius: 4,
+                            dotHeight: 8,
+                            dotWidth: 8,
+                            dotColor: Colors.grey,
+                            activeDotColor: Colors.white),
+                        onDotClicked: (index) => _pageController.animateToPage(
+                            index,
+                            duration: Duration(milliseconds: 100)),
+                      ),
                     ),
                   ),
                 ),

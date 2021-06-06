@@ -22,12 +22,12 @@ void main() {
     }
   }
 
-  group('Get explore data', () {
-    test('No token', () async {
-      await getExploreData();
-      expect(res.statusCode, 403);
-    });
-  });
+  // group('Get explore data', () {
+  //   test('No token', () async {
+  //     await getExploreData();
+  //     expect(res.statusCode, 403);
+  //   });
+  // });
 
   Color bottonClicked(var button) {
     if (button == 1) {
