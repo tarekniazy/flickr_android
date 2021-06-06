@@ -252,24 +252,24 @@ class _LoginState extends State<Login> {
                       userToken = jsonDecode(res.body)["token"];
                       KUserToken = userToken;
 
-                      NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
-                      var res2 = await req2.getData(true);
-                      print(res2.statusCode);
-                      if (res2.statusCode == 200)
-                      {
-                        String data2 = res2.body;
-                        print(data2);
-
-                        List<dynamic> response2 = jsonDecode(data2);
-                         // print(response2);
+                      // NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
+                      // var res2 = await req2.getData(true);
+                      // print(res2.statusCode);
+                      // if (res2.statusCode == 200)
+                      // {
+                      //   String data2 = res2.body;
+                      //   print(data2);
+                      //
+                      //   List<dynamic> response2 = jsonDecode(data2);
+                      //    // print(response2);
                         Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Home(exploreImages: response2);
+                          return Home();
                         }));
-
-                      } else
-                      {
-                        print(res2.statusCode);
-                      }
+                      //
+                      // } else
+                      // {
+                      //   print(res2.statusCode);
+                      // }
                     } else if (res.statusCode == 404) {
                       setState(() {
                         _emailPWInvalidText = true;

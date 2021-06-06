@@ -16,12 +16,12 @@ import 'customeWidgets.dart';
 
 class Home extends StatefulWidget {
 
-Home({
-  @required this.exploreImages,
-});
+// Home({
+//   @required this.exploreImages,
+// });
 
 
-final  List<dynamic> exploreImages;
+// final  List<dynamic> exploreImages;
 
 
   @override
@@ -45,19 +45,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  @override
-  void initState()  {
-    // TODO: implement initState
-    super.initState();
-
-    view=Explore(exploreImages: widget.exploreImages,);
-
-
-  }
-
-
-  /// this function is used to connect to the Server to get the data that is displayed in the [Explore] page
-
   void getExploreData() async
   {
     NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
@@ -67,14 +54,33 @@ class _HomeState extends State<Home> {
     {
       String data = res.body;
       List<dynamic> response = jsonDecode(data);
-      view = Explore(exploreImages: response);
-      print(response);
+      setState(() {
+        view = Explore(exploreImages: response);
+        print(response);
+      });
+
     }
     else
     {
       print(res.statusCode);
     }
   }
+
+  @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+    getExploreData();
+
+    // view=Explore(exploreImages: widget.exploreImages,);
+
+
+  }
+
+
+  /// this function is used to connect to the Server to get the data that is displayed in the [Explore] page
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +178,7 @@ class _HomeState extends State<Home> {
                       cameraClicked = 0;
                     });
                     //Navigator.pushReplacementNamed(context, 'Profile');
-                    view = LoadingScreen();
+                    view = Profile();
                   }),
             ),
             //    SizedBox(width: 40,),

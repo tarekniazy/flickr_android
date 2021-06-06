@@ -1478,18 +1478,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return Profile(
-          firstName: firstName,
-          lastName: lastName,
-          avatarUrl: avatarUrl,
-          coverUrl: coverUrl,
-          email: email,
-          description: description,
-          occupation: occupation,
-          currentCity: currentCity,
-          homeTown: homeTown,
-          photosCount: photosCount,
-          followersCount: followersCount,
-          followingCount: followingCount,
+          // firstName: firstName,
+          // lastName: lastName,
+          // avatarUrl: avatarUrl,
+          // coverUrl: coverUrl,
+          // email: email,
+          // description: description,
+          // occupation: occupation,
+          // currentCity: currentCity,
+          // homeTown: homeTown,
+          // photosCount: photosCount,
+          // followersCount: followersCount,
+          // followingCount: followingCount,
         );
       }));
       // }

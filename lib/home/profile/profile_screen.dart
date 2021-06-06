@@ -12,32 +12,23 @@ import 'package:permission_handler/permission_handler.dart';
 import 'followers_following_screen.dart';
 
 class Profile extends StatefulWidget {
-  Profile({
-    @required this.firstName,
-    @required this.lastName,
-    @required this.avatarUrl,
-    @required this.coverUrl,
-    @required this.email,
-    @required this.description,
-    @required this.occupation,
-    @required this.currentCity,
-    @required this.homeTown,
-    @required this.photosCount,
-    @required this.followingCount,
-    @required this.followersCount,
-    // @required this.currentCity,
-  });
+  // Profile({
+  //   @required this.firstName,
+  //   @required this.lastName,
+  //   @required this.avatarUrl,
+  //   @required this.coverUrl,
+  //   @required this.email,
+  //   @required this.description,
+  //   @required this.occupation,
+  //   @required this.currentCity,
+  //   @required this.homeTown,
+  //   @required this.photosCount,
+  //   @required this.followingCount,
+  //   @required this.followersCount,
+  //   // @required this.currentCity,
+  // });
 
-  String firstName,
-      lastName,
-      avatarUrl,
-      coverUrl,
-      email,
-      description,
-      occupation,
-      currentCity,
-      homeTown;
-  int photosCount, followingCount = 0, followersCount = 0;
+
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -47,10 +38,65 @@ class _ProfileState extends State<Profile> {
   List<UserCard> usersListFollowing = [];
   List<UserCard> usersListFollowers = [];
 
+  String firstName="  ",
+      lastName="  ",
+      avatarUrl="https://www.panelplus.co.th/uploads/collection/5be55-white-mk630n.jpg",
+      coverUrl="https://www.panelplus.co.th/uploads/collection/5be55-white-mk630n.jpg",
+      email="  ",
+      description="  ",
+      occupation="  ",
+      currentCity="  ",
+      homeTown="  ";
+  int photosCount=0, followingCount = 0, followersCount = 0;
+
+
+  void getUserDetails() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl/user");
+    var res = await req.getData(true);
+    if (res.statusCode == 200) {
+      print('get Success');
+      print(res.body);
+      var json = jsonDecode(res.body);
+      // sleep(const Duration(seconds: 5));
+
+      // setState(() {
+      // if (json!=null) {
+
+     setState(() {
+
+       firstName = json['Fname'];
+       lastName = json['Lname'];
+       avatarUrl = json['Avatar'];
+       coverUrl = json['BackGround'];
+       email = json['Email'];
+       description = json['About']['Description'];
+       occupation = json['About']['Occupation'];
+       currentCity = json['About']['CurrentCity'];
+       homeTown = json['About']['Hometown'];
+       photosCount = json['Photo'];
+       followingCount = json['Following'].length;
+       followersCount = json['Followers'].length;
+
+     });
+
+
+      // print(photosCount);
+      // print( json['Following'].length);
+      // print(json['Followers'].length);
+
+    } else {
+      print(res.statusCode);
+    }
+
+
+
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getUserDetails();
     getUserFollowers();
     getUserFollowing();
   }
@@ -163,7 +209,7 @@ class _ProfileState extends State<Profile> {
                         padding: EdgeInsets.only(bottom: 42.0),
                         child: FittedBox(
                           child: Image.network(
-                            widget.coverUrl,
+                            coverUrl,
                             color: Colors.black.withOpacity(0.5),
                             colorBlendMode: BlendMode.dstATop,
                           ),
@@ -188,7 +234,7 @@ class _ProfileState extends State<Profile> {
                                     PopupMenuItem(
                                       child: Text(
                                           'Using ' +
-                                              widget.photosCount.toString() +
+                                             photosCount.toString() +
                                               ' of 1000 photos',
                                           textAlign: TextAlign.center),
                                     ),
@@ -220,7 +266,7 @@ class _ProfileState extends State<Profile> {
                                     PopupMenuItem(
                                       child: ListTile(
                                         onTap: () {
-                                          print(widget.email);
+                                          print(email);
                                         },
                                         title: Text('Edit Cover Photo',
                                             textAlign: TextAlign.center),
@@ -228,11 +274,11 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ],
                                 ),
-                                backgroundImage: NetworkImage(widget.avatarUrl),
+                                backgroundImage: NetworkImage(avatarUrl),
                                 radius: 20.0,
                               ),
                               Text(
-                                widget.firstName + widget.lastName,
+                               firstName + lastName,
                                 style: TextStyle(
                                     fontSize: 20.0, color: Colors.grey[800]),
                               ),
@@ -258,7 +304,7 @@ class _ProfileState extends State<Profile> {
                                     },
                                     child: Text(
                                       'followers ' +
-                                          '${widget.followersCount}' +
+                                          '${followersCount}' +
                                           '   -',
                                       style: TextStyle(
                                           fontSize: 10.0,
@@ -287,7 +333,7 @@ class _ProfileState extends State<Profile> {
                                     },
                                     child: Text(
                                       'following ' +
-                                          widget.followingCount.toString(),
+                                          followingCount.toString(),
                                       style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.grey[800]),
@@ -339,12 +385,12 @@ class _ProfileState extends State<Profile> {
               children: [
                 BuildAbout(
                     context,
-                    widget.description,
-                    widget.occupation,
-                    widget.currentCity,
-                    widget.homeTown,
-                    widget.email,
-                    widget.photosCount),
+                  description,
+                 occupation,
+                  currentCity,
+                    homeTown,
+                    email,
+                    photosCount),
                 CameraRoll(), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
                 // Text(''), //TODO Arwa- this text is For public
                 Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
