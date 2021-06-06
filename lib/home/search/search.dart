@@ -45,7 +45,7 @@ class _SearchState extends State<Search> {
     groupList.clear();
 
     groups.forEach((element) {
-      groupList.add(GroupCard(
+      groupList.add(GroupCard(group_id:element["_id"] ,
           authorName: element["name"],
           authorImage:
               "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",

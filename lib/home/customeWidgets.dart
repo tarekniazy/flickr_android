@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flickr_android/home/profile/profileStyling/profile_Widgets.dart';
 import 'package:flickr_android/home/profile/profile_screen.dart';
 
 import '../constants.dart';
@@ -7,7 +8,7 @@ import '../constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Services/networking.dart';
-
+// import 'package:flickr_android/home/profile/otherProfiles_screen.dart';
 import 'profile/profilePages/Albums/albums.dart';
 
 class ImageCard extends StatefulWidget {
@@ -21,7 +22,7 @@ class ImageCard extends StatefulWidget {
   });
 
   final String imageUrl; // image path
-  final Map<String,dynamic> author; // author name
+  final Map<String, dynamic> author; // author name
   final List<dynamic> comments;
   final List<dynamic> faves;
   final imageId;
@@ -37,50 +38,40 @@ class ImageCard extends StatefulWidget {
 }
 
 class _ImageCardState extends State<ImageCard> {
-
   String LastComment;
   String LastUser;
-  Icon fav=Icon(Icons.star_border);
+  Icon fav = Icon(Icons.star_border);
 
-  List<dynamic> favedList=[];
+  List<dynamic> favedList = [];
 
-  int viewfaved=0;
+  int viewfaved = 0;
 
-  void getUsersId ()async
-  {
-
+  void getUsersId() async {
     String _id;
 
-    widget.faves.forEach((element) async{
+    widget.faves.forEach((element) async {
       {
         print("iddddddddddddddddd");
 
         // print(element["UserName"]);
-        _id=element["UserName"];
+        _id = element["UserName"];
 
-        NetworkHelper req2 = new NetworkHelper("$KBaseUrl/people/"+_id);
+        NetworkHelper req2 = new NetworkHelper("$KBaseUrl/people/" + _id);
         var res2 = await req2.getData(true);
 
+        if (res2.statusCode == 200) {
+          print(res2.statusCode);
+          print(jsonDecode(res2.body)["_id"]);
+          print("isfollowed");
+          print(jsonDecode(res2.body)["Follow"]);
 
-        if (res2.statusCode==200)
-          {
-            print(res2.statusCode);
-            print(jsonDecode(res2.body)["_id"]);
-            print("isfollowed");
-            print(jsonDecode(res2.body)["Follow"]);
-
-            element["_id"]=jsonDecode(res2.body)["_id"];
-            element["isfollowed"]=jsonDecode(res2.body)["Follow"];
-          }
+          element["_id"] = jsonDecode(res2.body)["_id"];
+          element["isfollowed"] = jsonDecode(res2.body)["Follow"];
+        }
 
         print(element);
-
       }
     });
-
-
-
-
   }
 
   Text checkIfAvailble(int number) {
@@ -102,55 +93,38 @@ class _ImageCardState extends State<ImageCard> {
 
   var like = 1;
 
-  Icon likePressed()  {
-
+  Icon likePressed() {
 // setState(() {
-  if (widget.isfaved==1 || like ==0)
-  {
-    like=1;
-    return Icon(
-      Icons.star,
-      color: Colors.blue,
-    );
-
-  }
-  else
-  {
-    return Icon(
-      Icons.star_border,
-    );
-  }
+    if (widget.isfaved == 1 || like == 0) {
+      like = 1;
+      return Icon(
+        Icons.star,
+        color: Colors.blue,
+      );
+    } else {
+      return Icon(
+        Icons.star_border,
+      );
+    }
 // });
-
-
   }
 
-
-  String ifLastComment()
-  {
-    if(widget.comments.length!=0) {
-      LastUser=widget.comments.last["user"]["Fname"];
+  String ifLastComment() {
+    if (widget.comments.length != 0) {
+      LastUser = widget.comments.last["user"]["Fname"];
       return widget.comments.last["comment"];
-    }
-    else
-      {
-        LastUser=" ";
-        return " ";
-      }
-
-  }
-
-
-  String ifLastUserComment()
-  {
-    if(widget.comments.length!=0) {
-      return widget.comments.last["user"]["Fname"];
-    }
-    else
-    {
+    } else {
+      LastUser = " ";
       return " ";
     }
+  }
 
+  String ifLastUserComment() {
+    if (widget.comments.length != 0) {
+      return widget.comments.last["user"]["Fname"];
+    } else {
+      return " ";
+    }
   }
 
   @override
@@ -219,56 +193,46 @@ class _ImageCardState extends State<ImageCard> {
             children: <Widget>[
               GestureDetector(
                 onTap: () async {
-
                   print(widget.isfaved);
-                  if(widget.isfaved==1 || like ==0)
-                    {
-                      print("faaaaaaaaaaaaaaaved");
+                  if (widget.isfaved == 1 || like == 0) {
+                    print("faaaaaaaaaaaaaaaved");
 
-                      print(widget.imageId.runtimeType);
+                    print(widget.imageId.runtimeType);
 
+                    NetworkHelper req =
+                    new NetworkHelper("$KBaseUrl/favs/" + widget.imageId);
 
-                      NetworkHelper req = new NetworkHelper("$KBaseUrl/favs/"+widget.imageId);
+                    var res = await req.deleteData();
 
-                      var res = await req.deleteData();
+                    print(res.statusCode);
 
-                      print(res.statusCode);
-
-
-                      if (res.statusCode == 200) {
-                        String data = res.body;
-                        var response = jsonDecode(data);
-                        print(response["message"]);
-
-                      }
-                      setState(() {
-                        like=1;
-                      });
-
+                    if (res.statusCode == 200) {
+                      String data = res.body;
+                      var response = jsonDecode(data);
+                      print(response["message"]);
                     }
-                  else {
+                    setState(() {
+                      like = 1;
+                    });
+                  } else {
                     Map<String, dynamic> Body = {"photo_id": widget.imageId};
 
-                      NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
+                    NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
 
-                      setState(() {
-                        like=0;
-                      });
+                    setState(() {
+                      like = 0;
+                    });
 
-                      var res = await req.postData(Body,true);
+                    var res = await req.postData(Body, true);
 
-                      if (res.statusCode == 200) {
-                        String data = res.body;
-                        var response = jsonDecode(data);
-                        print(response["message"]);
-
-                      }
-                      else
-                        {
-                        print(res.statusCode);
-                      }
+                    if (res.statusCode == 200) {
+                      String data = res.body;
+                      var response = jsonDecode(data);
+                      print(response["message"]);
+                    } else {
+                      print(res.statusCode);
+                    }
                   }
-
 
                   // setState(() {
                   //   if (like == 1) {
@@ -279,9 +243,7 @@ class _ImageCardState extends State<ImageCard> {
                   // });
                 },
                 child: IconButton(
-
-                  icon: likePressed() ,
-
+                  icon: likePressed(),
                 ),
               ),
               checkIfAvailble(widget.faves.length),
@@ -294,12 +256,13 @@ class _ImageCardState extends State<ImageCard> {
                   setState(() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return CommentView(
-                          authorId:widget.author["Fname"],
-                          faves: widget.faves,
-                          comments: widget.comments,
-                      imageId: widget.imageId,);
-                    }));
+                          return CommentView(
+                            authorId: widget.author["Fname"],
+                            faves: widget.faves,
+                            comments: widget.comments,
+                            imageId: widget.imageId,
+                          );
+                        }));
                   });
                 },
               ),
@@ -319,7 +282,7 @@ class _ImageCardState extends State<ImageCard> {
                 size: 20,
               ),
               title: Text(
-               ifLastUserComment(),
+                ifLastUserComment(),
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'Frutiger',
@@ -341,12 +304,13 @@ class _ImageCardState extends State<ImageCard> {
                   setState(() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return CommentView(
-                          authorId:widget.author["Fname"],
-                          faves: widget.faves,
-                          comments: widget.comments,
-                      imageId: widget.imageId,);
-                    }));
+                          return CommentView(
+                            authorId: widget.author["Fname"],
+                            faves: widget.faves,
+                            comments: widget.comments,
+                            imageId: widget.imageId,
+                          );
+                        }));
                   });
                 },
               ),
@@ -395,26 +359,18 @@ class _ImageViewState extends State<ImageView> {
   // );
   // bool likePressed = false;
 
-  Icon likePressed()  {
-
-
-    if (widget.isfaved==1)
-    {
-
+  Icon likePressed() {
+    if (widget.isfaved == 1) {
       return Icon(
         Icons.star,
         color: Colors.blue,
       );
-
-    }
-    else
-    {
+    } else {
       return Icon(
         Icons.star_border,
         color: Colors.white,
       );
     }
-
   }
 
   // void Fav_unFave ()
@@ -489,26 +445,26 @@ class _ImageViewState extends State<ImageView> {
                         IconButton(
                           onPressed: () async {
                             print(widget.isfaved);
-                            if(widget.isfaved==1)
-                            {
+                            if (widget.isfaved == 1) {
                               print("faaaaaaaaaaaaaaaved");
-                            }
-                            else {
-                              Map<String, dynamic> Body = {"photo_id": widget.imageId};
+                            } else {
+                              Map<String, dynamic> Body = {
+                                "photo_id": widget.imageId
+                              };
 
+                              NetworkHelper req =
+                              new NetworkHelper("$KBaseUrl/favs");
 
-                                NetworkHelper req = new NetworkHelper("$KBaseUrl/favs");
+                              var res = await req.postData(Body, true);
 
-                                var res = await req.postData(Body,true);
-
-                                if (res.statusCode == 200) {
-                                  String data = res.body;
-                                  var response = jsonDecode(data);
-                                  print(response["message"]);
-                                } else {
-                                  print(res.statusCode);
-                                }
+                              if (res.statusCode == 200) {
+                                String data = res.body;
+                                var response = jsonDecode(data);
+                                print(response["message"]);
+                              } else {
+                                print(res.statusCode);
                               }
+                            }
                           },
                           icon: likePressed(),
                         ),
@@ -522,12 +478,13 @@ class _ImageViewState extends State<ImageView> {
                             setState(() {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return CommentView(
-                                    authorId: widget.authorId,
-                                    faves: widget.faves,
-                                    comments: widget.comments,
-                                  imageId: widget.imageId,);
-                              }));
+                                    return CommentView(
+                                      authorId: widget.authorId,
+                                      faves: widget.faves,
+                                      comments: widget.comments,
+                                      imageId: widget.imageId,
+                                    );
+                                  }));
                             });
                           },
                         ),
@@ -598,13 +555,13 @@ class _ImageViewState extends State<ImageView> {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class CommentView extends StatefulWidget {
-  CommentView({
-    @required this.authorId,
-    @required this.comments,
-    @required this.faves,
-    @required this.imageId
-    // @required this.commentClicked
-  });
+  CommentView(
+      {@required this.authorId,
+        @required this.comments,
+        @required this.faves,
+        @required this.imageId
+        // @required this.commentClicked
+      });
 
   final String authorId; // author name
   final List<dynamic> comments;
@@ -653,30 +610,22 @@ class _CommentViewState extends State<CommentView> {
     });
   }
 
-  void loadFavs()  {
-
-
+  void loadFavs() {
     setState(() {
-      widget.faves.forEach((element) async{
+      widget.faves.forEach((element) async {
         {
-
-
-
-            userBody.add(UserCard(
-                authorName: element["Fname"],
-                authorImage: element["Avatar"],
-                numberOfPhotos: element["numPhotos"],
-                numberOfFollowers: element["numFollowing"],
-                favs: widget.faves,
+          userBody.add(UserCard(
+            authorName: element["Fname"],
+            authorImage: element["Avatar"],
+            numberOfPhotos: element["numPhotos"],
+            numberOfFollowers: element["numFollowing"],
+            favs: widget.faves,
             peopleID: element["_id"],
-            isFollowed: element["isfollowed"],));
-
-
-
+            isFollowed: element["isfollowed"],
+          ));
         }
       });
     });
-
   }
 
   TextStyle viewed(var check) {
@@ -713,59 +662,59 @@ class _CommentViewState extends State<CommentView> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Color(0xFFF2F2F2),
-      appBar: AppBar(
-        title: Text(
-          widget.authorId + "'s photo",
-          style: TextStyle(
-            fontSize: 15,
-            fontFamily: 'Frutiger',
-            color: Colors.white,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-        backgroundColor: Colors.black87,
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 70,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      favedViewed = 1;
-                      commentViewed = 0;
-                    });
-                  },
-                  child: Text(
-                    '${userBody.length}' + ' faves',
-                    style: viewed(favedViewed),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      favedViewed = 0;
-                      commentViewed = 1;
-                    });
-                  },
-                  child: Text('${commentBody.length}' + ' comments',
-                      style: viewed(commentViewed)),
-                ),
-              ],
+          backgroundColor: Color(0xFFF2F2F2),
+          appBar: AppBar(
+            title: Text(
+              widget.authorId + "'s photo",
+              style: TextStyle(
+                fontSize: 15,
+                fontFamily: 'Frutiger',
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+              ),
             ),
+            backgroundColor: Colors.black87,
           ),
+          body: Column(
+            children: <Widget>[
+              Container(
+                height: 70,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          favedViewed = 1;
+                          commentViewed = 0;
+                        });
+                      },
+                      child: Text(
+                        '${userBody.length}' + ' faves',
+                        style: viewed(favedViewed),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          favedViewed = 0;
+                          commentViewed = 1;
+                        });
+                      },
+                      child: Text('${commentBody.length}' + ' comments',
+                          style: viewed(commentViewed)),
+                    ),
+                  ],
+                ),
+              ),
 
-          commentOrFavs(),
-          // CommentSection(comments: widget.comments, commentBody: commentBody,authorName: widget.authorId,favs: widget.faves,),
-          //       UserView(userBody: userBody,favs: widget.faves),
-        ],
-      ),
-    ));
+              commentOrFavs(),
+              // CommentSection(comments: widget.comments, commentBody: commentBody,authorName: widget.authorId,favs: widget.faves,),
+              //       UserView(userBody: userBody,favs: widget.faves),
+            ],
+          ),
+        ));
   }
 }
 
@@ -850,12 +799,12 @@ class _CommentCardState extends State<CommentCard> {
 class UserCard extends StatefulWidget {
   UserCard(
       {@required this.authorName,
-      @required this.authorImage,
-      @required this.numberOfPhotos,
-      @required this.numberOfFollowers,
+        @required this.authorImage,
+        @required this.numberOfPhotos,
+        @required this.numberOfFollowers,
         @required this.isFollowed,
         @required this.peopleID,
-      @required this.favs});
+        @required this.favs});
 
   final String authorName; // author name
   final String authorImage; // author home.profile pic
@@ -879,6 +828,11 @@ class _UserCardState extends State<UserCard> {
     return ListTileTheme(
       // tileColor: Colors.grey[300],
       child: ListTile(
+        onTap: () {
+          // Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //   return OhterProfile(email: widget.peopleID);
+          // }));
+        },
         leading: Container(
           width: 50,
           decoration: BoxDecoration(
@@ -896,13 +850,14 @@ class _UserCardState extends State<UserCard> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text(
-            '${widget.numberOfPhotos ?? 0 }' +
+        subtitle: Text('${widget.numberOfPhotos ?? 0}' +
             ' photos — ' +
             '${widget.numberOfFollowers ?? 0}' +
             ' followers'),
         trailing: Container(
-          width: (textToggle == false) ? ((widget.isFollowed == true) ? 35.0 : 80.0) : ((followed == true) ? 35.0 : 80.0),
+          width: (textToggle == false)
+              ? ((widget.isFollowed == true) ? 35.0 : 80.0)
+              : ((followed == true) ? 35.0 : 80.0),
           child: TextButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
@@ -921,31 +876,26 @@ class _UserCardState extends State<UserCard> {
                 NetworkHelper req = new NetworkHelper("$KBaseUrl/user/follow");
                 var peopleresp = await req.postData(Body, true);
                 print(peopleresp.statusCode);
-                if (peopleresp.statusCode == 200)
-                  {
+                if (peopleresp.statusCode == 200) {
                   setState(() {
                     text = '✔';
-                    followed =  true;
+                    followed = true;
                     textToggle = true;
                   });
-                  }
-                  }
-
-              else
-                {
-                  NetworkHelper req = new NetworkHelper("$KBaseUrl/user/unfollow/"+widget.peopleID);
-                  var peopleresp = await req.deleteData();
-                  print(peopleresp.statusCode);
-                  if(peopleresp.statusCode == 200)
-                    {
-                      setState(() {
-                        text = '+ Follow';
-                        followed = false;
-                        textToggle = true;
-                      });
-                    }
-
                 }
+              } else {
+                NetworkHelper req = new NetworkHelper(
+                    "$KBaseUrl/user/unfollow/" + widget.peopleID);
+                var peopleresp = await req.deleteData();
+                print(peopleresp.statusCode);
+                if (peopleresp.statusCode == 200) {
+                  setState(() {
+                    text = '+ Follow';
+                    followed = false;
+                    textToggle = true;
+                  });
+                }
+              }
 
               setState(() {
                 if (widget.isFollowed == false) {
@@ -957,13 +907,14 @@ class _UserCardState extends State<UserCard> {
                       // element["num_following"] = '$count';
                     });
                   }
-
                 }
               });
             },
             child: Text(
               //text,
-              (textToggle==false) ? ((widget.isFollowed == false) ? '+ Follow' : '✔') : text,
+              (textToggle == false)
+                  ? ((widget.isFollowed == false) ? '+ Follow' : '✔')
+                  : text,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
@@ -996,11 +947,11 @@ class _UserViewState extends State<UserView> {
           children: [
             Expanded(
                 child: new ListView.builder(
-              itemCount: widget.userBody.length,
-              itemBuilder: (BuildContext context, int index) {
-                return widget.userBody[index];
-              },
-            )),
+                  itemCount: widget.userBody.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return widget.userBody[index];
+                  },
+                )),
           ],
         ),
       ),
@@ -1015,7 +966,6 @@ class CommentSection extends StatefulWidget {
     @required this.authorName,
     @required this.favs,
     @required this.imageId,
-
   });
 
   final List<dynamic> comments;
@@ -1054,8 +1004,6 @@ class _CommentSectionState extends State<CommentSection> {
       // setState(() {
       // if (json!=null) {
 
-
-
       firstName = json['Fname'];
       lastName = json['Lname'];
       avatarUrl = json['Avatar'];
@@ -1074,9 +1022,6 @@ class _CommentSectionState extends State<CommentSection> {
     } else {
       print(res.statusCode);
     }
-
-
-
   }
 
   @override
@@ -1094,11 +1039,11 @@ class _CommentSectionState extends State<CommentSection> {
           children: [
             Expanded(
                 child: new ListView.builder(
-              itemCount: widget.commentBody.length,
-              itemBuilder: (BuildContext context, int index) {
-                return widget.commentBody[index];
-              },
-            )),
+                  itemCount: widget.commentBody.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return widget.commentBody[index];
+                  },
+                )),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -1124,66 +1069,68 @@ class _CommentSectionState extends State<CommentSection> {
                   ),
                   trailing: TextButton(
                     onPressed: () async {
-
                       print(widget.imageId);
-                      NetworkHelper req = new NetworkHelper("$KBaseUrl"+"/photo/"+widget.imageId+"/comments");
+                      NetworkHelper req = new NetworkHelper("$KBaseUrl" +
+                          "/photo/" +
+                          widget.imageId +
+                          "/comments");
 
-                      Map<String,dynamic> comment={
+                      Map<String, dynamic> comment = {
                         "comment": _controller.text
                       };
 
-                      var res = await req.postData(comment,true);
+                      var res = await req.postData(comment, true);
 
                       print(res.statusCode);
 
                       print(res.body);
 
-                      if (res.statusCode == 201)
-                      {
+                      if (res.statusCode == 201) {
+                        setState(() {
+                          print(_controller.text);
 
-                          setState(() {
-                            print(_controller.text);
+                          widget.commentBody.add(CommentCard(
+                              authorId: firstName,
+                              authorImage: avatarUrl,
+                              comment: _controller.text));
+                          widget.comments.add({
+                            "id": 0,
+                            "comment": _controller.text,
+                            "user": {
+                              "_id": 0,
+                              "Fname": firstName,
+                              "Lname": lastName,
+                              "UserName": "Mostafa123",
+                              "Email": "test@test.com",
+                              "Avatar": avatarUrl
+                            },
+                          });
 
-                            widget.commentBody.add(CommentCard(
-                                authorId: firstName,
-                                authorImage: avatarUrl,
-                                comment: _controller.text));
-                            widget.comments.add({
-                              "id": 0,
-                              "comment": _controller.text,
-                              "user": {
-                                "_id": 0,
-                                "Fname": firstName,
-                                "Lname": lastName,
-                                "UserName": "Mostafa123",
-                                "Email": "test@test.com",
-                                "Avatar": avatarUrl
-                              },
-                            });
+                          print(widget.comments);
 
-                        print(widget.comments);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      CommentView(
+                                        authorId: widget.authorName,
+                                        comments: widget.comments,
+                                        faves: widget.favs,
+                                        imageId: widget.imageId,
+                                      )));
 
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => CommentView(
-                                      authorId: widget.authorName,
-                                      comments: widget.comments,
-                                      faves: widget.favs,
-                                  imageId: widget.imageId,
-                                    )));
+                          _controller.clear();
+                          FocusScopeNode currentFocus = FocusScope.of(context);
 
-                        _controller.clear();
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-                      });
-                    }},
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                        });
+                      }
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (states) => Colors.transparent),
+                              (states) => Colors.transparent),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
                           side: BorderSide(color: Colors.black, width: 3),
@@ -1216,12 +1163,14 @@ class GroupCard extends StatefulWidget {
     @required this.authorImage,
     @required this.numberOfPhotos,
     @required this.numberOfMembers,
+    @required this.group_id,
   });
 
   final String authorName; // author name
   final String authorImage; // author home.profile pic
   final numberOfPhotos;
   final numberOfMembers;
+  final String group_id;
 
   @override
   _GroupCardState createState() => _GroupCardState();
@@ -1233,84 +1182,95 @@ class _GroupCardState extends State<GroupCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      margin: EdgeInsets.fromLTRB(12.0, 11.0, 12.0, 6.0),
-      height: 105,
-      child: Row(
-        children: <Widget>[
-          Container(
-            height: 78,
-            width: 105,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  alignment: Alignment.center,
-                  image: NetworkImage(widget.authorImage),
-                )),
-          ),
-          SizedBox(
-            width: 2,
-            child: Container(
-              color: Colors.grey[300],
+    return GestureDetector(
+      onTap: () {
+
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return GroupView(group_id: widget.group_id,);
+        }));
+
+
+
+
+      },
+      child: Container(
+        color: Colors.white,
+        margin: EdgeInsets.fromLTRB(12.0, 11.0, 12.0, 6.0),
+        height: 105,
+        child: Row(
+          children: <Widget>[
+            Container(
+              height: 78,
+              width: 105,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    alignment: Alignment.center,
+                    image: NetworkImage(widget.authorImage),
+                  )),
             ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(15.0, 17.0, 0, 4.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 210,
-                    child: Text(
-                      widget.authorName,
-                      maxLines: 2,
-                      // textAlign: TextAlign.justify,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Frutiger',
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15.0),
-                    child: Text(
-                      widget.numberOfMembers + ' members',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Frutiger',
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Text(
-                      widget.numberOfPhotos + ' photos',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Frutiger',
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                  ),
-                ],
+            SizedBox(
+              width: 2,
+              child: Container(
+                color: Colors.grey[300],
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(15.0, 17.0, 0, 4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 210,
+                      child: Text(
+                        widget.authorName,
+                        maxLines: 2,
+                        // textAlign: TextAlign.justify,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Frutiger',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Text(
+                        widget.numberOfMembers + ' members',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Frutiger',
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        widget.numberOfPhotos + ' photos',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Frutiger',
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class AlbumCard extends StatefulWidget {
-
   AlbumCard({
     @required this.AlbumName,
     @required this.dateCreated,
@@ -1319,12 +1279,11 @@ class AlbumCard extends StatefulWidget {
     @required this.user,
   });
 
-
   final String AlbumName;
   final String dateCreated;
   final List<dynamic> photos;
   final String imageUrl;
-  final Map<String,dynamic> user;
+  final Map<String, dynamic> user;
 
   @override
   _AlbumCardState createState() => _AlbumCardState();
@@ -1332,13 +1291,11 @@ class AlbumCard extends StatefulWidget {
 
 class _AlbumCardState extends State<AlbumCard> {
   @override
-
-
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           setState(() {
             Navigator.push(
               context,
@@ -1356,72 +1313,65 @@ class _AlbumCardState extends State<AlbumCard> {
         child: Container(
           height: 100,
           color: Colors.white,
-         child: Row(
-           children:<Widget> [
-             Image(
-               width: 100,
-               height: 100,
-               fit: BoxFit.fill,
-                 image:NetworkImage(
-                   widget.imageUrl,
-                 ),
-             ),
-
-             Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-                 children:<Widget> [
-                   Padding(
-                     padding: const EdgeInsets.only(left: 10,top: 10),
-                     child: Text(
-                 widget.AlbumName,
-                       style: TextStyle(
-                           fontWeight: FontWeight.bold,
-                         fontFamily: 'Frutiger',
-                         color: Colors.black,
-                         fontSize: 17,
-                       ),
-               ),
-                   ),
-
-               Expanded(
-                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children:<Widget> [
-                     Padding(
-                       padding: const EdgeInsets.only(left: 8),
-                       child: Text(
-                       widget.dateCreated,
-                       style: TextStyle(
-                         fontFamily: 'Frutiger',
-                         color: Color(0xFF8F8F8F),
-                         fontSize: 17,
-                         fontWeight: FontWeight.bold,
-
-                       ),
-                   ),
-                     ),
-                     Padding(
-                       padding: const EdgeInsets.only(left: 8),
-                       child: Text(
-                       '${widget.photos.length}'+' photos',
-                       style: TextStyle(
-                         fontFamily: 'Frutiger',
-                         color: Color(0xFF8F8F8F),
-                         fontSize: 17,
-                         fontWeight: FontWeight.bold,
-
-                       ),
-                   ),
-                     ),
-                  ]
-                 ),
-               ),
-             ]
-             )
-
-           ],
-         ),
+          child: Row(
+            children: <Widget>[
+              Image(
+                width: 100,
+                height: 100,
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                  widget.imageUrl,
+                ),
+              ),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      child: Text(
+                        widget.AlbumName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Frutiger',
+                          color: Colors.black,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                widget.dateCreated,
+                                style: TextStyle(
+                                  fontFamily: 'Frutiger',
+                                  color: Color(0xFF8F8F8F),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                '${widget.photos.length}' + ' photos',
+                                style: TextStyle(
+                                  fontFamily: 'Frutiger',
+                                  color: Color(0xFF8F8F8F),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ]),
+                    ),
+                  ])
+            ],
+          ),
         ),
       ),
     );
@@ -1434,7 +1384,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-
   String firstName,
       lastName,
       avatarUrl,
@@ -1456,9 +1405,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       // sleep(const Duration(seconds: 5));
 
       // setState(() {
-     // if (json!=null) {
-
-
+      // if (json!=null) {
 
       firstName = json['Fname'];
       lastName = json['Lname'];
@@ -1494,15 +1441,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
       }));
       // }
       // });
-    //
-
+      //
 
     } else {
       print(res.statusCode);
     }
-
-
-
   }
 
   @override
@@ -1510,21 +1453,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // TODO: implement initState
     super.initState();
     getUserDetails();
-
-
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-    );
+    return Scaffold();
   }
 }
-class PhotoCard extends StatefulWidget {
 
+class PhotoCard extends StatefulWidget {
   PhotoCard({
     @required this.imageUrl,
   });
@@ -1537,43 +1474,41 @@ class PhotoCard extends StatefulWidget {
 
 class _PhotoCardState extends State<PhotoCard> {
   @override
-
-
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(4.0,4.0,4.0,0.0),
+      padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 0.0),
       child: Container(
         height: 150,
         color: kBackgroundColor,
         child: GestureDetector(
-           onTap: () {
-       setState(() {
-         print ("hii");
-      // Navigator.push(
-      // context,
-      // MaterialPageRoute(
-      // builder: (context) {
-      //     return ImageView(
-      //     imageUrl: widget.imageUrl,
-      //     authorId: widget.author["ownerName"],
-      //     authorImage: widget.author["Avatar"],
-      //     faves: widget.faves,
-      //     comments: widget.comments,
-       //     );
-       //     },
-        //    ),
-         //   );
-         //   }
-      //       );
-       //     },
-       });
-           },
-              child: Image(
-                fit: BoxFit.fill,
-                image:NetworkImage(
-                  widget.imageUrl,
-                ),
-              ),
+          onTap: () {
+            setState(() {
+              print("hii");
+              // Navigator.push(
+              // context,
+              // MaterialPageRoute(
+              // builder: (context) {
+              //     return ImageView(
+              //     imageUrl: widget.imageUrl,
+              //     authorId: widget.author["ownerName"],
+              //     authorImage: widget.author["Avatar"],
+              //     faves: widget.faves,
+              //     comments: widget.comments,
+              //     );
+              //     },
+              //    ),
+              //   );
+              //   }
+              //       );
+              //     },
+            });
+          },
+          child: Image(
+            fit: BoxFit.fill,
+            image: NetworkImage(
+              widget.imageUrl,
+            ),
+          ),
         ),
       ),
     );
@@ -1581,3 +1516,490 @@ class _PhotoCardState extends State<PhotoCard> {
 }
 
 
+class GroupView extends StatefulWidget {
+  GroupView({
+    @required this.group_id,
+  });
+
+  final String group_id;
+
+
+  @override
+  _GroupViewState createState() => _GroupViewState();
+}
+
+class _GroupViewState extends State<GroupView> {
+
+  List<dynamic> members;
+  List<dynamic> photos;
+  List<GroupPhotos> groupPhotos=[];
+  String groupName=" ";
+  int countMembers=0;
+  String role;
+  Text action;
+
+
+  void ifJoined()
+  {
+
+    if (role==null)
+    {
+      setState(() {
+
+        action=Text(
+          "+ Join",
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: 'Frutiger',
+            color: Color(0xFF464646),
+            fontWeight: FontWeight.bold,
+          ),
+        );
+
+
+      });
+    }
+
+
+    if (role=="member")
+    {
+      print("I am member");
+      setState(() {
+
+        action=Text(
+          "Leave",
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: 'Frutiger',
+            color: Color(0xFF464646),
+            fontWeight: FontWeight.bold,
+          ),
+        );
+
+
+      });
+
+    }
+  }
+
+  void LoadGroup() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl"+"/group/"+widget.group_id);
+
+    var res = await req.getData(true);
+
+    print(res.statusCode);
+
+    if (res.statusCode==200)
+    {
+      setState(() {
+        countMembers=jsonDecode(res.body)["count_members"];
+        print(countMembers);
+        groupName=jsonDecode(res.body)["name"];
+        print(groupName);
+        role=jsonDecode(res.body)["role"];
+      });
+
+
+
+    }
+    ifJoined();
+
+    print("role....is "+role);
+
+  }
+
+  void LoadGroupPhotos() async {
+    NetworkHelper req = new NetworkHelper("$KBaseUrl"+"/group/photos/"+widget.group_id);
+
+    var res = await req.getData(true);
+
+    print(res.statusCode);
+
+    if (res.statusCode==200)
+    {
+      setState(() {
+        photos=jsonDecode(res.body);
+
+        photos.forEach((element) {
+
+
+          groupPhotos.add(
+              GroupPhotos(image1: element)
+          );
+        });
+
+
+        print("the length equallllll     "+ '${groupPhotos.length}');
+      });
+
+
+
+    }
+
+    print(res.body);
+
+  }
+
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // setState(() {
+    //
+    //   action=Text(
+    //     "+ Join",
+    //     style: TextStyle(
+    //       fontSize: 15,
+    //       fontFamily: 'Frutiger',
+    //       color: Color(0xFF464646),
+    //       fontWeight: FontWeight.bold,
+    //     ),
+    //   );
+    //
+    //
+    // });
+
+    LoadGroup();
+    LoadGroupPhotos();
+    ifJoined();
+
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFF2F2F2),
+      body: DefaultTabController(
+        length: 1, // This is the number of tabs.
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverOverlapAbsorber(
+                handle:
+                NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverSafeArea(
+                  top: false,
+                  sliver: SliverAppBar(
+                    expandedHeight: 220,
+                    floating: true,
+                    pinned: true,
+                    backgroundColor: Colors.white,
+                    actions: <Widget>[
+                      ElevatedButton(
+                        onPressed: ()async{
+
+                          NetworkHelper req = new NetworkHelper("$KBaseUrl"+"/group/"+widget.group_id+"/join");
+
+                          var res = await req.postData({},true);
+
+                          print(res.statusCode);
+
+
+                          if (res.statusCode==200)
+                          {
+                            setState(() {
+
+                              action=Text(
+                                "Leave",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Frutiger',
+                                  color: Color(0xFF464646),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+
+
+                            });
+                          }
+                          else
+                          {
+                            if (res.statusCode==500)
+                            {
+                              NetworkHelper req = new NetworkHelper("$KBaseUrl"+"/group/"+widget.group_id+"/leave");
+
+                              var res = await req.deleteData();
+
+                              setState(() {
+
+                                action=Text(
+                                  "+ Join",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'Frutiger',
+                                    color: Color(0xFF464646),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+
+
+                              });
+
+                              print(res.statusCode);
+                            }
+                          }
+
+
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                  (states) => Colors.transparent),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              side: BorderSide(color: Color(0xFF464646), width: 2),
+                            ),
+                          ), //MaterialProperty
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 4),
+                          child: action,
+                        ),
+                      ),
+                    ],
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Container(
+                        padding: EdgeInsets.only(bottom: 42.0),
+                        child: FittedBox(
+                          child: Image.network(
+                            "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
+                            color: Colors.black.withOpacity(0.5),
+                            colorBlendMode: BlendMode.dstATop,
+                          ),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      centerTitle: true,
+                      titlePadding: EdgeInsets.only(bottom: 42.0),
+                      title: Container(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Column(
+                            children: <Widget>[
+                              CircleAvatar(
+                                child:PopupMenuButton(
+                                  offset: Offset(-55.0, 20.0),
+                                  icon: Icon(Icons.more_vert),
+                                  iconSize: 0.0,
+                                  itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry>[
+                                    // PopupMenuItem(
+                                    //   child: Text(
+                                    //           photosCount.toString() +
+                                    //           ' of 1000 photos',
+                                    //       textAlign: TextAlign.center),
+                                    // ),
+                                    //      const PopupMenuDivider(),
+                                    // PopupMenuItem(
+                                    //   child: ListTile(
+                                    //     onTap: () async {
+                                    //       var status =
+                                    //       await Permission.camera.status;
+                                    //       // if (status.isGranted) {
+                                    //       //   Navigator.push(context,
+                                    //       //       MaterialPageRoute(
+                                    //       //           builder: (context) {
+                                    //       //     return CameraApp();
+                                    //       //   }));
+                                    //       // }
+                                    //       Map<Permission, PermissionStatus>
+                                    //       statuses = await [
+                                    //         // Permission.photos,
+                                    //         Permission.camera,
+                                    //       ].request();
+                                    //       print(statuses[Permission.camera]);
+                                    //     },
+                                    //     title: Text('Edit Profile Photo',
+                                    //         textAlign: TextAlign.center),
+                                    //   ),
+                                    // ),
+                                    //    const PopupMenuDivider(),
+                                    //     PopupMenuItem(
+                                    //       child: ListTile(
+                                    //         onTap: () {
+                                    //           print(email);
+                                    //         },
+                                    //         title: Text('Edit Cover Photo',
+                                    //             textAlign: TextAlign.center),
+                                    //       ),
+                                    //     ),
+                                  ],
+                                ),
+                                backgroundImage: NetworkImage("https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg"),
+                                radius: 20.0,
+                              ),
+                              Text(
+                                groupName,
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.grey[800]),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  // GestureDetector(
+                                  //   onTap: () {
+                                  //     setState(() {
+                                  //       getUserFollowers();
+                                  //     });
+                                  //     print(usersListFollowers.length);
+                                  //     Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //         builder: (context) {
+                                  //           return Folllwers_Following(
+                                  //             peopleType: "Followers",
+                                  //             people: usersListFollowers,
+                                  //           );
+                                  //         },
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  //   child:
+                                  Text(
+
+                                    '${countMembers}' +
+                                        ' Members',
+                                    style: TextStyle(
+                                        fontSize: 10.0,
+                                        color: Colors.grey[800]),
+                                  ),
+                                  // ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  // GestureDetector(
+                                  //   onTap: () async {
+                                  //     setState(() {
+                                  //       getUserFollowing();
+                                  //     });
+                                  //     Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //         builder: (context) {
+                                  //           return Folllwers_Following(
+                                  //             peopleType: "Following",
+                                  //             people: usersListFollowing,
+                                  //           );
+                                  //         },
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  //   child: Text(
+                                  //     'following ' +
+                                  //         followingCount.toString(),
+                                  //     style: TextStyle(
+                                  //         fontSize: 10.0,
+                                  //         color: Colors.grey[800]),
+                                  //   ),
+                                  // )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    bottom: TabBar(
+                      indicatorColor: Colors.grey[800],
+                      unselectedLabelColor: Colors.grey[500],
+                      labelColor: Colors.grey[800],
+                      // These are the widgets to put in each tab in the tab bar.
+                      tabs: [
+                        Text(
+                          'Photos',
+                          style: KTabBarTextsStyle,
+                        ),
+
+                      ],
+                      isScrollable: true,
+                    ),
+                  ),
+                ),
+              ),
+            ];
+          },
+          body: TabBarView(
+            // These are the contents of the tab views, below the tabs.
+              children: [
+
+                Scaffold(
+                  backgroundColor: Color(0xFFF2F2F2),
+                  body: Column(
+                    children:<Widget> [
+                      Expanded(
+                        child: Column(
+                          children:<Widget> [
+                            Expanded(child: new ListView.builder(
+                              itemCount: groupPhotos.length,
+                              itemBuilder:(BuildContext context, int index)
+                              {
+                                return groupPhotos[index];
+                              },
+                            )
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+                )
+
+              ]),
+        ),
+      ),
+    );
+  }
+}
+
+class GroupPhotos extends StatefulWidget {
+  GroupPhotos({
+    @required this.image1,
+  });
+
+  final Map<String,dynamic> image1;
+
+  @override
+  _GroupPhotosState createState() => _GroupPhotosState();
+}
+
+class _GroupPhotosState extends State<GroupPhotos> {
+
+  List<String> photosRow=[];
+  int counter=0;
+
+  Widget ImagesAvailbe()
+  {
+    if (widget.image1["photoUrl"]!='')
+    {
+      return  Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: (){
+
+                },
+                child: Image(image:
+                NetworkImage(
+                    widget.image1["photoUrl"]
+                ),
+                ),
+              ),
+            ),
+          )
+        ],
+      );
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ImagesAvailbe();
+  }
+}

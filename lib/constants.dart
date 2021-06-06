@@ -38,6 +38,6 @@ const String KMockSeverBaseUrl =
     "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io";
 
 const String KBaseUrl=
-    "http://dropoids.me/api/v1";
+    "https://dropoids.me/api/v1";
 
 String KUserToken="";
