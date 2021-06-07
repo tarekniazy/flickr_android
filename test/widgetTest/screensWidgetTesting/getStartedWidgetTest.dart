@@ -17,7 +17,6 @@ void main() {
 
   TesterOfWidgets testerOfWidgets = TesterOfWidgets(testWidget);
   testerOfWidgets.findTextOnce(textToFind: 'Save all your photos and videos');
-  testerOfWidgets.getStartedLogIn();
   testerOfWidgets.findPage(numberOfPage: 1);
   testerOfWidgets.findElevatedButton();
 }

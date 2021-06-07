@@ -216,25 +216,6 @@ class _LoginState extends State<Login> {
                       "password": password
                     };
 
-                    // //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
-                    // //TODO arwa- Edit in Next phases
-                    setState(() {
-                      // if (email == "Arwa@gmail.com" || password == "flickr") {
-                      //   if (email != "Arwa@gmail.com") {
-                      //     _emailPWInvalidText = true;
-                      //   } else if (password != "flickr") {
-                      //     errorPassword = EnumError.show;
-                      //     _emailPWInvalidText = false;
-                      //   } else {
-                      //     logInID = 134;
-                      //     _emailPWInvalidText = false;
-                      //   }
-                      // } else {
-                      //   _emailPWInvalidText = true;
-                      // }
-                    });
-
-                    // 200 for ID=134 , 500 for ID=135
                     NetworkHelper req =
                         new NetworkHelper("$KBaseUrl/user/login");
                     var res = await req.postData(Body, false);
@@ -248,25 +229,10 @@ class _LoginState extends State<Login> {
                       userToken = jsonDecode(res.body)["token"];
                       KUserToken = userToken;
 
-                      // NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
-                      // var res2 = await req2.getData(true);
-                      // print(res2.statusCode);
-                      // if (res2.statusCode == 200)
-                      // {
-                      //   String data2 = res2.body;
-                      //   print(data2);
-                      //
-                      //   List<dynamic> response2 = jsonDecode(data2);
-                      //    // print(response2);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return Home();
                       }));
-                      //
-                      // } else
-                      // {
-                      //   print(res2.statusCode);
-                      // }
                     } else if (res.statusCode == 404) {
                       setState(() {
                         _emailPWInvalidText = true;

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  // const Icon iconFav = Icon(
-  //   Icons.star,
-  //   color: Colors.blue,
-  // );
   int isfaved;
   String text;
   String LastComment;
@@ -121,34 +116,4 @@ void main() {
       expect(text, ' ');
     });
   });
-
-  Icon likePressed() {
-    if (isfaved == 1) {
-      return Icon(
-        Icons.star,
-        color: Colors.blue,
-      );
-    } else {
-      return Icon(
-        Icons.star_border,
-      );
-    }
-  }
-
-  // group('Like pressed', () {
-  //   test('favorited', () {
-  //     isfaved = 1;
-  //     Icon likePress = likePressed();
-  //     expect(likePress, iconFav);
-  //   });
-  //   test('unliked', () {
-  //     isfaved = 0;
-  //     Icon likePress = likePressed();
-  //     expect(
-  //         likePress,
-  //         Icon(
-  //           Icons.star_border,
-  //         ));
-  //   });
-  // });
 }
