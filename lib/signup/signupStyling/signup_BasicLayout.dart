@@ -2,6 +2,8 @@ import 'package:flickr_android/constants.dart';
 import 'package:flutter/material.dart';
 import 'signup_Widgets.dart';
 
+
+/// This the basic UI of the Sign up Screen
 class SignUpBasicLayout extends StatelessWidget {
   SignUpBasicLayout(this.signupBody);
   final Widget signupBody;

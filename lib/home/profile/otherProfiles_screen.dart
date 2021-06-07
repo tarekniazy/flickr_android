@@ -11,6 +11,10 @@ import 'package:flickr_android/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'followers_following_screen.dart';
 
+
+/// This Screen Preview the screen profile of other User
+/// @email : a unique identifier to get the user with it
+/// preview - profile picture - name - background - no of followers - no of following - About Screen
 class OhterProfile extends StatefulWidget {
   OhterProfile({@required this.email});
   final email;

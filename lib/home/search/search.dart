@@ -8,6 +8,14 @@ import '../../constants.dart';
 import '../../Services/networking.dart';
 import 'dart:convert';
 
+
+
+/// This is the main UI for the Search
+/// It display 4 moods
+/// 1- Random Photos  /// It gets a random public photos and display it
+/// 2- Search By Photo  /// It takes a key word and Search by it
+/// 3- Search By People /// It takes a key word and Search by it
+/// 4- Search By group  /// It takes a key word and Search by it
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();

@@ -13,7 +13,7 @@ import '../home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../signup/signup_screen.dart';
 
-/// this function is responsible for loading the login screen into the loginBasicLayout
+/// this function is responsible for loading the login screen [Login] into the loginBasicLayout
 
 Widget LoggingInScreen() {
   LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
@@ -39,17 +39,19 @@ class _LoginState extends State<Login> {
   String email;
   String password;
 
+  /// Changes the text displayed by the text button to Sign In after the user Enters his email
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
   }
 
+  /// Preview the hidden text
   void toggleHiddenText() {
     setState(() {
       _hiddenText = !_hiddenText;
     });
   }
 
-  // Creates a popup alert
+  /// Creates a popup alert
   void popupMessage() {
     Alert(
       context: context,
@@ -81,7 +83,6 @@ class _LoginState extends State<Login> {
               // can't launch url, there is some error
               throw "Could not launch $url";
           },
-          //TODO arwa- Redirect to yahoo page
           color: Colors.grey,
         ),
         DialogButton(
@@ -101,7 +102,7 @@ class _LoginState extends State<Login> {
     ).show();
   }
 
-  // Parameter : Valid/Invalid mail , Functionality : calls popup message to alert the user when email is invalid
+  /// Parameter : Valid/Invalid mail , Functionality : calls popup message to alert the user when email is invalid
   void isMail(EnumEmail mail) {
     if (mail == EnumEmail.valid) {
       setState(() {
@@ -112,7 +113,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  // Checks the String email, and performs the suitable action accordingly
+  /// Checks the String email, and performs the suitable action accordingly
   void emailChecking() {
     if (email?.isNotEmpty ?? false) {
       final bool isValid = EmailValidator.validate(email);
@@ -148,7 +149,6 @@ class _LoginState extends State<Login> {
               ),
             ), // Flickr Icon and Log in to flickr
             Visibility(
-              //TODO arwa- assign visibilty according to wether the email has a flutter account or not
               visible: _emailPWInvalidText,
               child: Column(
                 children: <Widget>[
@@ -216,25 +216,7 @@ class _LoginState extends State<Login> {
                       "password": password
                     };
 
-                    // //TODO arwa- when the button's text == sign in, NOTE( text == next is done)
-                    // //TODO arwa- Edit in Next phases
-                    setState(() {
-                      // if (email == "Arwa@gmail.com" || password == "flickr") {
-                      //   if (email != "Arwa@gmail.com") {
-                      //     _emailPWInvalidText = true;
-                      //   } else if (password != "flickr") {
-                      //     errorPassword = EnumError.show;
-                      //     _emailPWInvalidText = false;
-                      //   } else {
-                      //     logInID = 134;
-                      //     _emailPWInvalidText = false;
-                      //   }
-                      // } else {
-                      //   _emailPWInvalidText = true;
-                      // }
-                    });
 
-                    // 200 for ID=134 , 500 for ID=135
                     NetworkHelper req =
                         new NetworkHelper("$KBaseUrl/user/login");
                     var res = await req.postData(Body, false);
@@ -248,16 +230,7 @@ class _LoginState extends State<Login> {
                       userToken = jsonDecode(res.body)["token"];
                       KUserToken = userToken;
 
-                      // NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
-                      // var res2 = await req2.getData(true);
-                      // print(res2.statusCode);
-                      // if (res2.statusCode == 200)
-                      // {
-                      //   String data2 = res2.body;
-                      //   print(data2);
-                      //
-                      //   List<dynamic> response2 = jsonDecode(data2);
-                      //    // print(response2);
+
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return Home();
@@ -330,12 +303,11 @@ class _LoginState extends State<Login> {
                 Text('Not a Flickr member?'),
                 TextButton(
                   onPressed: () {
-                    // TODO// @mariam- your sign up screen here
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SignUpScreen(); //TODO//;
+                          return SignUpScreen();
                         },
                       ),
                     );

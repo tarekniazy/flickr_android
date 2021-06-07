@@ -1,7 +1,7 @@
 import 'dart:convert';
 // import 'profilePages/camera.dart';
 import 'package:flickr_android/home/profile/profilePages/Albums/albums.dart';
-import 'package:flickr_android/home/profile/profilePages/CameraRoll/camera_Roll.dart';
+import 'package:flickr_android/home/profile/profilePages/cameraRoll/camera_Roll.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'profileStyling/profile_Widgets.dart';
@@ -11,6 +11,12 @@ import 'package:flickr_android/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'followers_following_screen.dart';
 
+
+
+/// This the main UI of the Profile Screen that display - Profile Picture - name - number of followers - number of Photos
+/// It displays [BuildAbout] -- About Screen
+/// It displays [Albums]
+/// It displays [CameraRoll]
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -360,10 +366,8 @@ class _ProfileState extends State<Profile> {
                   email: email,
                   photosCount: photosCount,
                 ),
-                CameraRoll(), //TODO Mariam- erase that text only and Return a widget for camera roll (hwa bl length fa deleting another text 7yedy error)
-                // Text(''), //TODO Arwa- this text is For public
-                Albums(), //TODO Tarek- erase that text only and Return a widget for Albums (hwa bl length fa deleting another text 7yedy error)
-                // Text(''), //TODO Tarek- this text is For Groups
+                CameraRoll(),
+                Albums(),
               ]),
         ),
       ),
@@ -390,3 +394,4 @@ class _ProfileState extends State<Profile> {
 // color: Colors.yellow,
 // backgroundColor: Colors.yellow),
 // ),
+

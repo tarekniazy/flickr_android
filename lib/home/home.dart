@@ -9,7 +9,6 @@ import 'search/search.dart';
 import 'dart:convert';
 import 'customeWidgets.dart';
 
-/// @exploreImages : it is a dynamic List; List<dynamic> that contains all the data to pass to [Explore] widget to display this data in a post view called [ImageCard]
 
 /// it display three pages; [Explore] , [Search] , [Profile] and navigate through them
 
@@ -158,49 +157,7 @@ class _HomeState extends State<Home> {
             ),
             //    SizedBox(width: 40,),
 
-            // Expanded(
-            //   child: IconButton(
-            //       icon: Icon(
-            //         Icons.notifications,
-            //         size: 30,
-            //         color: bottonClicked(notificationClicked),
-            //       ),
-            //       onPressed: () {
-            //         setState(() {
-            //           exploreClicked = 0;
-            //           searchClicked = 0;
-            //           notificationClicked = 1;
-            //           profileClicked = 0;
-            //           cameraClicked = 0;
-            //           view = Notifications();
-            //         });
-            //       }),
-            // ),
 
-            //  SizedBox(width: 40,),
-
-            // Expanded(
-            //   child: IconButton(
-            //       icon: Icon(
-            //         Icons.camera_alt,
-            //         size: 30,
-            //         color: bottonClicked(cameraClicked),
-            //       ),
-            //       onPressed: () {
-            //
-            //         setState(() {
-            //           exploreClicked = 0;
-            //           searchClicked = 0;
-            //           notificationClicked = 0;
-            //           profileClicked = 0;
-            //           cameraClicked = 1;
-            //
-            //
-            //
-            //         });
-            //
-            //       }),
-            // ),
           ],
         ),
       ),

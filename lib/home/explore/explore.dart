@@ -33,35 +33,7 @@ class _ExploreState extends State<Explore> {
 
  int isFaved=0;
 
- void loadUsers(userId) async{
 
-   // NetworkHelper req = new NetworkHelper(
-   //     "$KMockSeverBaseUrl/people/id");
-   //
-   // var res = await req.getData(true);
-   //
-   // if (res.statusCode == 200)
-   //   {
-   //     String data = res.body;
-   //       print(jsonDecode(data));
-   //   }
-
- }
-
- void getUserfavs() async{
-
-   // NetworkHelper req = new NetworkHelper(
-   //     "$KMockSeverBaseUrl/people/id");
-   //
-   // var res = await req.getData(true);
-   //
-   // if (res.statusCode == 200)
-   //   {
-   //     String data = res.body;
-   //       print(jsonDecode(data));
-   //   }
-
- }
 
 /// this function is responsible for getting the photos that is faved by the current logged in user in order to be compared with the streamed photos to verify wither the user faved this already faved this photo or not
 
