@@ -7,6 +7,8 @@ import 'dart:convert';
 
 
 
+/// This the view a of the albums of the user it preview the alums in a scrollable view
+
 class Albums extends StatefulWidget {
 
 
@@ -54,44 +56,7 @@ class _AlbumsState extends State<Albums> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // List<dynamic> albums=[
-    //   {
-    //     "_id": 0,
-    //     "title": "SpongeBob Lovers",
-    //     "description": "string",
-    //     "createdAt": "24-12-2021",
-    //     "updatedAt": "string",
-    //     "photos": [
-    //       {
-    //         "photo_url":"https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-    //       }
-    //       ,
-    //       {
-    //         "photo_url":"https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg"
-    //       }
-    //     ],
-    //     "coverPhoto": "Unknown Type: _id"
-    //   }
-    //   ,
-    //   {
-    //     "_id": 0,
-    //     "title": "Sad",
-    //     "description": "string",
-    //     "createdAt": "24-12-2021",
-    //     "updatedAt": "string",
-    //     "photos": [
-    //       {
-    //         "photo_url":"https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fstartswithabang%2Ffiles%2F2017%2F07%2F1-7BMKLs6CDB75eO35-ErBpg.jpg"
-    //       }
-    //       ,
-    //       {
-    //         "photo_url":"https://static.toiimg.com/thumb/msid-31346158,width-748,height-499,resizemode=4,imgsize-114461/.jpg"
-    //       }
-    //     ],
-    //     "coverPhoto": "Unknown Type: _id"
-    //   }
-    //
-    // ];
+
     loadAlbumCard();
 
   }
@@ -116,6 +81,13 @@ class _AlbumsState extends State<Albums> {
     );
   }
 }
+
+
+/// This is the view inside a chosen album it preview the photos
+/// @AlbumName : the name of the albums
+/// @dateCreated : creation date
+/// @photos : list of the photos
+/// @imageUrl : the path of the cover photo of the album
 
 class AlbumView extends StatefulWidget {
 
@@ -225,6 +197,10 @@ class _AlbumViewState extends State<AlbumView> {
   }
 }
 
+
+
+/// The view of photo inside the album
+/// @image1 : the path of the viewed photo
 class AlbumPhotos extends StatefulWidget {
 
   AlbumPhotos({
@@ -240,42 +216,6 @@ class AlbumPhotos extends StatefulWidget {
 
 class _AlbumPhotosState extends State<AlbumPhotos> {
 
-  // void getUsersId ()async
-  // {
-  //
-  //   String _id;
-  //
-  //   widget.faves.forEach((element) async{
-  //     {
-  //       print("iddddddddddddddddd");
-  //
-  //       // print(element["UserName"]);
-  //       _id=element["UserName"];
-  //
-  //       NetworkHelper req2 = new NetworkHelper("$KBaseUrl/people/"+_id);
-  //       var res2 = await req2.getData(true);
-  //
-  //
-  //       if (res2.statusCode==200)
-  //       {
-  //         print(res2.statusCode);
-  //         print(jsonDecode(res2.body)["_id"]);
-  //         print("isfollowed");
-  //         print(jsonDecode(res2.body)["Follow"]);
-  //
-  //         element["_id"]=jsonDecode(res2.body)["_id"];
-  //         element["isfollowed"]=jsonDecode(res2.body)["Follow"];
-  //       }
-  //
-  //       print(element);
-  //
-  //     }
-  //   });
-  //
-  //
-  //
-  //
-  // }
 
   List<String> photosRow=[];
   int counter=0;

@@ -89,19 +89,6 @@ class TesterOfWidgets {
     });
   }
 
-  void getStartedLogIn() {
-    testWidgets('testing ', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      navigatorObservers:
-      [mockObserver];
-      await tester.pumpWidget(widget);
-      var button = find.text('Get Started');
-      await tester.tap(button);
-      await tester.pumpAndSettle();
-      verifyNever(mockObserver.didPush(any, any));
-    });
-  }
-
   void getUserCards({List<dynamic> userCards}) {
     testWidgets('testing user Cards ', (WidgetTester tester) async {
       await tester.pumpWidget(widget);

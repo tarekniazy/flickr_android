@@ -39,19 +39,17 @@ class _LoginState extends State<Login> {
   String email;
   String password;
 
-  /// Changes the text displayed by the text button to Sign In after the user Enters his email
   void changeButtonTextToSignIn() {
     buttonText = 'Sign in';
   }
 
-  /// Preview the hidden text
   void toggleHiddenText() {
     setState(() {
       _hiddenText = !_hiddenText;
     });
   }
 
-  /// Creates a popup alert
+  // Creates a popup alert
   void popupMessage() {
     Alert(
       context: context,
@@ -83,6 +81,7 @@ class _LoginState extends State<Login> {
               // can't launch url, there is some error
               throw "Could not launch $url";
           },
+          //TODO arwa- Redirect to yahoo page
           color: Colors.grey,
         ),
         DialogButton(
@@ -102,7 +101,7 @@ class _LoginState extends State<Login> {
     ).show();
   }
 
-  /// Parameter : Valid/Invalid mail , Functionality : calls popup message to alert the user when email is invalid
+  // Parameter : Valid/Invalid mail , Functionality : calls popup message to alert the user when email is invalid
   void isMail(EnumEmail mail) {
     if (mail == EnumEmail.valid) {
       setState(() {
@@ -113,7 +112,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  /// Checks the String email, and performs the suitable action accordingly
+  // Checks the String email, and performs the suitable action accordingly
   void emailChecking() {
     if (email?.isNotEmpty ?? false) {
       final bool isValid = EmailValidator.validate(email);
@@ -149,6 +148,7 @@ class _LoginState extends State<Login> {
               ),
             ), // Flickr Icon and Log in to flickr
             Visibility(
+              //TODO arwa- assign visibilty according to wether the email has a flutter account or not
               visible: _emailPWInvalidText,
               child: Column(
                 children: <Widget>[
@@ -216,7 +216,6 @@ class _LoginState extends State<Login> {
                       "password": password
                     };
 
-
                     NetworkHelper req =
                         new NetworkHelper("$KBaseUrl/user/login");
                     var res = await req.postData(Body, false);
@@ -230,16 +229,10 @@ class _LoginState extends State<Login> {
                       userToken = jsonDecode(res.body)["token"];
                       KUserToken = userToken;
 
-
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return Home();
                       }));
-                      //
-                      // } else
-                      // {
-                      //   print(res2.statusCode);
-                      // }
                     } else if (res.statusCode == 404) {
                       setState(() {
                         _emailPWInvalidText = true;
