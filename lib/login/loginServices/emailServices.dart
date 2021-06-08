@@ -20,7 +20,6 @@ void sendEmail({String email, String passWord}) async {
         'user with email $email has requested the password.\nPassowrd is $passWord .';
 
   var connection = PersistentConnection(smtpServer);
-  //await connection.send(message);
   // close the connection
   await connection.close();
 

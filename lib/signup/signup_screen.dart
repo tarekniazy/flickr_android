@@ -1,4 +1,3 @@
-import 'emailverified_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
@@ -12,7 +11,6 @@ import '../login/login_screen.dart';
 import 'signupStyling/signup_BasicLayout.dart';
 import 'checkemail_screen.dart';
 import '../Services/networking.dart';
-
 
 /// This function Loads a widget[SignUp] the Basic UI of the SignIn
 Widget SignUpScreen() {
@@ -43,7 +41,6 @@ class _SignUpState extends State<SignUp> {
   String emailErrorText;
   bool checkBoxValue = false;
   bool checkBoxRed = false;
-
 
   /// This function open Captcha (Verify you are not a robot)
   _openReCaptcha() async {

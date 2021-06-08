@@ -1,24 +1,15 @@
 import 'dart:core';
 import 'package:flickr_android/Services/networking.dart';
 import 'package:flickr_android/constants.dart';
-import 'package:flickr_android/home/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 import 'explore/explore.dart';
 import 'profile/profile_screen.dart';
 import 'search/search.dart';
 import 'dart:convert';
-import 'customeWidgets.dart';
-
 
 /// it display three pages; [Explore] , [Search] , [Profile] and navigate through them
 
 class Home extends StatefulWidget {
-// Home({
-//   @required this.exploreImages,
-// });
-
-// final  List<dynamic> exploreImages;
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -61,8 +52,6 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     getExploreData();
-
-    // view=Explore(exploreImages: widget.exploreImages,);
   }
 
   /// this function is used to connect to the Server to get the data that is displayed in the [Explore] page
@@ -126,15 +115,10 @@ class _HomeState extends State<Home> {
                       notificationClicked = 0;
                       profileClicked = 0;
                       cameraClicked = 0;
-
-                      //TODO Mariam
                       view = Search();
                     });
                   }),
             ),
-
-            // SizedBox(width: 40,),
-            //
 
             Expanded(
               child: IconButton(
@@ -151,13 +135,10 @@ class _HomeState extends State<Home> {
                       profileClicked = 1;
                       cameraClicked = 0;
                     });
-                    //Navigator.pushReplacementNamed(context, 'Profile');
                     view = Profile();
                   }),
             ),
             //    SizedBox(width: 40,),
-
-
           ],
         ),
       ),

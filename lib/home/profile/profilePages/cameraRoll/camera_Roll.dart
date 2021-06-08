@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../customeWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../constants.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../Services/networking.dart';
 import 'dart:convert';
-
-
 
 ///This the view of the camera roll of a current user which preview his/her photos in a scrollable view.
 class CameraRoll extends StatefulWidget {
@@ -66,7 +63,6 @@ class _CameraRollState extends State<CameraRoll> {
       child: Container(
         child: Column(
           children: <Widget>[
-
             Expanded(
               child: new ListView.builder(
                 itemCount: photoList.length,
@@ -75,7 +71,6 @@ class _CameraRollState extends State<CameraRoll> {
                 },
               ),
             ),
-
           ],
         ),
       ),

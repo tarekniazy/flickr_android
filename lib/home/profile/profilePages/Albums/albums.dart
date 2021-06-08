@@ -5,27 +5,18 @@ import '../../../../Services/networking.dart';
 import '../../../../constants.dart';
 import 'dart:convert';
 
-
-
 /// This the view a of the albums of the user it preview the alums in a scrollable view
 
 class Albums extends StatefulWidget {
-
-
-  
   @override
   _AlbumsState createState() => _AlbumsState();
 }
 
 class _AlbumsState extends State<Albums> {
+  List<AlbumCard> albumList = [];
+  List<dynamic> albums = [];
 
-  List<AlbumCard> albumList=[];
-  List<dynamic> albums=[];
-
-  void loadAlbumCard() async
-  {
-
-
+  void loadAlbumCard() async {
     NetworkHelper req = new NetworkHelper("$KBaseUrl/album");
 
     var res = await req.getData(true);
@@ -35,19 +26,18 @@ class _AlbumsState extends State<Albums> {
     }
 
     setState(() {
-      albums.forEach((element)  {
-
+      albums.forEach((element) {
         print(element["title"]);
         print(element["createdAt"]);
         // print(element["photos"]);
         print(element["photos"].first["photoUrl"]);
         print(element["photos"].first["ownerId"]);
 
-
-
-        albumList.add(
-            AlbumCard(AlbumName: element["title"], dateCreated: element["createdAt"], photos: element["photos"], imageUrl: element["photos"].first["photoUrl"])
-        ) ;
+        albumList.add(AlbumCard(
+            AlbumName: element["title"],
+            dateCreated: element["createdAt"],
+            photos: element["photos"],
+            imageUrl: element["photos"].first["photoUrl"]));
       });
     });
   }
@@ -58,30 +48,27 @@ class _AlbumsState extends State<Albums> {
     super.initState();
 
     loadAlbumCard();
-
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         child: Column(
-          children:<Widget> [
-            Expanded(child: new ListView.builder(
+          children: <Widget>[
+            Expanded(
+                child: new ListView.builder(
               itemCount: albumList.length,
-              itemBuilder:(BuildContext context, int index)
-              {
+              itemBuilder: (BuildContext context, int index) {
                 return albumList[index];
               },
-            )
-            )
+            ))
           ],
         ),
       ),
     );
   }
 }
-
 
 /// This is the view inside a chosen album it preview the photos
 /// @AlbumName : the name of the albums
@@ -90,14 +77,12 @@ class _AlbumsState extends State<Albums> {
 /// @imageUrl : the path of the cover photo of the album
 
 class AlbumView extends StatefulWidget {
-
   AlbumView({
     @required this.AlbumName,
     @required this.dateCreated,
     @required this.photos,
     @required this.imageUrl,
   });
-
 
   final String AlbumName;
   final String dateCreated;
@@ -109,21 +94,14 @@ class AlbumView extends StatefulWidget {
 }
 
 class _AlbumViewState extends State<AlbumView> {
+  List<AlbumPhotos> ALbumPhotosList = [];
 
-  List<AlbumPhotos> ALbumPhotosList=[];
-  
-  void LoadAlbumPhotos()
-  {
-    int counter=0;
+  void LoadAlbumPhotos() {
+    int counter = 0;
     print(widget.photos);
     widget.photos.forEach((element) {
-
-      ALbumPhotosList.add(
-        AlbumPhotos(image1: element)
-      );
+      ALbumPhotosList.add(AlbumPhotos(image1: element));
     });
-    
-    
   }
 
   @override
@@ -140,114 +118,62 @@ class _AlbumViewState extends State<AlbumView> {
     return Scaffold(
       backgroundColor: Color(0xFFF2F2F2),
       body: Column(
-        children:<Widget> [
-          // Row(
-          //
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children:<Widget> [
-          //     Padding(
-          //       padding: const EdgeInsets.only(right:8.0,top: 20),
-          //       child: ElevatedButton(
-          //         style: ButtonStyle(
-          //           backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          //                   (states) => Colors.transparent),
-          //           shape: MaterialStateProperty.all(
-          //             RoundedRectangleBorder(
-          //               side: BorderSide(color: Color(0xFF464646), width: 2),
-          //             ),
-          //           ), //MaterialProperty
-          //         ),
-          //         child: Padding(
-          //           padding: const EdgeInsets.symmetric(
-          //               horizontal: 12, vertical: 8),
-          //           child: Text(
-          //             "Select",
-          //             style: TextStyle(
-          //               fontSize: 15,
-          //               fontFamily: 'Frutiger',
-          //               color: Color(0xFF464646),
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //
-          //   ],
-          // ),
-
+        children: <Widget>[
           Expanded(
             child: Column(
-              children:<Widget> [
-                Expanded(child: new ListView.builder(
+              children: <Widget>[
+                Expanded(
+                    child: new ListView.builder(
                   itemCount: ALbumPhotosList.length,
-                  itemBuilder:(BuildContext context, int index)
-                  {
+                  itemBuilder: (BuildContext context, int index) {
                     return ALbumPhotosList[index];
                   },
-                )
-                ),
+                )),
               ],
             ),
           ),
-
         ],
       ),
     );
   }
 }
 
-
-
 /// The view of photo inside the album
 /// @image1 : the path of the viewed photo
 class AlbumPhotos extends StatefulWidget {
-
   AlbumPhotos({
     @required this.image1,
   });
 
-  final Map<String,dynamic> image1;
-
+  final Map<String, dynamic> image1;
 
   @override
   _AlbumPhotosState createState() => _AlbumPhotosState();
 }
 
 class _AlbumPhotosState extends State<AlbumPhotos> {
+  List<String> photosRow = [];
+  int counter = 0;
 
-
-  List<String> photosRow=[];
-  int counter=0;
-
-  Widget ImagesAvailbe()
-  {
-    if (widget.image1["photoUrl"]!='')
-      {
-            return  Row(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: (){
-
-
-
-                      },
-                      child: Image(image:
-                      NetworkImage(
-                          widget.image1["photoUrl"]
-                      ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            );
-      }
+  Widget ImagesAvailbe() {
+    if (widget.image1["photoUrl"] != '') {
+      return Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Image(
+                  image: NetworkImage(widget.image1["photoUrl"]),
+                ),
+              ),
+            ),
+          )
+        ],
+      );
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {

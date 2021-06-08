@@ -8,9 +8,7 @@ import 'profileStyling/profile_Widgets.dart';
 import 'profilePages/about_Screen.dart';
 import 'package:flickr_android/Services/networking.dart';
 import 'package:flickr_android/constants.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'followers_following_screen.dart';
-
 
 /// This Screen Preview the screen profile of other User
 /// @email : a unique identifier to get the user with it
@@ -49,8 +47,6 @@ class _OtherprofileState extends State<OhterProfile> {
         new NetworkHelper("$KBaseUrl/people/" + (widget.email).toString());
     var res = await req.getData(true);
     if (res.statusCode == 200) {
-      // print('get Success');
-      // print(res.body);
       var json = jsonDecode(res.body);
       setState(() {
         firstName = json['Fname'];
@@ -172,18 +168,10 @@ class _OtherprofileState extends State<OhterProfile> {
                           'Camera Roll',
                           style: KTabBarTextsStyle,
                         ),
-                        // Text(
-                        //   'Public',
-                        //   style: KTabBarTextsStyle,
-                        // ),
                         Text(
                           'About',
                           style: KTabBarTextsStyle,
                         ),
-                        // Text(
-                        //   'Groups',
-                        //   style: KTabBarTextsStyle,
-                        // ),
                       ],
                       isScrollable: true,
                     ),

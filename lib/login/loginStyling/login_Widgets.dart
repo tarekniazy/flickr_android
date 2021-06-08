@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
-
 const KFlickrTextStyle = TextStyle(
   fontSize: 32.0,
   fontWeight: FontWeight.bold,
@@ -52,7 +50,6 @@ Row KFlickrIcon = Row(
   mainAxisAlignment: MainAxisAlignment.center,
   children: <Widget>[
     Icon(
-      //FontAwesomeIcons.flickr,
       FontAwesomeIcons.solidCircle,
       color: Colors.blue[800],
       size: KSizeOfIcon,
@@ -61,7 +58,6 @@ Row KFlickrIcon = Row(
       width: 2.0,
     ),
     Icon(
-      //FontAwesomeIcons.flickr,
       FontAwesomeIcons.solidCircle,
       color: Colors.pinkAccent,
       size: KSizeOfIcon,
