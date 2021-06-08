@@ -13,7 +13,7 @@ import '../home/home.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../signup/signup_screen.dart';
 
-/// this function is responsible for loading the login screen into the loginBasicLayout
+/// this function is responsible for loading the login screen [Login] into the loginBasicLayout
 
 Widget LoggingInScreen() {
   LoginBasicLayout loginBasicLayout = LoginBasicLayout(Login());
@@ -296,12 +296,11 @@ class _LoginState extends State<Login> {
                 Text('Not a Flickr member?'),
                 TextButton(
                   onPressed: () {
-                    // TODO// @mariam- your sign up screen here
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SignUpScreen(); //TODO//;
+                          return SignUpScreen();
                         },
                       ),
                     );

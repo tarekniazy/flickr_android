@@ -6,6 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../Services/networking.dart';
 import 'dart:convert';
 
+
+
+///This the view of the camera roll of a current user which preview his/her photos in a scrollable view.
 class CameraRoll extends StatefulWidget {
   final String id = null;
   @override
@@ -63,46 +66,7 @@ class _CameraRollState extends State<CameraRoll> {
       child: Container(
         child: Column(
           children: <Widget>[
-            //     ListTile(
-            //       leading: Text( (selected == false) ? '' : '0 Selected',
-            //   style: TextStyle(
-            //     //fontWeight: FontWeight.bold,
-            //     color: Colors.black,
-            //     fontFamily: 'Frutiger',
-            //     fontSize: 20.0,
-            //   ),
-            // ),
-            //         trailing: TextButton(
-            //               style: ButtonStyle(
-            //                 backgroundColor: MaterialStateProperty.all(kBackgroundColor),
-            //                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            //                   RoundedRectangleBorder(
-            //                     side: BorderSide(color: Colors.black, width: 2.0),
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () {
-            //                 setState(() {
-            //                   if (selected == false) {
-            //                     row = true;
-            //                     selected = true;
-            //                   }
-            //                   else {
-            //                     row = false;
-            //                     selected=false;
-            //                   }
-            //                 });
-            //               },
-            //               child: Text( (selected == false) ? 'Select' : 'Done',
-            //                 style: TextStyle(
-            //                   fontWeight: FontWeight.bold,
-            //                   color: Colors.black,
-            //                   fontFamily: 'Frutiger',
-            //                   fontSize: 16.0,
-            //                 ),
-            //               ),
-            //         ),
-            //      ),
+
             Expanded(
               child: new ListView.builder(
                 itemCount: photoList.length,
@@ -111,75 +75,7 @@ class _CameraRollState extends State<CameraRoll> {
                 },
               ),
             ),
-            //
-            // Visibility(
-            //   visible: (row == true) ? true : false,
-            //   child: Container(
-            //     color: Colors.black,
-            //     height: 50.0,
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //         children: <Widget>[
-            //           IconButton( icon: Icon(
-            //                     Icons.lock,
-            //                      size: 25,
-            //                      color: kBackgroundColor
-            //               ),
-            //             onPressed: () {
-            //               setState(() {
-            //                 privacy = true;
-            //                 share = false;
-            //                 album = false;
-            //                 delete = false;
-            //               });
-            //             },
-            //             ),
-            //           IconButton( icon: Icon(
-            //                 Icons.folder_open_outlined,
-            //                 size: 25,
-            //                 color: kBackgroundColor
-            //             ),
-            //             onPressed: () {
-            //            setState(() {
-            //              privacy = false;
-            //              share = false;
-            //              album = true;
-            //              delete = false;
-            //            });
-            //             },
-            //           ),
-            //           IconButton( icon: Icon(
-            //                 Icons.share,
-            //                 size: 25,
-            //                 color: kBackgroundColor
-            //             ),
-            //             onPressed: () {
-            //               setState(() {
-            //                 privacy = false;
-            //                 share = true;
-            //                 album = false;
-            //                 delete = false;
-            //               });
-            //             },
-            //           ),
-            //           IconButton( icon: Icon(
-            //          FontAwesomeIcons.trash,
-            //         size: 20,
-            //         color: kBackgroundColor
-            //         ),
-            //             onPressed: () {
-            //               setState(() {
-            //                 privacy = false;
-            //                 share = false;
-            //                 album = false;
-            //                 delete = true;
-            //               });
-            //             },
-            //           ),
-            //           ],
-            //     ),
-            //   ),
-            // ),
+
           ],
         ),
       ),

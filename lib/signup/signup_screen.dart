@@ -13,11 +13,14 @@ import 'signupStyling/signup_BasicLayout.dart';
 import 'checkemail_screen.dart';
 import '../Services/networking.dart';
 
+
+/// This function Loads a widget[SignUp] the Basic UI of the SignIn
 Widget SignUpScreen() {
   SignUpBasicLayout signupBasicLayout = SignUpBasicLayout(SignUp());
   return signupBasicLayout;
 }
 
+/// This widget is responsible for previewing the Text input Fields that takes input from the user
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
@@ -41,6 +44,8 @@ class _SignUpState extends State<SignUp> {
   bool checkBoxValue = false;
   bool checkBoxRed = false;
 
+
+  /// This function open Captcha (Verify you are not a robot)
   _openReCaptcha() async {
     String tokenResult = await GCaptcha.reCaptcha(CAPTCHA_SITE_KEY);
     print('tokenResult: $tokenResult');
@@ -54,12 +59,14 @@ class _SignUpState extends State<SignUp> {
       checkBoxRed = false;
   }
 
+  /// Preview the hidden text
   void toggleHiddenText() {
     setState(() {
       _hiddenText = !_hiddenText;
     });
   }
 
+  /// This function checks if the input password is valid (the length >= 12)
   bool isPassword(String password) {
     if (password.length >= 12) {
       var str = password.trim();
@@ -71,7 +78,7 @@ class _SignUpState extends State<SignUp> {
       return false;
   }
 
-  // Checks the String email, and performs the suitable action accordingly
+  /// Checks the String email, and performs the suitable action accordingly
   void emailChecking() {
     if (email?.isNotEmpty ?? false) {
       final bool isValid = EmailValidator.validate(email);
@@ -95,6 +102,7 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  /// Checks if the first name text box empty
   void firstNameChecking() {
     if (firstName?.isNotEmpty ?? false) {
       setState(() {
@@ -109,6 +117,7 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  /// Checks if the last name text box empty
   void lastNameChecking() {
     if (lastName?.isNotEmpty ?? false) {
       setState(() {
@@ -123,6 +132,7 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  /// Checks if the age entered is valid > 13
   void ageChecking() {
     if (age?.isNotEmpty ?? false) {
       setState(() {
@@ -191,7 +201,6 @@ class _SignUpState extends State<SignUp> {
               ),
             ), // Flickr Icon and Sign Up for flickr
             Visibility(
-              //TODO mariam- assign visibilty according to wether the email has a flutter account or not
               visible: false,
               child: Column(
                 children: <Widget>[

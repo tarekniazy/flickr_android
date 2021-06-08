@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flickr_android/home/profile/otherProfiles_screen.dart';
 
+
+
+
+/// This widget preview the user Card - profile picture - name - followers - number of photos of the user
+/// @userName : name of the user
+/// @followers : number of followers
+/// @photo : number of photos
+/// @avatar : profile picture
+/// @email : an identifier to the User
 class UserCard extends StatefulWidget {
   UserCard(
       {@required this.userName,
