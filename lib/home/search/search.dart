@@ -8,8 +8,6 @@ import '../../constants.dart';
 import '../../Services/networking.dart';
 import 'dart:convert';
 
-
-
 /// This is the main UI for the Search
 /// It display 4 moods
 /// 1- Random Photos  /// It gets a random public photos and display it
@@ -45,19 +43,14 @@ class _SearchState extends State<Search> {
         });
       });
     }
-    // else
-    // {
-    //   print(res2.statusCode);
-    // }
   }
 
   void loadGroupCard(List<dynamic> groups) {
-
-      groupList.clear();
-
+    groupList.clear();
 
     groups.forEach((element) {
-      groupList.add(GroupCard(group_id:element["_id"] ,
+      groupList.add(GroupCard(
+          group_id: element["_id"],
           authorName: element["name"],
           authorImage:
               "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
@@ -67,14 +60,12 @@ class _SearchState extends State<Search> {
   }
 
   void loadPhotoCard(List<dynamic> photos) {
-
-      photoSearchList.clear();
+    photoSearchList.clear();
 
     photos.forEach((element) {
       print(element["photoUrl"]);
       photoSearchList.add(PhotoCard(imageUrl: element["photoUrl"]));
     });
-
   }
 
   void loadUserCard(List<dynamic> users) {
@@ -96,11 +87,8 @@ class _SearchState extends State<Search> {
     // TODO: implement initState
     super.initState();
 
-
     LoadPhoto();
   }
-
-
 
   TextEditingController searchController = new TextEditingController();
   bool iconCrossVisibility = false;
@@ -188,14 +176,14 @@ class _SearchState extends State<Search> {
                             }
 
                             if (people == true) {
-                               peoplereq = new NetworkHelper(
+                              peoplereq = new NetworkHelper(
                                   "$KBaseUrl/people/search/" +
                                       searchController.text);
                               peopleresp = await peoplereq.getData(true);
                             }
 
                             if (photos == true) {
-                               photoreq = new NetworkHelper(
+                              photoreq = new NetworkHelper(
                                   "$KBaseUrl/photo/getbytitle/" +
                                       searchController.text);
                               photoresp = await photoreq.getData(true);
@@ -223,7 +211,6 @@ class _SearchState extends State<Search> {
                                   photoSearchList.clear();
 
                                   print(photoresp.statusCode);
-                                  // noResults = true;
                                 }
                               }
                               if (groups == true) {
@@ -233,15 +220,12 @@ class _SearchState extends State<Search> {
                                   loadGroupCard(response2);
                                 } else {
                                   print(groupresp.statusCode);
-                                  // noResults = true;
-
                                 }
                               }
                               if (people == true) {
                                 if (peopleresp.statusCode == 201) {
                                   String data2 = peopleresp.body;
                                   List<dynamic> response2 = jsonDecode(data2);
-                                  // loadGroupCard(response2);
                                   print(response2);
                                   loadUserCard(response2);
                                 } else {
@@ -249,12 +233,7 @@ class _SearchState extends State<Search> {
                                 }
                               }
                             });
-                          }
-
-                          //     setState(() {
-                          //   });
-                          // },
-                          ),
+                          }),
                     ),
                     Visibility(
                       visible: (iconCrossVisibility == true) ? true : false,
@@ -438,7 +417,6 @@ class _SearchState extends State<Search> {
 
           Visibility(
             visible: (people == true) ? true : false,
-
             child: Expanded(
               child: new ListView.builder(
                 itemCount: usersList.length,
@@ -447,9 +425,6 @@ class _SearchState extends State<Search> {
                 },
               ),
             ),
-            // child: UserView(
-            //   userBody: usersList,
-            // ),
           ),
 
           Visibility(

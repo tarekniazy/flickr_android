@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr_android/constants.dart';
 import 'package:flickr_android/Services/networking.dart';
-import 'package:flickr_android/home/customeWidgets.dart';
 import 'package:flickr_android/home/profile/profile_screen.dart';
-import 'package:flickr_android/home/home.dart';
 
 class AboutSubscreen extends StatefulWidget {
   AboutSubscreen(this.subScreenMainText, this.subScreenSubText,
@@ -71,10 +69,6 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       Profile()));
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) {
-                          //   return LoadingScreen();
-                          // }));
                         }
                         ;
                       },
@@ -98,10 +92,6 @@ class _AboutSubscreenState extends State<AboutSubscreen> {
               initialValue: (isSubScreenSubTextEmpty == true)
                   ? null
                   : widget.subScreenSubText,
-              // controller: TextEditingController()
-              //   ..text = (isSubScreenSubTextEmpty == true)
-              //       ? null
-              //       : widget.subScreenSubText,
               onChanged: (value) {
                 givenUserData = value;
               },

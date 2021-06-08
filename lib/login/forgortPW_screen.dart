@@ -7,7 +7,6 @@ import 'package:flickr_android/enums.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Services/networking.dart';
 import 'loginServices/emailServices.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Widget ForgotPassWordScreen(String mail) {
@@ -103,7 +102,7 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
                       //correct ID is 56
                       "https://4ed699e3-6db5-42c4-9cb2-0aca2896efa9.mock.pstmn.io/v3/forget?id=100");
 
-                  var res = await req.postData(Body,false);
+                  var res = await req.postData(Body, false);
                   if (res.statusCode == 200) {
                     String data = res.body;
                     var jsonResults = await jsonDecode(data);
@@ -133,9 +132,7 @@ class _ForgotPassWordState extends State<ForgotPassWord> {
               ),
             ), // Send email button
             TextButton(
-              onPressed: () {
-                // TODO// @arwa- adding a functionality to access email
-              },
+              onPressed: () {},
               child:
                   Text("Can't access your email? ", style: KHyperlinkedTexts),
             ), // can't access your email?

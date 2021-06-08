@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../main_widgets_test.dart';
-import 'package:flickr_android/signup/signup_screen.dart';
 import 'package:flickr_android/getStarted/getStarted_Page.dart';
 import 'package:flickr_android/login/login_screen.dart';
 

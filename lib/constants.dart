@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'login/login_screen.dart';
 
 const KAppBarBackgroundColor = Color(0xFF212121);
 const KFlickrNormalBlueColor = Color(0xFF0288D1);
 const KFlickrNormalGreyColor = Color(0xFFDADADA);
-const kEmailGreyColor = Color (0xFF8B8B8B);
+const kEmailGreyColor = Color(0xFF8B8B8B);
 const KWarningColor = Color(0xFFFFCDD2);
 const KHomeAppBarColor = Color(0xFF212121);
 const KPopupOverlayColor = Color(0x87ECEFF1);
@@ -39,4 +38,4 @@ const String KMockSeverBaseUrl =
 
 const String KBaseUrl = "https://dropoids.me/api/v1";
 
-String KUserToken="";
+String KUserToken = "";

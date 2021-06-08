@@ -11,8 +11,6 @@ import 'package:flickr_android/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'followers_following_screen.dart';
 
-
-
 /// This the main UI of the Profile Screen that display - Profile Picture - name - number of followers - number of Photos
 /// It displays [BuildAbout] -- About Screen
 /// It displays [Albums]
@@ -173,12 +171,6 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ],
-                    // leading: IconButton(
-                    //   icon: Icon(
-                    //     Icons.autorenew,
-                    //     color: Colors.grey[800],
-                    //   ),
-                    // ),
                     flexibleSpace: FlexibleSpaceBar(
                       background: Container(
                         padding: EdgeInsets.only(bottom: 42.0),
@@ -219,16 +211,8 @@ class _ProfileState extends State<Profile> {
                                         onTap: () async {
                                           var status =
                                               await Permission.camera.status;
-                                          // if (status.isGranted) {
-                                          //   Navigator.push(context,
-                                          //       MaterialPageRoute(
-                                          //           builder: (context) {
-                                          //     return CameraApp();
-                                          //   }));
-                                          // }
                                           Map<Permission, PermissionStatus>
                                               statuses = await [
-                                            // Permission.photos,
                                             Permission.camera,
                                           ].request();
                                           print(statuses[Permission.camera]);
@@ -334,18 +318,10 @@ class _ProfileState extends State<Profile> {
                           'Camera Roll',
                           style: KTabBarTextsStyle,
                         ),
-                        // Text(
-                        //   'Public',
-                        //   style: KTabBarTextsStyle,
-                        // ),
                         Text(
                           'Albums',
                           style: KTabBarTextsStyle,
                         ),
-                        // Text(
-                        //   'Groups',
-                        //   style: KTabBarTextsStyle,
-                        // ),
                       ],
                       isScrollable: true,
                     ),
@@ -374,24 +350,3 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-
-// background: Column(
-// mainAxisAlignment: MainAxisAlignment.center,
-// crossAxisAlignment: CrossAxisAlignment.center,
-// children: [
-// CircleAvatar(
-// backgroundImage: NetworkImage(
-// 'https://wallpaperaccess.com/full/900605.jpg'),
-// radius: 35.0,
-// ),
-// ],
-// ),
-
-// Text(
-// 'Use Name',
-// style: TextStyle(
-// fontSize: 40.0,
-// color: Colors.yellow,
-// backgroundColor: Colors.yellow),
-// ),
-

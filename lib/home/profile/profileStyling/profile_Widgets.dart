@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../profilePages/aboutSub/about_SubScreens.dart';
 
 const KTabBarTextsStyle = TextStyle(
-  // color: Colors.black,
   fontSize: 20.0,
   fontWeight: FontWeight.w600,
 );

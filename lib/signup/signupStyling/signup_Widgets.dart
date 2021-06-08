@@ -14,13 +14,11 @@ const KHyperlinkedTexts = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
-
 const KEmailHyperlinkedTexts = TextStyle(
   color: KFlickrNormalBlueColor,
   fontSize: 16.0,
   fontWeight: FontWeight.normal,
 );
-
 
 const KOutlineInputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(
@@ -58,7 +56,6 @@ Row KFlickrIcon = Row(
   mainAxisAlignment: MainAxisAlignment.center,
   children: <Widget>[
     Icon(
-      //FontAwesomeIcons.flickr,
       FontAwesomeIcons.solidCircle,
       color: Colors.blue[800],
       size: KSizeOfIcon,
@@ -67,7 +64,6 @@ Row KFlickrIcon = Row(
       width: 2.0,
     ),
     Icon(
-      //FontAwesomeIcons.flickr,
       FontAwesomeIcons.solidCircle,
       color: Colors.pinkAccent,
       size: KSizeOfIcon,
@@ -75,60 +71,41 @@ Row KFlickrIcon = Row(
   ],
 );
 
-
-Icon KEmailIcon =
-Icon(
-//FontAwesomeIcons.flickr,
-FontAwesomeIcons.solidEnvelope,
-color: kIconColor,
-size: KSizeOfIconMail,
+Icon KEmailIcon = Icon(
+  FontAwesomeIcons.solidEnvelope,
+  color: kIconColor,
+  size: KSizeOfIconMail,
 );
 
-Icon kCorrectIcon =
-Icon(
-//FontAwesomeIcons.flickr,
+Icon kCorrectIcon = Icon(
   FontAwesomeIcons.check,
   color: kEmailGreyColor,
   size: KSizeOfIconCorrect,
 );
 
-Icon kCorrectIconLarge =
-Icon(
-//FontAwesomeIcons.flickr,
+Icon kCorrectIconLarge = Icon(
   FontAwesomeIcons.check,
   color: kIconColor,
   size: KSizeOfIconCorrectLarge,
 );
 
-Icon kSearchIcon =
-Icon(
-//FontAwesomeIcons.flickr,
+Icon kSearchIcon = Icon(
   FontAwesomeIcons.search,
   color: kSearchIconColor,
   size: KSizeOfIconSearch,
 );
 
-
-
-
 Icon kSearchIconLarge = Icon(
-Icons.search,
-size: 70,
-color: Colors.grey[400],
+  Icons.search,
+  size: 70,
+  color: Colors.grey[400],
 );
 
-
-
-TextStyle selectedText= TextStyle (
-shadows: [
-Shadow(
-color: Colors.black,
-offset: Offset(0, -5))
-],
-
-decorationThickness: 2,
-decoration: TextDecoration.underline,
-decorationColor: Colors.black,
-fontSize: 20,
-color: Colors.transparent,
+TextStyle selectedText = TextStyle(
+  shadows: [Shadow(color: Colors.black, offset: Offset(0, -5))],
+  decorationThickness: 2,
+  decoration: TextDecoration.underline,
+  decorationColor: Colors.black,
+  fontSize: 20,
+  color: Colors.transparent,
 );
