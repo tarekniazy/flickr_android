@@ -20,7 +20,9 @@ class _SearchState extends State<Search> {
   List<UserCard> usersList = [];
 
   void LoadPhoto() async {
-    photoList.clear();
+    setState(() {
+      photoList.clear();
+    });
     NetworkHelper req2 = new NetworkHelper("$KBaseUrl/photo/explore");
     var res2 = await req2.getData(true);
     // print(res2.statusCode);
@@ -42,7 +44,9 @@ class _SearchState extends State<Search> {
   }
 
   void loadGroupCard(List<dynamic> groups) {
-    groupList.clear();
+
+      groupList.clear();
+
 
     groups.forEach((element) {
       groupList.add(GroupCard(group_id:element["_id"] ,
@@ -55,10 +59,14 @@ class _SearchState extends State<Search> {
   }
 
   void loadPhotoCard(List<dynamic> photos) {
-    photoSearchList.clear();
+
+      photoSearchList.clear();
+
     photos.forEach((element) {
+      print(element["photoUrl"]);
       photoSearchList.add(PhotoCard(imageUrl: element["photoUrl"]));
     });
+
   }
 
   void loadUserCard(List<dynamic> users) {
@@ -80,151 +88,11 @@ class _SearchState extends State<Search> {
     // TODO: implement initState
     super.initState();
 
-    List<dynamic> users = [
-      {
-        "Fname": "Mariam",
-        "Lname": "Ameen",
-        "UserName": "MariamAmeen",
-        "_id": 0,
-        "Date_joined": "2021-05-31",
-        "numberOfPublicPhotos": 2,
-        "numberOfFollowers": 5,
-        "avatarUrl":
-            "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg",
-        "isFollowed": false
-      },
-      {
-        "Fname": "Mariam",
-        "Lname": "Ameen",
-        "UserName": "MariamAmeen",
-        "_id": 0,
-        "Date_joined": "2021-05-31",
-        "numberOfPublicPhotos": 0,
-        "numberOfFollowers": 0,
-        "avatarUrl":
-            "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-        "isFollowed": true
-      }
-    ];
-    // loadUserCard(users);
 
-    // List<dynamic> groups=[
-    //   {
-    //     "description": null,
-    //     "privacy": "public",
-    //     "visibility": "public",
-    //     "id": "608c80ce54e3d74b34d9bb5a",
-    //     "name": "ABC",
-    //     "num_photos": 0,
-    //     "num_members": 1,
-    //     "role": "member"
-    //   }
-    //   ,
-    //   {
-    //     "description": null,
-    //     "privacy": "public",
-    //     "visibility": "public",
-    //     "id": "608c80ce54e3d74b34d9bb5a",
-    //     "name": "ABC",
-    //     "num_photos": 0,
-    //     "num_members": 1,
-    //     "role": "member"
-    //   }
-    // ];
-
-    //     {
-    //   "_id": 0,
-    // "photoUrl": "http://localhost:3000/api/v1/image/0",
-    // "ownerId": 0,
-    // "Fav": [
-    // 0
-    // ],
-    // "comments": [
-    // 0
-    // ],
-    // "title": 0,
-    // "privacy": "string",
-    // "description": "string",
-    // "tags": [
-    // "string"
-    // ],
-    // "peopleTags": [
-    // {
-    // "tagging": "string",
-    // "tagged": [
-    // "string"
-    // ]
-    // }
-    // ],
-    // "createdAt": "2021-06-01",
-    // "UpdatedAt": "2021-06-01"
-    // }
-
-    List<dynamic> photos = [
-      {
-        "title": "profile",
-        "description": "",
-        "Fav": [],
-        "privacy": "public",
-        "tags": [],
-        "_id": "60b3ede89ee9b94fb8b6d633",
-        "ownerId": "60b3ed529ee9b94fb8b6d632",
-        "photoUrl": "localhost:3000/photos\\2021-05-30T19-56-24.816Z1.jpeg",
-        "peopleTags": [],
-        "comments": [],
-        "createdAt": "2021-05-30T19:56:24.824Z",
-        "updatedAt": "2021-05-30T19:56:24.824Z",
-        "__v": 0,
-        "no_comments": 0,
-        "no_fav": 0,
-        "UserName": "ashrafosama536"
-      },
-      {
-        "title": "profile",
-        "description": "",
-        "Fav": [],
-        "privacy": "public",
-        "tags": [],
-        "_id": "60b3ede89ee9b94fb8b6d633",
-        "ownerId": "60b3ed529ee9b94fb8b6d632",
-        "photoUrl": "localhost:3000/photos\\2021-05-30T19-56-24.816Z1.jpeg",
-        "peopleTags": [],
-        "comments": [],
-        "createdAt": "2021-05-30T19:56:24.824Z",
-        "updatedAt": "2021-05-30T19:56:24.824Z",
-        "__v": 0,
-        "no_comments": 0,
-        "no_fav": 0,
-        "UserName": "ashrafosama536"
-      }
-    ];
-    // loadPhotoCard(photos);
     LoadPhoto();
   }
 
-  // List<PhotoCard> photoPost = [
-  //   PhotoCard(
-  //       imageUrl:
-  //       "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg"),
-  //
-  //   PhotoCard(
-  //
-  //       imageUrl:
-  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU"),
-  //   PhotoCard(
-  //       imageUrl:
-  //       "https://cdn.shopify.com/s/files/1/2726/1450/products/RE_Spongebob_Patrick-fig_NYCC_2048_64e13260-ad62-46dd-a617-e6752597dc22_600x600.jpg?v=160452973033"),
-  //
-  //   PhotoCard(
-  //
-  //       imageUrl:
-  //       "https://pyxis.nymag.com/v1/imgs/310/524/bfe62024411af0a9d9cd23447121704d7a-11-spongebob-squarepants.rsquare.w1200.jpg"),
-  //
-  //   PhotoCard(
-  //       imageUrl:
-  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTTKDd_d5wfvokkE5cdLjgMw9v5N9UNOovRg&usqp=CAU")
-  //
-  // ];
+
 
   TextEditingController searchController = new TextEditingController();
   bool iconCrossVisibility = false;
@@ -337,10 +205,15 @@ class _SearchState extends State<Search> {
                               // print(searchController.text);
                               if (photos == true) {
                                 if (photoresp.statusCode == 200) {
+                                  setState(() {
+                                    photoSearchList.clear();
+                                  });
                                   String data2 = photoresp.body;
                                   List<dynamic> response2 = jsonDecode(data2);
                                   loadPhotoCard(response2);
                                 } else {
+                                  photoSearchList.clear();
+
                                   print(photoresp.statusCode);
                                   // noResults = true;
                                 }
