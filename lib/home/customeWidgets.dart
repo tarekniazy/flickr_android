@@ -712,11 +712,11 @@ class _CommentViewState extends State<CommentView> {
   }
 }
 
-/// Class CommentCard that upon calling creates an instance for a comment card containing the comment and the comment's user image, called in [loadComments]
+/// Class CommentCard that upon calling creates an instance for a comment card containing the comment and the comment's user image, called in loadComments
 class CommentCard extends StatefulWidget {
-  /// Requires [authorId]
-  /// Requires [authorImage]
-  /// Requires [comment]
+  /// @authorId: Author name
+  /// @authorImage: path to the Author image
+  /// @comment: Comment body
   CommentCard({
     @required this.authorId,
     @required this.authorImage,
@@ -793,7 +793,7 @@ class _CommentCardState extends State<CommentCard> {
   }
 }
 
-/// Class UserCard that upon calling creates an instance for a user card containing his/her info, called in [loadFavs]
+/// Class UserCard that upon calling creates an instance for a user card containing his/her info, called in loadFavs
 class UserCard extends StatefulWidget {
   /// Requires [authorName]
   /// Requires [numberOfPhotos]
@@ -938,9 +938,9 @@ class _UserCardState extends State<UserCard> {
   }
 }
 
-/// Class UserView which contains a list of users, called in [commentOrFavs]
+/// Class UserView which contains a list of users, called in commentOrFavs
 class UserView extends StatefulWidget {
-  /// Requires [userBody] type dynamic [List]
+  /// @userBody: type dynamic [List]
   UserView({
     @required this.userBody,
   });
@@ -972,13 +972,13 @@ class _UserViewState extends State<UserView> {
   }
 }
 
-/// Class CommentSection which contains a list of users comments and its corresponding info, called in [commentOrFavs]
+/// Class CommentSection which contains a list of users comments and its corresponding info, called in commentOrFavs
 class CommentSection extends StatefulWidget {
-  /// Requires [authorName] type String
-  /// Requires [commentBody] type [List] <[CommentCard]>
-  /// Requires [comments] type [List] <[dynamic]>
-  /// Requires [favs] type [List] <[dynamic]>
-  /// Requires [imageId] final
+  /// @comments: type String
+  /// @commentBody type List <[CommentCard]>
+  /// @comments type [List] <[dynamic]>
+  /// @favs: type [List] <[dynamic]>
+  /// @imageId: final
   CommentSection({
     @required this.comments,
     @required this.commentBody,
