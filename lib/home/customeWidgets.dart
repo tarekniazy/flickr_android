@@ -467,11 +467,9 @@ class _ImageViewState extends State<ImageView> {
                 ),
               ),
             ),
-            Container(
-              child: Center(
-                child: Image(
-                  image: NetworkImage(widget.imageUrl),
-                ),
+            Expanded(
+              child: Image(
+                image: NetworkImage(widget.imageUrl),
               ),
             ),
             Expanded(
